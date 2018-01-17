@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4613.robot;
 
+import com.ctre.CANTalon;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -23,4 +25,21 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+		private static final CANTalon
+			talon2	= new CANTalon(2),
+			talon3	= new CANTalon(3),
+			talon4	= new CANTalon(4),
+			talon5	= new CANTalon(5),
+			talon6	= new CANTalon(6);
+
+
+		public static final CANTalon
+			//ExampleidMotDriveL		= talon2,
+			idMotR		= talon2,
+			idMotL	= talon3,
+			idMotArm	= talon4,
+			idMotIntakeL	= talon5,
+			idMotIntakeR	= talon6;
+
+	}
 }
