@@ -16,30 +16,17 @@ import com.ctre.CANTalon;
  * floating around.
  */
 public class RobotMap {
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
+	private static final CtrlCANTalon
+		talon2	= new CtrlCANTalon(2),
+		talon3	= new CtrlCANTalon(3),
+		talon4	= new CtrlCANTalon(4),
+		talon5	= new CtrlCANTalon(5),
+		talon6	= new CtrlCANTalon(6);
 
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
-		private static final CANTalon
-			talon2	= new CANTalon(2),
-			talon3	= new CANTalon(3),
-			talon4	= new CANTalon(4),
-			talon5	= new CANTalon(5),
-			talon6	= new CANTalon(6);
-
-
-		public static final CANTalon
-			//ExampleidMotDriveL		= talon2,
-			idMotR		= talon2,
-			idMotL	= talon3,
-			idMotArm	= talon4,
-			idMotIntakeL	= talon5,
-			idMotIntakeR	= talon6;
-
-	}
-
+	public static final CtrlCANTalon
+		idMotDriveL	 = talon2,
+		idMotDriveR	 = talon3,
+		idMotArm	 = talon4,
+		idMotIntakeL = talon5,
+		idMotIntakeR = talon6;
+}

@@ -1,19 +1,22 @@
 package org.usfirst.frc.team4613.robot;
 
 import org.usfirst.frc.team4613.robot.subsystems.SubsystemDriver;
+import org.usfirst.frc.team4613.robot.subsystems.SubsystemIntake;
 
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.lib.commands.CommandBase;
 
 public class Robot extends ArachneRobot {
 	
-	public static OI oi = new OI();
 	public static SubsystemDriver driver = new SubsystemDriver();
+	public static SubsystemIntake intake = new SubsystemIntake();
+	
+	public static OI oi = new OI();
 	
 	@Override
 	public void initDefaultCommands() {
-		// TODO Auto-generated method stub
-
+		driver.setDefaultCommand(CommandList.drive.c());
+		oi.mapOperations();
 	}
 
 	@Override
