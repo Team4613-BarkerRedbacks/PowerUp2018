@@ -42,4 +42,4 @@ public class RobotMap {
 			idMotIntakeR	= talon6;
 
 	}
-}
+
