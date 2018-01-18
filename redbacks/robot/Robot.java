@@ -6,6 +6,8 @@ import redbacks.robot.subsystems.SubsystemArm;
 import redbacks.robot.subsystems.SubsystemClimber;
 import redbacks.robot.subsystems.SubsystemDriver;
 import redbacks.robot.subsystems.SubsystemIntake;
+import redbacks.robot.subsystems.SubsystemSensors;
+import redbacks.robot.subsystems.SubsystemShooter;
 
 public class Robot extends ArachneRobot {
 	
@@ -13,6 +15,8 @@ public class Robot extends ArachneRobot {
 	public static SubsystemIntake 	intake  = new SubsystemIntake();
 	public static SubsystemClimber  climber = new SubsystemClimber();
 	public static SubsystemArm		arm		= new SubsystemArm();
+	public static SubsystemShooter  shooter = new SubsystemShooter();
+	public static SubsystemSensors  sensors = new SubsystemSensors();
 	
 	public static OI oi = new OI();
 	
