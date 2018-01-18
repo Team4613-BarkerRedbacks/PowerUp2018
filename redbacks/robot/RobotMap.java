@@ -23,12 +23,16 @@ public class RobotMap {
 		talon3	= new CtrlCANTalon(3),
 		talon4	= new CtrlCANTalon(4),
 		talon5	= new CtrlCANTalon(5),
-		talon6	= new CtrlCANTalon(6);
+		talon6	= new CtrlCANTalon(6),
+		talon7  = new CtrlCANTalon(7),
+		talon8  = new CtrlCANTalon(8);
 
 	public static final CtrlCANTalon
 		idMotDriveL	 = talon2,
 		idMotDriveR	 = talon3,
 		idMotArm	 = talon4,
 		idMotIntakeL = talon5,
-		idMotIntakeR = talon6;
+		idMotIntakeR = talon6,
+		idMotClimberL = talon7,
+		idMotClimberR = talon8;
 }
