@@ -20,7 +20,9 @@ public class OI extends OIBase {
 		whenHeld(d_B, CommandList.setArmFlatL.c());
 		whenHeld(d_X, CommandList.moveArm.c());
 		whenHeld(d_Y, CommandList.reverseArm.c());
-		
+		whenHeld(o_RT, CommandList.intake.c());
+		whenHeld(o_LT, CommandList.outtake.c());
+		whenHeld(o_RB, CommandList.climb.c());
 	}
 	
 	public static final Joystick stickDriver = new Joystick(0);
