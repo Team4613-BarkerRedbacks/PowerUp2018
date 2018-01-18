@@ -28,9 +28,9 @@ public class RobotMap {
 	public static final CtrlCANTalon
 		idMotDriveL	 = talon2,
 		idMotDriveR	 = talon3,
-		idMotArm	 = talon4,
+		idMotArm	 = talon6,
 		idMotIntakeL = talon5,
-		idMotIntakeR = talon6,
+		idMotIntakeR = talon4,
 		idMotClimberL = talon7,
 		idMotClimberR = talon8;
 }

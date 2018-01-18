@@ -16,6 +16,10 @@ public class OI extends OIBase {
 	
 	@Override
 	public void mapOperations() {
+		whenHeld(d_A, CommandList.setArmFlatR.c());
+		whenHeld(d_B, CommandList.setArmFlatL.c());
+		whenHeld(d_X, CommandList.moveArm.c());
+		whenHeld(d_Y, CommandList.reverseArm.c());
 		
 	}
 	
