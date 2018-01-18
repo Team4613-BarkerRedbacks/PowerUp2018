@@ -12,14 +12,14 @@ public class CommandListArm extends CommandList {
 	
 	static {subsystemToUse = Robot.arm;}
 	public static CommandSetup
-		moveArm = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChFalse())),
-		reverseArm = newCom(new AcMotor.Set(Robot.arm.aMotor, -0.3, new ChFalse())),
-		setArm500 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(500, Robot.sensors.armEncoder, true, false, false))),
-		setArm500m = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(-500, Robot.sensors.armEncoder, true, false, false))),
-		setArm300 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(300, Robot.sensors.armEncoder, true, false, false))),
-		setArm300m = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(-300, Robot.sensors.armEncoder, true, false, false))),
-		setArm150 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(150, Robot.sensors.armEncoder, true, false, false))),
-		setArm150m = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(-150, Robot.sensors.armEncoder, true, false, false))),
-		centreArm = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(0, Robot.sensors.armEncoder, true, false, false)));
+		moveArm 	= newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChFalse())),
+		reverseArm 	= newCom(new AcMotor.Set(Robot.arm.aMotor, -0.3, new ChFalse())),
+		setArmFlatR = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(950, Robot.sensors.armEncoder, true, false, false))),
+		setArmFlatL = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(-950, Robot.sensors.armEncoder, true, false, false))),
+		setArm550R 	= newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(550, Robot.sensors.armEncoder, true, false, false))),
+		setArm550L 	= newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(-550, Robot.sensors.armEncoder, true, false, false))),
+		setArm300R 	= newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(300, Robot.sensors.armEncoder, true, false, false))),
+		setArm300L 	= newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(-300, Robot.sensors.armEncoder, true, false, false))),
+		centreArm 	= newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(0, Robot.sensors.armEncoder, true, false, false)));
 		
 }	
