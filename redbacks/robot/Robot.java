@@ -2,13 +2,17 @@ package redbacks.robot;
 
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.lib.commands.CommandBase;
+import redbacks.robot.subsystems.SubsystemArm;
+import redbacks.robot.subsystems.SubsystemClimber;
 import redbacks.robot.subsystems.SubsystemDriver;
 import redbacks.robot.subsystems.SubsystemIntake;
 
 public class Robot extends ArachneRobot {
 	
-	public static SubsystemDriver driver = new SubsystemDriver();
-	public static SubsystemIntake intake = new SubsystemIntake();
+	public static SubsystemDriver 	driver  = new SubsystemDriver();
+	public static SubsystemIntake 	intake  = new SubsystemIntake();
+	public static SubsystemClimber  climber = new SubsystemClimber();
+	public static SubsystemArm		arm		= new SubsystemArm();
 	
 	public static OI oi = new OI();
 	
