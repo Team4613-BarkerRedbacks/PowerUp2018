@@ -1,19 +1,22 @@
 package redbacks.robot;
 
 import redbacks.arachne.core.references.CommandListStart;
-import redbacks.arachne.lib.actions.AcWait;
-import redbacks.arachne.lib.actions.actuators.AcMotor;
-import redbacks.arachne.lib.actions.actuators.AcSolenoid;
-import redbacks.arachne.lib.checks.ChFalse;
+import redbacks.arachne.lib.actions.*;
+import redbacks.arachne.lib.actions.actuators.*;
+import redbacks.arachne.lib.checks.*;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandSetup;
-import redbacks.robot.actions.AcDrive;
+import redbacks.robot.actions.*;
 
 public class CommandList extends CommandListStart {
 	
 	static {subsystemToUse = Robot.driver;}
 	public static CommandSetup
 		drive = newCom(new AcDrive());
+	
+	static {subsystemToUse = Robot.sensors;}
+	public static CommandSetup
+		readSensors = newCom(new AcReadSensors());
 	
 	static {subsystemToUse = Robot.arm;}
 	public static CommandSetup

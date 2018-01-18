@@ -2,12 +2,8 @@ package redbacks.robot;
 
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.lib.commands.CommandBase;
-import redbacks.robot.subsystems.SubsystemArm;
-import redbacks.robot.subsystems.SubsystemClimber;
-import redbacks.robot.subsystems.SubsystemDriver;
-import redbacks.robot.subsystems.SubsystemIntake;
-import redbacks.robot.subsystems.SubsystemSensors;
-import redbacks.robot.subsystems.SubsystemShooter;
+import redbacks.robot.subsystems.*;
+import static redbacks.robot.CommandList.*;
 
 public class Robot extends ArachneRobot {
 	
@@ -22,7 +18,8 @@ public class Robot extends ArachneRobot {
 	
 	@Override
 	public void initDefaultCommands() {
-		driver.setDefaultCommand(CommandList.drive.c());
+		driver.setDefaultCommand(drive.c());
+		sensors.setDefaultCommand(readSensors.c());
 		oi.mapOperations();
 	}
 
