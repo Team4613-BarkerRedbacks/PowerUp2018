@@ -1,11 +1,10 @@
-package org.usfirst.frc.team4613.robot.subsystems;
-
-import org.usfirst.frc.team4613.robot.RobotMap;
+package redbacks.robot.subsystems;
 
 import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.ext.ctre.controllers.CtrlCANTalon;
 import redbacks.arachne.lib.motors.CtrlDrive;
 import redbacks.arachne.lib.motors.CtrlDrivetrain;
+import redbacks.robot.RobotMap;
 
 public class SubsystemDriver extends SubsystemBase {
 	public CtrlDrive left = new CtrlDrive(RobotMap.idMotDriveL);
