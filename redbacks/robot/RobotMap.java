@@ -7,8 +7,6 @@
 
 package redbacks.robot;
 
-import com.ctre.CANTalon;
-
 import redbacks.arachne.ext.ctre.controllers.CtrlCANTalon;
 
 /**
