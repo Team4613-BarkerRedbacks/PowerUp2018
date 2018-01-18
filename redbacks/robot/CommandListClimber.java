@@ -8,7 +8,7 @@ public class CommandListClimber extends CommandList {
 	
 	static {subsystemToUse = Robot.climber;}
 	public static CommandSetup
-		// intake = newCom(new AcMotor.Set(Robot.intake.intakeRightMotor, 0.25, new ChFalse()), (new AcMotor.Set(Robot.intake.intakeLeftMotor, 0.25, new ChFalse()))),
-		// outtake = newCom(new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse()), (new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse())));
+		// climb = newCom(new AcMotor.Set(Robot.climber.climberMotor, 0.25, new ChFalse()), DO I NEED THIS? (new AcMotor.Set(Robot.intake.intakeLeftMotor, 0.25, new ChFalse()))),
+		// DO I NEED THIS? = newCom(new AcMotor.Set(Robot.climber.climberMotor, -0.25, new ChFalse()), (new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse())));
 	
 }
