@@ -12,5 +12,4 @@ public class SubsystemIntake extends SubsystemBase {
 	public SubsystemIntake() {
 		super();
 	}
-
 }

@@ -9,4 +9,8 @@ public class SubsystemDriver extends SubsystemBase {
 	public CtrlDrive left = new CtrlDrive(RobotMap.idMotDriveL);
 	public CtrlDrive right = new CtrlDrive(RobotMap.idMotDriveR);	
 	public CtrlDrivetrain drivetrain = new CtrlDrivetrain(left, right);
+	
+	public SubsystemDriver() {
+		super();
+	}
 }

@@ -17,5 +17,4 @@ public SenCANEncoder.Displacement armEncoder = new SenCANEncoder.Displacement(id
 	public void resetSensors() {
 		Robot.sensors.armEncoder.set(0);
 	}
-
 }

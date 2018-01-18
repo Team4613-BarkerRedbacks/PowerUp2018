@@ -11,6 +11,4 @@ public class SubsystemArm extends SubsystemBase {
 	public SubsystemArm() {
 		super();
 	}
-	
-	
 }
