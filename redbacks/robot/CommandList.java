@@ -1,7 +1,9 @@
 package redbacks.robot;
 
 import redbacks.arachne.core.references.CommandListStart;
+import redbacks.arachne.lib.actions.AcWait;
 import redbacks.arachne.lib.actions.actuators.AcMotor;
+import redbacks.arachne.lib.actions.actuators.AcSolenoid;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandSetup;
@@ -31,6 +33,30 @@ public class CommandList extends CommandListStart {
 	
 	static {subsystemToUse = Robot.intake;}
 	public static CommandSetup
-		intake = newCom(new AcMotor.Set(Robot.intake.intakeRightMotor, 0.25, new ChFalse()), (new AcMotor.Set(Robot.intake.intakeLeftMotor, 0.25, new ChFalse()))),
-		outtake = newCom(new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse()), (new AcMotor.Set(Robot.intake.intakeLeftMotor, -0.25, new ChFalse())));
+		intake = newCom(
+			new AcMotor.Set(Robot.intake.intakeRightMotor, 0.25, new ChFalse()), 
+			new AcMotor.Set(Robot.intake.intakeLeftMotor, 0.25, new ChFalse())
+			),
+		outtake = newCom(
+			new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse()), 
+			new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse()));
+	
+	static{subsystemToUse = Robot.shooter;}
+	public static CommandSetup
+		lowFire = newCom(
+			new AcSolenoid.Single(Robot.shooter.shooterLockSol, false), 
+			new AcSolenoid.Single(Robot.shooter.shooterSol, true), 
+			new AcWait(0.5), 
+			new AcSolenoid.Single(Robot.shooter.shooterSol, false)
+		),
+		highFirePrime = newCom(
+			new AcSolenoid.Single(Robot.shooter.shooterLockSol, true),
+			new AcWait(0.5),
+			new AcSolenoid.Single(Robot.shooter.shooterSol, true)
+		),
+		highFireRelease = newCom(
+			new AcSolenoid.Single(Robot.shooter.shooterLockSol, false),
+			new AcWait(0.5),
+			new AcSolenoid.Single(Robot.shooter.shooterSol, false)
+		);
 }
