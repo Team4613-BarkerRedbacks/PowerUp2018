@@ -32,17 +32,20 @@ public class CommandList extends CommandListStart {
 	
 	static {subsystemToUse = Robot.climber;}
 	public static CommandSetup
-		climb = newCom(new AcMotor.Set(Robot.climber.climberMotor, 0.25, new ChFalse()));
+		climb = newCom(
+			new AcMotor.Set(Robot.climber.climberMotor, 0.25, new ChFalse())
+		);
 	
 	static {subsystemToUse = Robot.intake;}
 	public static CommandSetup
 		intake = newCom(
 			new AcMotor.Set(Robot.intake.intakeRightMotor, 0.25, new ChFalse()), 
 			new AcMotor.Set(Robot.intake.intakeLeftMotor, 0.25, new ChFalse())
-			),
+		),
 		outtake = newCom(
 			new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse()), 
-			new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse()));
+			new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse())
+		);
 	
 	static{subsystemToUse = Robot.shooter;}
 	public static CommandSetup
@@ -61,5 +64,11 @@ public class CommandList extends CommandListStart {
 			new AcSolenoid.Single(Robot.shooter.shooterLockSol, false),
 			new AcWait(0.5),
 			new AcSolenoid.Single(Robot.shooter.shooterSol, false)
+		);
+	
+	static{subsystemToUse = Robot.pneumatics;}
+	public static CommandSetup
+		encoderPos = newCom(
+			new AcSolenoid.Single(Robot.pneumatics.drivetrainEncoderSol, false)
 		);
 }

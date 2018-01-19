@@ -13,6 +13,7 @@ public class Robot extends ArachneRobot {
 	public static SubsystemArm		arm		= new SubsystemArm();
 	public static SubsystemShooter  shooter = new SubsystemShooter();
 	public static SubsystemSensors  sensors = new SubsystemSensors();
+	public static SubsystemPneumatics pneumatics = new SubsystemPneumatics();
 	
 	public static OI oi = new OI();
 	

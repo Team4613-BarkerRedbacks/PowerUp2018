@@ -8,6 +8,7 @@
 package redbacks.robot;
 
 import redbacks.arachne.ext.ctre.controllers.CtrlCANTalon;
+import redbacks.arachne.lib.solenoids.SolSingle;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -24,6 +25,7 @@ public class RobotMap {
 		talon6	= new CtrlCANTalon(6),
 		talon7  = new CtrlCANTalon(7),
 		talon8  = new CtrlCANTalon(8);
+		// sol1    = new SolSingle(1);
 
 	public static final CtrlCANTalon
 		idMotDriveL	 = talon2,
@@ -33,4 +35,8 @@ public class RobotMap {
 		idMotIntakeR = talon4,
 		idMotClimberL = talon7,
 		idMotClimberR = talon8;
+	
+	// public static final int
+	
+		// idSolDrivetrainEncoder = 1;
 }
