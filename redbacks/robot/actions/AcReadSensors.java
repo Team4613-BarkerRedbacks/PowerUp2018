@@ -13,5 +13,6 @@ public class AcReadSensors extends Action
 	
 	public void onRun() {
 		SmartDashboard.putNumber("Arm Encoder", Robot.sensors.armEncoder.get());
+		SmartDashboard.putNumber("Arm Encoder 2", Robot.sensors.armEncoder.get());
 	}
 }
