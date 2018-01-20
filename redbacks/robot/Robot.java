@@ -1,6 +1,11 @@
 package redbacks.robot;
 
 import redbacks.arachne.core.ArachneRobot;
+
+/**
+ * @author Sean Zammit, Matthew Brian, Ben Schwartz, Lucas Parker, Mitchell Barker, Darin Huang
+ */
+
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.robot.subsystems.*;
 import static redbacks.robot.CommandList.*;
