@@ -1,10 +1,9 @@
 package redbacks.robot.subsystems;
 
-import static redbacks.robot.RobotMap.idMotArm;
+import static redbacks.robot.RobotMap.*;
 
 import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
-import redbacks.robot.Robot;
 
 public class SubsystemSensors extends SubsystemBase {
 	

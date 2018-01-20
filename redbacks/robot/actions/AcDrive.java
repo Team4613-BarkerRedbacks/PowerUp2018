@@ -19,9 +19,8 @@ public class AcDrive extends Action {
 		boolean invertDrive = SmartDashboard.getBoolean("Invert Drive", false);
 		SmartDashboard.putBoolean("Invert Drive", invertDrive);
 		
-		//Drive the robot :D
 		if (!Robot.isIndivDriveControl) {
-			arcadeDrive(OI.axis_d_RY.get() * (invertDrive ? 1 : -1), OI.axis_d_LX.get());
+			arcadeDrive(OI.axis_d_RY.get() * (invertDrive ? 1 : -1), -OI.axis_d_LX.get());
 		}
 	}
 	
@@ -32,7 +31,7 @@ public class AcDrive extends Action {
 	 */
 	public void arcadeDrive(double sp, double rotation) {
 		double mod = minR + difR * Math.pow(1 - Math.abs(sp), 2);
-		double r = Math.pow(rotation, 1) * mod;
+		double r = Math.pow(rotation, 3) * mod;
 		Robot.driver.drivetrain.tankDrive(- sp - r, - sp + r);
 }
 

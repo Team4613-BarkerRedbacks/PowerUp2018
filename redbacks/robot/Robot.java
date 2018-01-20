@@ -17,17 +17,13 @@ public class Robot extends ArachneRobot {
 	
 	public static OI oi = new OI();
 	
-	@Override
 	public void initDefaultCommands() {
 		driver.setDefaultCommand(drive.c());
 		sensors.setDefaultCommand(readSensors.c());
 		oi.mapOperations();
 	}
 
-	@Override
 	public CommandBase getAutonomous(int autoID) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

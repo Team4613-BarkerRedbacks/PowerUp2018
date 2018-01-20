@@ -78,6 +78,6 @@ public class CommandList extends CommandListStart {
 	static{subsystemToUse = Robot.pneumatics;}
 	public static CommandSetup
 		encoderPos = newCom(
-			new AcSolenoid.Single(Robot.pneumatics.drivetrainEncoderSol, false)
+			new AcSolenoid.Single(Robot.pneumatics.centreEncoderSol, false)
 		);
 }

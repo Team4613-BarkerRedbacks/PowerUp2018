@@ -1,7 +1,6 @@
 package redbacks.robot.subsystems;
 
 import redbacks.arachne.core.SubsystemBase;
-import redbacks.arachne.lib.motors.CtrlDrivetrain;
 import redbacks.arachne.lib.motors.CtrlMotor;
 import static redbacks.robot.RobotMap.*;
 

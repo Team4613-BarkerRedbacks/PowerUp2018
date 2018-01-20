@@ -1,21 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package redbacks.robot;
 
 import redbacks.arachne.ext.ctre.controllers.CtrlCANTalon;
-import redbacks.arachne.lib.solenoids.SolSingle;
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
 public class RobotMap {
 	private static final CtrlCANTalon
 		talon2	= new CtrlCANTalon(2),
@@ -24,19 +10,27 @@ public class RobotMap {
 		talon5	= new CtrlCANTalon(5),
 		talon6	= new CtrlCANTalon(6),
 		talon7  = new CtrlCANTalon(7),
-		talon8  = new CtrlCANTalon(8);
-		// sol1    = new SolSingle(1);
+		talon8	= new CtrlCANTalon(8),
+		talon9	= new CtrlCANTalon(9),
+		talon10	= new CtrlCANTalon(10),
+		talon11	= new CtrlCANTalon(11),
+		talon12  = new CtrlCANTalon(12);
 
 	public static final CtrlCANTalon
-		idMotDriveL	 = talon2,
-		idMotDriveR	 = talon3,
-		idMotArm	 = talon6,
-		idMotIntakeL = talon5,
-		idMotIntakeR = talon4,
-		idMotClimberL = talon7,
-		idMotClimberR = talon8;
+		idMotDriveL1 = talon2,
+		idMotDriveR1 = talon3,
+		idMotDriveL2 = talon4,
+		idMotDriveR2 = talon5,
+		idMotDriveL3 = talon6,
+		idMotDriveR3 = talon7,
+		idMotArm	 = talon8,
+		idMotIntakeL = talon9,
+		idMotIntakeR = talon10,
+		idMotClimberL = talon11,
+		idMotClimberR = talon12;
 	
-	// public static final int
-	
-		// idSolDrivetrainEncoder = 1;
+	public static final int
+		idSolCentreEncoder = 0,
+		idSolShooter = 1,
+		idSolLock = 2;
 }
