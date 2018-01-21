@@ -1,5 +1,6 @@
 package redbacks.robot.checks;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import redbacks.arachne.lib.checks.Check;
 
 public class CheckSwitchColour extends Check
