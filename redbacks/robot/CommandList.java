@@ -1,5 +1,6 @@
 package redbacks.robot;
 
+import edu.wpi.first.wpilibj.PIDSourceType;
 import redbacks.arachne.core.references.CommandListStart;
 import redbacks.arachne.ext.motion.pid.AcPIDControl;
 import redbacks.arachne.ext.motion.pid.PIDMotor;
@@ -32,12 +33,9 @@ public class CommandList extends CommandListStart {
 //		setArm300R 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(300, Robot.sensors.armEncoder, true, false, false))),
 //		setArm300L 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, -0.3, new ChNumSen(-300, Robot.sensors.armEncoder, false, false, false))),
 //		centreArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(0, Robot.sensors.armEncoder, true, false, false))),
-		holdArmCentre = newCom(new AcPIDControl(0.005, 0.0000003, 0.0001, 0.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, new PIDMotor(Robot.arm.aMotor))),
-		// TODO change encoder values below
-		holdArmFlatR = newCom(new AcPIDControl(0.005, 0.0000003, 0.0001, 700.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, new PIDMotor(Robot.arm.aMotor))),
-		holdArmFlatL = newCom(new AcPIDControl(0.005, 0.0000003, 0.0001, 500.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, new PIDMotor(Robot.arm.aMotor))),
-		holdArm550R = newCom(new AcPIDControl(0.005, 0.0000003, 0.0001, 550.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, new PIDMotor(Robot.arm.aMotor))),
-		holdArm550L = newCom(new AcPIDControl(0.005, 0.0000003, 0.0001, 350.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, new PIDMotor(Robot.arm.aMotor)));
+		holdArmCentre = newCom(new AcPIDControl(new ChFalse(), false, 0.0025, 0.00000015, 0.00005, 0.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -.3, .3, new PIDMotor(Robot.arm.aMotor))),
+		holdArmFlatR = newCom(new AcPIDControl(new ChFalse(), false, 0.0025, 0.00000015, 0.00005, -200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -.3, .3, new PIDMotor(Robot.arm.aMotor))),
+		holdArmFlatL = newCom(new AcPIDControl(new ChFalse(), false, 0.0025, 0.00000015, 0.00005, 200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -.3, .3, new PIDMotor(Robot.arm.aMotor)));
 
 	
 	static {subsystemToUse = Robot.climber;}
