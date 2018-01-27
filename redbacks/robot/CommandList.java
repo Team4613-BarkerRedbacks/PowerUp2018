@@ -51,6 +51,14 @@ public class CommandList extends CommandListStart {
 		),
 		outtake = newCom(
 			new AcMotor.Set(Robot.intake.intakeMotor, -0.5, new ChFalse())
+		),
+		solExtendIntake = newCom(
+			new AcSolenoid.Single(Robot.intake.intakeRightSol, true),
+			new AcSolenoid.Single(Robot.intake.intakeLeftSol, true)
+		),
+		solRetractIntake = newCom(
+			new AcSolenoid.Single(Robot.intake.intakeLeftSol, false), 
+			new AcSolenoid.Single(Robot.intake.intakeRightSol, false)
 		);
 	
 	static{subsystemToUse = Robot.shooter;}

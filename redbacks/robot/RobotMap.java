@@ -15,7 +15,8 @@ public class RobotMap {
 		talon10	= new CtrlCANTalon(10),
 		talon11	= new CtrlCANTalon(11),
 		talon12  = new CtrlCANTalon(12);
-
+		
+	
 	public static final CtrlCANTalon
 		idMotDriveL1 = talon2,
 		idMotDriveR1 = talon9,
@@ -28,9 +29,14 @@ public class RobotMap {
 		idMotIntakeR = talon5,
 		idMotClimberL = talon11,
 		idMotClimberR = talon12;
+		
 	
 	public static final int
 		idSolCentreEncoder = 0,
 		idSolShooter = 1,
-		idSolLock = 2;
+		idSolLock = 2,
+		idSolRightIntake = 3,
+		idSolLeftIntake = 4;
+		
+	
 }
