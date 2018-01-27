@@ -47,12 +47,10 @@ public class CommandList extends CommandListStart {
 	static {subsystemToUse = Robot.intake;}
 	public static CommandSetup
 		intake = newCom(
-			new AcMotor.Set(Robot.intake.intakeRightMotor, 0.25, new ChFalse()), 
-			new AcMotor.Set(Robot.intake.intakeLeftMotor, 0.25, new ChFalse())
+			new AcMotor.Set(Robot.intake.intakeMotor, 0.5, new ChFalse())
 		),
 		outtake = newCom(
-			new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse()), 
-			new AcMotor.Set(Robot.intake.intakeRightMotor, -0.25, new ChFalse())
+			new AcMotor.Set(Robot.intake.intakeMotor, -0.5, new ChFalse())
 		);
 	
 	static{subsystemToUse = Robot.shooter;}
