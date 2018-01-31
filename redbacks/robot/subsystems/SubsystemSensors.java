@@ -7,7 +7,7 @@ import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
 
 public class SubsystemSensors extends SubsystemBase {
 	
-public SenCANEncoder.Displacement armEncoder = new SenCANEncoder.Displacement(idMotDriveL1);
+public SenCANEncoder.Displacement armEncoder = new SenCANEncoder.Displacement(idMotDriveL2);
 public SenCANEncoder.Displacement drivetrainEncoder = new SenCANEncoder.Displacement(idMotDriveR1);
 
 	public SubsystemSensors(){

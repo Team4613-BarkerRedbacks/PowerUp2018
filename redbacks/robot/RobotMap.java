@@ -2,7 +2,10 @@ package redbacks.robot;
 
 import redbacks.arachne.ext.ctre.controllers.CtrlCANTalon;
 
-public class RobotMap {
+public class RobotMap
+{
+	public static final double armSpeed = 1;
+	
 	private static final CtrlCANTalon
 		talon2	= new CtrlCANTalon(2),
 		talon3	= new CtrlCANTalon(3),
@@ -16,7 +19,6 @@ public class RobotMap {
 		talon11	= new CtrlCANTalon(11),
 		talon12  = new CtrlCANTalon(12);
 		
-	
 	public static final CtrlCANTalon
 		idMotDriveL1 = talon2,
 		idMotDriveR1 = talon9,
@@ -30,13 +32,10 @@ public class RobotMap {
 		idMotClimberL = talon11,
 		idMotClimberR = talon12;
 		
-	
 	public static final int
 		idSolCentreEncoder = 0,
 		idSolShooter = 1,
 		idSolLock = 2,
 		idSolRightIntake = 3,
 		idSolLeftIntake = 4;
-		
-	
 }

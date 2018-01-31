@@ -8,11 +8,14 @@ import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.actions.*;
 import redbacks.arachne.lib.actions.actuators.*;
 import redbacks.arachne.lib.checks.*;
-import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandSetup;
 import redbacks.robot.actions.*;
 
-public class CommandList extends CommandListStart {
+public class CommandList extends CommandListStart
+{
+	static {subsystemToUse = null;}
+	public static CommandSetup
+		resetArm = newCom(new AcSetNumSen(Robot.sensors.armEncoder, 0));
 	
 	static {subsystemToUse = Robot.driver;}
 	public static CommandSetup
@@ -24,8 +27,8 @@ public class CommandList extends CommandListStart {
 	
 	static {subsystemToUse = Robot.arm;}
 	public static CommandSetup
-		moveArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChFalse())),
-		reverseArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, -0.3, new ChFalse())),
+		moveArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, RobotMap.armSpeed, new ChFalse())),
+		reverseArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, -RobotMap.armSpeed, new ChFalse())),
 //		setArmFlatR  = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(950, Robot.sensors.armEncoder, true, false, false))),
 //		setArmFlatL  = newCom(new AcMotor.Set(Robot.arm.aMotor, -0.3, new ChNumSen(-950, Robot.sensors.armEncoder, false, false, false))),
 //		setArm550R 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(550, Robot.sensors.armEncoder, true, false, false))),
@@ -33,9 +36,9 @@ public class CommandList extends CommandListStart {
 //		setArm300R 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(300, Robot.sensors.armEncoder, true, false, false))),
 //		setArm300L 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, -0.3, new ChNumSen(-300, Robot.sensors.armEncoder, false, false, false))),
 //		centreArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(0, Robot.sensors.armEncoder, true, false, false))),
-		holdArmCentre = newCom(new AcPIDControl(new ChFalse(), false, 0.0025, 0.00000015, 0.00005, 0.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -.3, .3, new PIDMotor(Robot.arm.aMotor))),
-		holdArmFlatR = newCom(new AcPIDControl(new ChFalse(), false, 0.0025, 0.00000015, 0.00005, -200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -.3, .3, new PIDMotor(Robot.arm.aMotor))),
-		holdArmFlatL = newCom(new AcPIDControl(new ChFalse(), false, 0.0025, 0.00000015, 0.00005, 200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -.3, .3, new PIDMotor(Robot.arm.aMotor)));
+		holdArmCentre = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, 0.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.aMotor))),
+		holdArmFlatR = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, -200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.aMotor))),
+		holdArmFlatL = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, 200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.aMotor)));
 
 	
 	static {subsystemToUse = Robot.climber;}
@@ -59,6 +62,18 @@ public class CommandList extends CommandListStart {
 		solRetractIntake = newCom(
 			new AcSolenoid.Single(Robot.intake.intakeLeftSol, false), 
 			new AcSolenoid.Single(Robot.intake.intakeRightSol, false)
+		),
+		solExtendIntakeR = newCom(
+			new AcSolenoid.Single(Robot.intake.intakeRightSol, true)
+		),
+		solRetractIntakeR = newCom(
+			new AcSolenoid.Single(Robot.intake.intakeRightSol, false)
+		),
+		solExtendIntakeL = newCom(
+			new AcSolenoid.Single(Robot.intake.intakeLeftSol, true)
+		),
+		solRetractIntakeL = newCom(
+			new AcSolenoid.Single(Robot.intake.intakeLeftSol, false)
 		);
 	
 	static{subsystemToUse = Robot.shooter;}
