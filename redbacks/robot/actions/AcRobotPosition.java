@@ -18,6 +18,7 @@ public class AcRobotPosition extends Action {
 	double oldPos = 0.0;
 	double oldPosX = 0.0;
 	double oldPosY = 0.0;
+	double oldAng = 0.0;
 	
 	public AcRobotPosition() {
 		super(new ChFalse());
@@ -73,7 +74,6 @@ public class AcRobotPosition extends Action {
 		
 		// Code ----------------------------------------------------------------------------------------------------------------------------------------------------------
 		
-		
 		double newPos = Robot.sensors.drivetrainEncoder.get();
 		double newAng = Robot.sensors.yaw.get();
 		
@@ -85,10 +85,10 @@ public class AcRobotPosition extends Action {
 		double newPosX = disPos * Math.cos(aveAngle) + oldPosX;
 		double newPosY = disPos * Math.sin(aveAngle) + oldPosY;
 
-		// SmartDashboard.putNumber("gyro Reading", Robot.sensors.drivetrainEncoder.get());
+		SmartDashboard.putNumber("gyro Reading", Robot.sensors.yaw.get());
 		SmartDashboard.putNumber("drivetrainEncoder Reading", Robot.sensors.drivetrainEncoder.get());
-		// SmartDashboard.putNumber("drivetrain X Position", Robot.sensors.drivetrainEncoder.get());
-		// SmartDashboard.putNumber("drivetrain Y Position", Robot.sensors.drivetrainEncoder.get());
+		SmartDashboard.putNumber("drivetrain X Position", newPosX);
+		SmartDashboard.putNumber("drivetrain Y Position", newPosY);
 		
 		double oldPos = newPos;
 		double oldAng = newAng;
