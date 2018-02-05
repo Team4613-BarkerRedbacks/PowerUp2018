@@ -5,8 +5,8 @@ import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.robot.Robot;
 
-public class AcReadSensors extends Action
-{
+public class AcReadSensors extends Action {
+	
 	public AcReadSensors() {
 		super(new ChFalse());
 	}
