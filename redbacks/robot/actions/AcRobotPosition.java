@@ -15,9 +15,9 @@ import redbacks.robot.Robot;
 
 public class AcRobotPosition extends Action {
 	
-	double oldPos = 0.0;
-	double oldPosX = 0.0;
-	double oldPosY = 0.0;
+	double oldDis = 0.0;
+	double posX = 0.0;
+	double posY = 0.0;
 	double oldAng = 0.0;
 	
 	public AcRobotPosition() {
@@ -77,23 +77,20 @@ public class AcRobotPosition extends Action {
 		double newPos = Robot.sensors.drivetrainEncoder.get();
 		double newAng = Robot.sensors.yaw.get();
 		
-		//TODO Solve math issue with angle averaging (e.g. 180 and -180 averaging problem)
+		//FIXME Solve math issue with angle averaging (e.g. 180 and -180 averaging problem)
 		
-		double disPos = Math.abs(newPos - oldPos);
-		double aveAngle = Math.abs( (oldAng + newAng) / 2 );
+		double disPos = Math.abs(newPos - oldDis);
+		double avgAngle = Math.abs( (oldAng + newAng) / 2 );
 		
-		double newPosX = disPos * Math.cos(aveAngle) + oldPosX;
-		double newPosY = disPos * Math.sin(aveAngle) + oldPosY;
+		posX += disPos * Math.cos(avgAngle);
+		posY += disPos * Math.sin(avgAngle);
 
 		SmartDashboard.putNumber("gyro Reading", Robot.sensors.yaw.get());
 		SmartDashboard.putNumber("drivetrainEncoder Reading", Robot.sensors.drivetrainEncoder.get());
-		SmartDashboard.putNumber("drivetrain X Position", newPosX);
-		SmartDashboard.putNumber("drivetrain Y Position", newPosY);
+		SmartDashboard.putNumber("drivetrain X Position", posX);
+		SmartDashboard.putNumber("drivetrain Y Position", posY);
 		
-		double oldPos = newPos;
-		double oldAng = newAng;
-		
-		double oldPosX = newPosX;
-		double oldPoxY = newPosY;
+		oldDis = newPos;
+		oldAng = newAng;
 	}
 }
