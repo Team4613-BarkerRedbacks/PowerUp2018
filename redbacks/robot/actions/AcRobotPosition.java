@@ -7,10 +7,8 @@ import redbacks.robot.Robot;
 
 /**
  * 
+ * 
  * @author Lucas Parker
- * 
- * I apologise in advance for the documentation.
- * 
  */
 
 public class AcRobotPosition extends Action {
@@ -74,19 +72,19 @@ public class AcRobotPosition extends Action {
 		
 		// Code ----------------------------------------------------------------------------------------------------------------------------------------------------------
 		
-		double newPos = Robot.sensors.drivetrainEncoder.get();
+		double newPos = Robot.sensors.driveCentreEncoder.get();
 		double newAng = Robot.sensors.yaw.get();
 		
-		//FIXME Solve math issue with angle averaging (e.g. 180 and -180 averaging problem)
-		
 		double disPos = Math.abs(newPos - oldDis);
-		double avgAngle = Math.abs( (oldAng + newAng) / 2 );
+		double avgAngle = Math.abs((oldAng + newAng) / 2);
 		
-		posX += disPos * Math.cos(avgAngle);
-		posY += disPos * Math.sin(avgAngle);
+		if(Math.abs(oldAng - newAng) > 180) avgAngle += 180;
+		
+		posX += disPos * Math.cos(Math.toRadians(avgAngle));
+		posY += disPos * Math.sin(Math.toRadians(avgAngle));
 
 		SmartDashboard.putNumber("gyro Reading", Robot.sensors.yaw.get());
-		SmartDashboard.putNumber("drivetrainEncoder Reading", Robot.sensors.drivetrainEncoder.get());
+		SmartDashboard.putNumber("drivetrainEncoder Reading", Robot.sensors.driveCentreEncoder.get());
 		SmartDashboard.putNumber("drivetrain X Position", posX);
 		SmartDashboard.putNumber("drivetrain Y Position", posY);
 		
