@@ -11,6 +11,10 @@ import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.robot.subsystems.*;
 import static redbacks.robot.CommandList.*;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 public class Robot extends ArachneRobot {
 	
 	public static SubsystemDriver		driver		= new SubsystemDriver();
@@ -29,6 +33,15 @@ public class Robot extends ArachneRobot {
 		sensors.setDefaultCommand(readSensors.c());
 		monitor.setDefaultCommand(monitorRobot.c());
 		oi.mapOperations();
+		
+		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+		NetworkTableEntry tx = table.getEntry("tx");
+		NetworkTableEntry ty = table.getEntry("tx");
+		NetworkTableEntry ta = table.getEntry("tx");
+		double x = tx.getDouble(0);
+		double y = ty.getDouble(0);
+		double area = ta.getDouble(0);
+
 	}
 
 	public CommandBase getAutonomous(int autoID) {
