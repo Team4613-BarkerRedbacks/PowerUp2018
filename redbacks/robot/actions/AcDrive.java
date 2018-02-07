@@ -20,7 +20,7 @@ public class AcDrive extends Action {
 		SmartDashboard.putBoolean("Invert Drive", invertDrive);
 		
 		if (!Robot.isIndivDriveControl) {
-			arcadeDrive(OI.axis_d_RY.get() * (invertDrive ? 1 : -1), -OI.axis_d_LX.get());
+			arcadeDrive(-OI.axis_d_RY.get() * (invertDrive ? 1 : -1), -OI.axis_d_LX.get());
 		}
 	}
 	

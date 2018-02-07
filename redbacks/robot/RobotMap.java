@@ -20,15 +20,15 @@ public class RobotMap
 		talon12  = new CtrlCANTalon(12);
 		
 	public static final CtrlCANTalon
-		idMotDriveL1 = talon2,
-		idMotDriveR1 = talon9,
-		idMotDriveL2 = talon4,
-		idMotDriveR2 = talon10,
-		idMotDriveL3 = talon6,
-		idMotDriveR3 = talon7,
+		idMotDriveR1 = talon2,
+		idMotDriveL1 = talon3,
+		idMotDriveR2 = talon4,
+		idMotDriveL2 = talon5,
+		idMotDriveR3 = talon6,
+		idMotDriveL3 = talon7,
 		idMotArm	 = talon8,
-		idMotIntakeL = talon3,
-		idMotIntakeR = talon5,
+		idMotIntakeL = talon9,
+		idMotIntakeR = talon10,
 		idMotClimberL = talon11,
 		idMotClimberR = talon12;
 		
