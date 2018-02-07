@@ -10,7 +10,9 @@ import redbacks.arachne.ext.navx.sensors.NavXReading;
 public class SubsystemSensors extends SubsystemBase {
 	
 public SenCANEncoder.Displacement armEncoder = new SenCANEncoder.Displacement(idMotDriveL2);
-public SenCANEncoder.Displacement drivetrainEncoder = new SenCANEncoder.Displacement(idMotDriveR1);
+public SenCANEncoder.Displacement driveCentreEncoder = new SenCANEncoder.Displacement(idMotDriveR3);
+public SenCANEncoder.Displacement driveLeftEncoder = new SenCANEncoder.Displacement(idMotDriveL1);
+public SenCANEncoder.Displacement driveRightEncoder = new SenCANEncoder.Displacement(idMotDriveR2);
 
 	public SubsystemSensors(){
 		super();
@@ -19,7 +21,9 @@ public SenCANEncoder.Displacement drivetrainEncoder = new SenCANEncoder.Displace
 	
 	public void resetSensors() {
 		armEncoder.set(0);
-		drivetrainEncoder.set(0);
+		driveCentreEncoder.set(0);
+		driveLeftEncoder.set(0);
+		driveRightEncoder.set(0);
 	
 	}
 	
