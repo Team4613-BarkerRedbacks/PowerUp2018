@@ -8,17 +8,18 @@ import redbacks.robot.Robot;
 /**
  * 
  * 
- * @author Lucas Parker
+ * @author Lucas Parker, Sean Zammit
  */
 
-public class AcRobotPosition extends Action {
+public class AcMonitor extends Action {
 	
-	double oldDis = 0.0;
-	double posX = 0.0;
-	double posY = 0.0;
-	double oldAng = 0.0;
+	public static double 
+		posX = 0,
+		posY = 0,
+		oldDis = 0,
+		oldAng = 0;
 	
-	public AcRobotPosition() {
+	public AcMonitor() {
 		super(new ChFalse());
 	}
 
@@ -72,23 +73,21 @@ public class AcRobotPosition extends Action {
 		
 		// Code ----------------------------------------------------------------------------------------------------------------------------------------------------------
 		
-		double newPos = Robot.sensors.driveCentreEncoder.get();
+		double newDis = Robot.sensors.driveCentreEncoder.get();
 		double newAng = Robot.sensors.yaw.get();
 		
-		double disPos = Math.abs(newPos - oldDis);
-		double avgAngle = Math.abs((oldAng + newAng) / 2);
+		double disPos = newDis - oldDis;
+		double avgAng = Math.abs((oldAng + newAng) / 2);
 		
-		if(Math.abs(oldAng - newAng) > 180) avgAngle += 180;
+		if(Math.abs(oldAng - newAng) > 180) avgAng += 180;
 		
-		posX += disPos * Math.cos(Math.toRadians(avgAngle));
-		posY += disPos * Math.sin(Math.toRadians(avgAngle));
+		posX += disPos * Math.cos(Math.toRadians(avgAng));
+		posY += disPos * Math.sin(Math.toRadians(avgAng));
 
-		SmartDashboard.putNumber("gyro Reading", Robot.sensors.yaw.get());
-		SmartDashboard.putNumber("drivetrainEncoder Reading", Robot.sensors.driveCentreEncoder.get());
-		SmartDashboard.putNumber("drivetrain X Position", posX);
-		SmartDashboard.putNumber("drivetrain Y Position", posY);
+		SmartDashboard.putNumber("X Position", posX);
+		SmartDashboard.putNumber("Y Position", posY);
 		
-		oldDis = newPos;
+		oldDis = newDis;
 		oldAng = newAng;
 	}
 }

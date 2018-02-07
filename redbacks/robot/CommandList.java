@@ -24,7 +24,11 @@ public class CommandList extends CommandListStart
 	static {subsystemToUse = Robot.sensors;}
 	public static CommandSetup
 		readSensors = newCom(new AcReadSensors()),
-		drivetrainPos = newCom(new AcRobotPosition());
+		resetSensors = newCom(new AcResetSensors());
+	
+	static {subsystemToUse = Robot.monitor;}
+	public static CommandSetup
+		monitorRobot = newCom(new AcMonitor());
 	
 	static {subsystemToUse = Robot.arm;}
 	public static CommandSetup
