@@ -8,7 +8,7 @@ import redbacks.robot.Robot;
 /**
  * 
  * 
- * @author Lucas Parker, Sean Zammit
+ * @author Lucas Parker, Sean Zammit, Mitchell Barker
  */
 
 public class AcMonitor extends Action {
@@ -91,3 +91,7 @@ public class AcMonitor extends Action {
 		oldAng = newAng;
 	}
 }
+// NOTES - line 87 - 88 'Math.round(posX/100)); is temporary, only there to make numbers easier to check 
+// bug - only occurs when the robot rotates and returns to zero, bug will not occur when you rotate, stop and then do the reverse
+// bug - x axis will return to robot on dash board if robot is on zero, Y will instead increase when you turn and the (0,0) will increase in the Y axis  
+// bug - every time you rotate past 90 degrees from the starting point (0,0) the bug starts 
