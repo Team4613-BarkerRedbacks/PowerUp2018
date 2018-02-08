@@ -25,7 +25,8 @@ public SenCANEncoder.Displacement driveRightEncoder = new SenCANEncoder.Displace
 		driveCentreEncoder.set(0);
 		driveLeftEncoder.set(0);
 		driveRightEncoder.set(0);
-
+		yaw.set(0);
+		
 		AcMonitor.oldAng = 0;
 		AcMonitor.oldDis = 0;
 		AcMonitor.posX = 0;

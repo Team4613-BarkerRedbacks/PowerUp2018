@@ -83,9 +83,9 @@ public class AcMonitor extends Action {
 		
 		posX += disPos * Math.cos(Math.toRadians(avgAng));
 		posY += disPos * Math.sin(Math.toRadians(avgAng));
-
-		SmartDashboard.putNumber("X Position", posX);
-		SmartDashboard.putNumber("Y Position", posY);
+		
+		SmartDashboard.putNumber("X Position", Math.round(posX/100));
+		SmartDashboard.putNumber("Y Position", Math.round(posY/100));
 		
 		oldDis = newDis;
 		oldAng = newAng;
