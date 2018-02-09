@@ -19,7 +19,8 @@ public class CommandList extends CommandListStart
 	
 	static {subsystemToUse = Robot.driver;}
 	public static CommandSetup
-		drive = newCom(new AcDrive());
+		drive = newCom(new AcDrive()),
+		limeLight = newCom(new AcLimeLight());
 	
 	static {subsystemToUse = Robot.sensors;}
 	public static CommandSetup
@@ -29,7 +30,7 @@ public class CommandList extends CommandListStart
 	static {subsystemToUse = Robot.monitor;}
 	public static CommandSetup
 		monitorRobot = newCom(new AcMonitor());
-	
+		
 	static {subsystemToUse = Robot.arm;}
 	public static CommandSetup
 		moveArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, RobotMap.armSpeed, new ChFalse())),
