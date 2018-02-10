@@ -15,7 +15,8 @@ public class CommandList extends CommandListStart
 {
 	static {subsystemToUse = null;}
 	public static CommandSetup
-		resetArm = newCom(new AcSetNumSen(Robot.sensors.armEncoder, 0));
+		resetArm = newCom(new AcSetNumSen(Robot.sensors.armEncoder, 0)),
+		encoderPos = newCom(new AcSolenoid.Single(Robot.driver.centreEncoderSol, false));
 	
 	static {subsystemToUse = Robot.driver;}
 	public static CommandSetup
@@ -33,8 +34,9 @@ public class CommandList extends CommandListStart
 		
 	static {subsystemToUse = Robot.arm;}
 	public static CommandSetup
-		moveArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, RobotMap.armSpeed, new ChFalse())),
-		reverseArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, -RobotMap.armSpeed, new ChFalse())),
+		armLoop 	 = newCom(new AcArm()),
+		moveArm 	 = newCom(new AcMotor.Set(Robot.arm.armMotor, RobotMap.armSpeed, new ChFalse())),
+		reverseArm 	 = newCom(new AcMotor.Set(Robot.arm.armMotor, -RobotMap.armSpeed, new ChFalse())),
 //		setArmFlatR  = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(950, Robot.sensors.armEncoder, true, false, false))),
 //		setArmFlatL  = newCom(new AcMotor.Set(Robot.arm.aMotor, -0.3, new ChNumSen(-950, Robot.sensors.armEncoder, false, false, false))),
 //		setArm550R 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(550, Robot.sensors.armEncoder, true, false, false))),
@@ -42,16 +44,15 @@ public class CommandList extends CommandListStart
 //		setArm300R 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(300, Robot.sensors.armEncoder, true, false, false))),
 //		setArm300L 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, -0.3, new ChNumSen(-300, Robot.sensors.armEncoder, false, false, false))),
 //		centreArm 	 = newCom(new AcMotor.Set(Robot.arm.aMotor, 0.3, new ChNumSen(0, Robot.sensors.armEncoder, true, false, false))),
-		holdArmCentre = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, 0.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.aMotor))),
-		holdArmFlatR = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, -200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.aMotor))),
-		holdArmFlatL = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, 200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.aMotor)));
+		holdArmCentre = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, 0.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.armMotor))),
+		holdArmFlatR = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, -200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.armMotor))),
+		holdArmFlatL = newCom(new AcPIDControl(new ChFalse(), false, 0.005, 0.0000003, 0.0001, 200.0, new Tolerances.Absolute(3), Robot.sensors.armEncoder, false, 0, 0, PIDSourceType.kDisplacement, -RobotMap.armSpeed, RobotMap.armSpeed, new PIDMotor(Robot.arm.armMotor)));
 
-	
-	static {subsystemToUse = Robot.climber;}
-	public static CommandSetup
-		climb = newCom(
-			new AcMotor.Set(Robot.climber.climberMotor, 0.25, new ChFalse())
-		);
+//	static {subsystemToUse = Robot.climber;}
+//	public static CommandSetup
+//		climb = newCom(
+//			new AcMotor.Set(Robot.climber.climberMotor, 0.25, new ChFalse())
+//		);
 	
 	static {subsystemToUse = Robot.intake;}
 	public static CommandSetup
@@ -80,6 +81,12 @@ public class CommandList extends CommandListStart
 		),
 		solRetractIntakeL = newCom(
 			new AcSolenoid.Single(Robot.intake.intakeLeftSol, false)
+		),
+		highFireRelease = newCom(
+			new AcSolenoid.Single(Robot.shooter.shooterLockSol, false),
+			new AcWait(0.5),
+			new AcSolenoid.Single(Robot.shooter.shooterSol, false),
+			new AcMotor.Set(Robot.intake.intakeMotor, -0.8, new ChTime(1))
 		);
 	
 	static{subsystemToUse = Robot.shooter;}
@@ -94,16 +101,5 @@ public class CommandList extends CommandListStart
 			new AcSolenoid.Single(Robot.shooter.shooterLockSol, true),
 			new AcWait(0.5),
 			new AcSolenoid.Single(Robot.shooter.shooterSol, true)
-		),
-		highFireRelease = newCom(
-			new AcSolenoid.Single(Robot.shooter.shooterLockSol, false),
-			new AcWait(0.5),
-			new AcSolenoid.Single(Robot.shooter.shooterSol, false)
-		);
-	
-	static{subsystemToUse = Robot.pneumatics;}
-	public static CommandSetup
-		encoderPos = newCom(
-			new AcSolenoid.Single(Robot.pneumatics.centreEncoderSol, false)
 		);
 }

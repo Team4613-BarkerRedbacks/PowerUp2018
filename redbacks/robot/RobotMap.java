@@ -1,6 +1,7 @@
 package redbacks.robot;
 
 import redbacks.arachne.ext.ctre.controllers.CtrlCANTalon;
+import redbacks.arachne.ext.ctre.controllers.CtrlCANVictor;
 
 public class RobotMap
 {
@@ -13,11 +14,11 @@ public class RobotMap
 		talon5	= new CtrlCANTalon(5),
 		talon6	= new CtrlCANTalon(6),
 		talon7  = new CtrlCANTalon(7),
-		talon8	= new CtrlCANTalon(8),
-		talon9	= new CtrlCANTalon(9),
-		talon10	= new CtrlCANTalon(10),
-		talon11	= new CtrlCANTalon(11),
-		talon12  = new CtrlCANTalon(12);
+		talon8	= new CtrlCANTalon(8);
+	
+	private static final CtrlCANVictor
+		victor9		= new CtrlCANVictor(9),
+		victor10	= new CtrlCANVictor(10);
 		
 	public static final CtrlCANTalon
 		idMotDriveR1 = talon2,
@@ -26,16 +27,16 @@ public class RobotMap
 		idMotDriveL2 = talon5,
 		idMotDriveR3 = talon6,
 		idMotDriveL3 = talon7,
-		idMotArm	 = talon8,
-		idMotIntakeL = talon9,
-		idMotIntakeR = talon10,
-		idMotClimberL = talon11,
-		idMotClimberR = talon12;
+		idMotArm	 = talon8;
+	
+	public static final CtrlCANVictor
+		idMotIntakeL = victor9,
+		idMotIntakeR = victor10;
 		
 	public static final int
 		idSolCentreEncoder = 0,
-		idSolShooter = 1,
-		idSolLock = 2,
-		idSolRightIntake = 3,
-		idSolLeftIntake = 4;
+		idSolRightIntake = 1,
+		idSolLeftIntake = 2,
+		idSolShooter = 3,
+		idSolLock = 4;
 }

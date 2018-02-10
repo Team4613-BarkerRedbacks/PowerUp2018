@@ -5,11 +5,11 @@ import redbacks.arachne.lib.solenoids.SolSingle;
 
 import static redbacks.robot.RobotMap.*;
 
-public class SubsystemShooter extends SubsystemBase {
-	public SolSingle shooterSol = new SolSingle(idSolShooter); 
+public class SubsystemShooter extends SubsystemBase
+{
+	public SolSingle shooterSol = new SolSingle(idSolShooter);
 	public SolSingle shooterLockSol = new SolSingle(idSolLock);
 
-	
 	public SubsystemShooter() {
 		super();
 	}
