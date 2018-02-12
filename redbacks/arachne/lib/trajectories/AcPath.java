@@ -13,8 +13,7 @@ import redbacks.arachne.lib.sensors.NumericSensor;
 
 import static redbacks.arachne.ext.motion.MotionSettings.*;
 
-public class AcPath extends Action
-{
+public class AcPath extends Action {
 	Path path;
 	
 	CtrlDrivetrain drivetrain;
@@ -28,10 +27,10 @@ public class AcPath extends Action
 
 	PIDAxis linearOut;
 	AcPIDControl acLinear;
-	public AcPath(Check check, boolean shouldFinish, Path trajectory, CtrlDrivetrain drivetrain, double leftMult, double rightMult, NumericSensor gyro, double gyroComp,
+	public AcPath(Check check, boolean shouldFinish, Path path, CtrlDrivetrain drivetrain, double leftMult, double rightMult, NumericSensor gyro, double gyroComp,
 			NumericSensor encoder, boolean invertEncoder, double p, double i, double d, Tolerances tolerance) {
 		super(check);
-		this.path = trajectory;
+		this.path = path;
 		this.drivetrain = drivetrain;
 		this.driveMults[0] = leftMult;
 		this.driveMults[1] = rightMult;
@@ -39,9 +38,16 @@ public class AcPath extends Action
 		this.gyroComp = gyroComp;
 		this.encoder = encoder;
 		this.invertEncoder = invertEncoder;
-		
 		this.linearOut = new PIDAxis(1);
-		this.acLinear = new AcPIDControl(new ChFalse(), shouldFinish, p, i, d, 0, trajectory.totalDistance * (invertEncoder ? -1 : 1), tolerance, encoder, distanceEncoderIsContinuous, distanceEncoderMin, distanceEncoderMax, PIDSourceType.kDisplacement, trajectoryMaxNegSpeed, trajectoryMaxPosSpeed, linearOut);
+		this.acLinear = 
+			new AcPIDControl(
+				new ChFalse(), shouldFinish, 
+				p, i, d, 0, 
+				path.totalDistance * (invertEncoder ? -1 : 1), 
+				tolerance, encoder, 
+				distanceEncoderIsContinuous, distanceEncoderMin, distanceEncoderMax, 
+				PIDSourceType.kDisplacement, trajectoryMaxNegSpeed, trajectoryMaxPosSpeed, linearOut
+		);
 	}
 	
 	public void onStart() {
@@ -54,7 +60,13 @@ public class AcPath extends Action
 	
 	public void onRun() {
 		acLinear.execute();
-		drivetrain.tankDrive((linearOut.output - (getGyro() - path.getAngleFromDistance(Math.abs(encoder.get()))) * gyroComp * Math.abs(linearOut.output)) * driveMults[0], (linearOut.output + (getGyro() - path.getAngleFromDistance(Math.abs(encoder.get()))) * gyroComp * Math.abs(linearOut.output)) * driveMults[1]);
+		drivetrain.tankDrive(
+				(linearOut.output - 
+						(getGyro() - path.getAngleFromDistance(Math.abs(encoder.get())))
+						* gyroComp * Math.abs(linearOut.output)) * driveMults[0], 
+				(linearOut.output + 
+						(getGyro() - path.getAngleFromDistance(Math.abs(encoder.get()))) 
+						* gyroComp * Math.abs(linearOut.output)) * driveMults[1]);
 	}
 	
 	public void onFinish() {
