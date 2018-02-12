@@ -2,6 +2,7 @@ package redbacks.robot;
 
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.core.SubsystemBase;
+import redbacks.arachne.ext.motion.MotionSettings;
 
 /**
  * @author Sean Zammit, Matthew Brian, Ben Schwartz, Lucas Parker, Mitchell Barker, Darin Huang
@@ -35,12 +36,14 @@ public class Robot extends ArachneRobot {
 	}
 
 	public CommandBase getAutonomous(int autoID) {
-		return null;
+		return Auto.getAutonomous(autoID);
 	}
 	
 	public void initialiseRobot() {
 		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 		
 		table.getEntry("ledMode").setValue(1);
+		
+		MotionSettings.encoderTicksPerMetre = 26713;
 	}
 }

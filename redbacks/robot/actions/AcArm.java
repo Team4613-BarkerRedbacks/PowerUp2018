@@ -13,7 +13,7 @@ public class AcArm extends Action
 	
 	public void onRun() {
 		Robot.arm.armMotor.set(OI.axis_o_LY.get(), command);
-		System.out.println(OI.axis_o_LY.get());
+//		System.out.println(OI.axis_o_LY.get());
 	}
 	
 	public double calculateCompensation() {

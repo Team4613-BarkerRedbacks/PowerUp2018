@@ -39,4 +39,10 @@ public class RobotMap
 		idSolLeftIntake = 2,
 		idSolShooter = 3,
 		idSolLock = 4;
+
+	public static final double
+	//P = 0.00008D
+		drivePIDMotorkP = 0.00007D, drivePIDMotorkI = 0.0000001D, drivePIDMotorkD = 0.00001,
+		drivePIDGyrokP = 0.03D, drivePIDGyrokI = 0.0001, drivePIDGyrokD = 0.002;
+
 }
