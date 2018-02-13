@@ -10,7 +10,7 @@ import redbacks.robot.actions.AcMonitor;
 
 public class SubsystemSensors extends SubsystemBase
 {
-	public SenCANEncoder.Displacement armEncoder = new SenCANEncoder.Displacement(idMotDriveR2);
+	public SenCANEncoder.Displacement armEncoder = new SenCANEncoder.Displacement(idMotDriveL1);
 	public SenCANEncoder.Displacement driveCentreEncoder = new SenCANEncoder.Displacement(idMotDriveL3);
 	public SenCANEncoder.Displacement driveLeftEncoder = new SenCANEncoder.Displacement(idMotDriveR1);
 	public SenCANEncoder.Displacement driveRightEncoder = new SenCANEncoder.Displacement(idMotDriveL2);
