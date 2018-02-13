@@ -1,7 +1,7 @@
 package redbacks.robot;
 
 import redbacks.arachne.core.references.AutoStart;
-import static redbacks.arachne.lib.trajectories.MotionSettings2.encoderTicksPerMetre;
+import static redbacks.arachne.lib.override.MotionSettings2.encoderTicksPerMetre;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.actions.*;
 import redbacks.arachne.lib.checks.*;

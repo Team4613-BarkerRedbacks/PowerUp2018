@@ -1,5 +1,7 @@
 package redbacks.arachne.lib.trajectories;
 
+import static redbacks.arachne.lib.override.MotionSettings2.*;
+
 import edu.wpi.first.wpilibj.PIDSourceType;
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.ext.motion.pid.Tolerances;
@@ -9,9 +11,8 @@ import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.checks.Check;
 import redbacks.arachne.lib.logic.GettableNumber;
 import redbacks.arachne.lib.motors.CtrlDrivetrain;
+import redbacks.arachne.lib.override.AcPIDControl2;
 import redbacks.arachne.lib.sensors.NumericSensor;
-
-import static redbacks.arachne.lib.trajectories.MotionSettings2.*;
 
 /**
  * 

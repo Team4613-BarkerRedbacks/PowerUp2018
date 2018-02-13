@@ -1,4 +1,4 @@
-package redbacks.arachne.lib.trajectories;
+package redbacks.arachne.lib.override;
 
 import edu.wpi.first.wpilibj.*;
 import redbacks.arachne.ext.motion.MotionExtender;

@@ -1,4 +1,4 @@
-package redbacks.arachne.lib.trajectories;
+package redbacks.arachne.lib.override;
 
 import redbacks.arachne.ext.motion.MotionSettings;
 
