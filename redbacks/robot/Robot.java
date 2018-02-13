@@ -45,7 +45,5 @@ public class Robot extends ArachneRobot {
 		table.getEntry("ledMode").setValue(1);
 		
 		MotionSettings.encoderTicksPerMetre = 26713;
-		MotionSettings.trajectoryMaxPosSpeed = 0.5;
-		MotionSettings.trajectoryMaxNegSpeed = -0.5;
 	}
 }
