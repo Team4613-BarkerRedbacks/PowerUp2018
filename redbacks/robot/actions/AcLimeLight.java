@@ -33,10 +33,14 @@ public class AcLimeLight extends Action {
 		double area = ta.getDouble(0);
 		
 		if (target == 1) {
-			if (x > 10) Robot.driver.drivetrain.arcadeDrive(0, 0.6); 
-			else if (x < -10) Robot.driver.drivetrain.arcadeDrive(0, -0.6);
+			if (Robot.sensors.armEncoder.get() < 0) {
+				if (y > 10) Robot.driver.drivetrain.arcadeDrive(0, -0.6); 
+				else if (y < -10) Robot.driver.drivetrain.arcadeDrive(0, 0.6);
+			} else {
+				if (y > 10) Robot.driver.drivetrain.arcadeDrive(0, 0.6); 
+				else if (y < -10) Robot.driver.drivetrain.arcadeDrive(0, -0.6);
+			}
 		}
-		
 		SmartDashboard.putNumber("tv: ",tv.getDouble(2468));
 		SmartDashboard.putNumber("tx: ",tx.getDouble(2468));
 		SmartDashboard.putNumber("ty: ",ty.getDouble(2468));
