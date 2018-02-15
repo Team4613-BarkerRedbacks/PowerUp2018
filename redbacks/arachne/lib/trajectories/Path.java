@@ -29,6 +29,18 @@ public class Path
 		return avg(angles);
 	}
 	
+	public double getCurvatureFromDistance(double distance) {
+		while(progressIndex < waypoints.length - 1 && Math.abs(distance) > Math.abs(waypoints[progressIndex][0] * MotionSettings.encoderTicksPerMetre)) {
+			progressIndex++;
+		}
+		
+		double[] curvatures = new double[Math.min(MotionSettings.trajectoryAngleForesight, waypoints.length - progressIndex)];
+		
+		for(int i = 0; i < Math.min(MotionSettings.trajectoryAngleForesight, waypoints.length - progressIndex); i++) curvatures[i] = waypoints[i + progressIndex][2];
+		
+		return avg(curvatures);
+	}
+	
 	public boolean isPathComplete() {
 		return progressIndex >= waypoints.length - 1;
 	}
