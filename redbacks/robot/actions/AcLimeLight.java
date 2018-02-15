@@ -6,7 +6,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChFalse;
-import redbacks.arachne.lib.checks.Check;
 import redbacks.robot.Robot;
 
 public class AcLimeLight extends Action {

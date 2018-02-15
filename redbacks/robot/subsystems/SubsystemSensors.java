@@ -6,31 +6,34 @@ import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
 import redbacks.arachne.ext.navx.sensors.NavX;
 import redbacks.arachne.ext.navx.sensors.NavXReading;
-import redbacks.robot.actions.AcMonitor;
+import redbacks.robot.Robot;
 
 public class SubsystemSensors extends SubsystemBase
 {
 	public SenCANEncoder.Displacement armEncoder = new SenCANEncoder.Displacement(idMotDriveL1);
 	public SenCANEncoder.Displacement driveCentreEncoder = new SenCANEncoder.Displacement(idMotDriveL3);
-	public SenCANEncoder.Displacement driveLeftEncoder = new SenCANEncoder.Displacement(idMotDriveR1);
-	public SenCANEncoder.Displacement driveRightEncoder = new SenCANEncoder.Displacement(idMotDriveL2);
+	public SenCANEncoder.Displacement driveLeftEncoder = new SenCANEncoder.Displacement(idMotDriveL2);
+	public SenCANEncoder.Displacement driveRightEncoder = new SenCANEncoder.Displacement(idMotDriveR1);
+
+	public SenCANEncoder.Displacement driveMonitorEncoderL = new SenCANEncoder.Displacement(idMotDriveL2);
+	public SenCANEncoder.Displacement driveMonitorEncoderR = new SenCANEncoder.Displacement(idMotDriveR1);
+	public NavX.Yaw yawMonitor = new NavX.Yaw();
 
 	public SubsystemSensors() {
 		super();
 		resetSensors();
+		driveRightEncoder.setScaleFactor(-1);
+		driveMonitorEncoderR.setScaleFactor(-1);
 	}
 
 	public void resetSensors() {
-		armEncoder.set(0);
 		driveCentreEncoder.set(0);
 		driveLeftEncoder.set(0);
 		driveRightEncoder.set(0);
 		yaw.set(0);
 
-		AcMonitor.oldAng = 0;
-		AcMonitor.oldDis = 0;
-		AcMonitor.posX = 0;
-		AcMonitor.posY = 0;
+		Robot.posX = 0;
+		Robot.posY = 0;
 	}
 
 	public NavX.Sensor pitch = new NavX.Sensor(NavXReading.ANGLE_PITCH);
