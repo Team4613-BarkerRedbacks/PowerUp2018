@@ -5,7 +5,12 @@ import redbacks.arachne.ext.ctre.controllers.CtrlCANVictor;
 
 public class RobotMap
 {
-	public static final double armSpeed = 1;
+	public static final double
+		armMaxSpeed = 1,
+		armKP = 1.5E-3, armKI = 1E-6, armKD = 2E-3;
+	
+	public static final int
+		armSwitchPos = 350, armBasePos = 1025;
 	
 	private static final CtrlCANTalon
 		talon2	= new CtrlCANTalon(2),

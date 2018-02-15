@@ -14,6 +14,6 @@ public class AcSetArm extends Action
 	}
 	
 	public void onFinish() {
-		Robot.arm.setpoint = setpoint;
+		Robot.arm.armPIDControl.setSetpoint(setpoint);
 	}
 }
