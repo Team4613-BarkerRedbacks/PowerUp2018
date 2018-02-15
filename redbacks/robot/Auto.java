@@ -10,6 +10,7 @@ import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.commands.CommandSetup;
 import redbacks.arachne.lib.trajectories.AcPath;
 import redbacks.robot.actions.AcResetSensors;
+import redbacks.robot.actions.AcSetArm;
 
 import static redbacks.robot.Robot.*;
 import static redbacks.robot.RobotMap.*;
@@ -20,34 +21,51 @@ public class Auto extends AutoStart {
 	
 	public static CommandBase getAutonomous(int autoNumber) {
 		switch(autoNumber) {
-			case(1): 
-				return createAuto(
-					new AcPrint("Starting"),
-					new AcPath(new ChFalse(), true, wallToLR2, driver.drivetrain, 1, 1, 
-							sensors.yaw, sensors.driveCentreEncoder, false, 
-							new Tolerances.Absolute(250)),
-					new AcPrint("Ending")
-				);
-			case(2): 
+			case(2):
 				return createAuto(
 					new AcResetSensors(),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR.totalDistance - 0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
-					new AcPath(new ChFalse(), true, wallToHR3, driver.drivetrain, 1, 1, 
+					new AcPath(new ChFalse(), true, wallToHR, driver.drivetrain, 1, 1, 
 							sensors.yaw, sensors.driveCentreEncoder, false, 
 							new Tolerances.Absolute(250),
-							new AcPath.ChangeMinMax(wallToHR3, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.5),
-							new AcPath.ChangeMinMax(wallToHR3, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.5))
+							new AcPath.ChangeMinMax(wallToHR, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.5),
+							new AcPath.ChangeMinMax(wallToHR, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.5))
+				);
+			case(3):
+				return createAuto(
+					new AcResetSensors(),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(wallToHL2.totalDistance - 2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcSeq.Parallel(quickFire),
+							new AcSetArm(75)
+					),
+					new AcPath(new ChFalse(), true, wallToHL2, driver.drivetrain, 1, 1, 
+							sensors.yaw, sensors.driveCentreEncoder, false, 
+							new Tolerances.Absolute(0.1 * encoderTicksPerMetre))
+				);
+			case(4):
+				return createAuto(
+					new AcResetSensors(),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(wallToHL3.totalDistance - 4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcSeq.Parallel(highFirePrime),
+							new AcDoNothing(new ChNumSen(wallToHL3.totalDistance - 1.25 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcPath(new ChFalse(), true, wallToHL3, driver.drivetrain, 1, 1, 
+							sensors.yaw, sensors.driveCentreEncoder, false, 
+							new Tolerances.Absolute(0.1 * encoderTicksPerMetre))
 				);
 			default: return null;
 		}
 	}
 	
 	public static CommandBase createAuto(Action... actions) {
-		return new CommandSetup(null, new AcSeq.Parallel(actions)).c();
+		return new CommandSetup(null, new AcSeq.Parallel(armLoop), new AcSeq.Parallel(actions)).c();
 	}
 }

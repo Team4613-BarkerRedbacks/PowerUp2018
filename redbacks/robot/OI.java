@@ -18,13 +18,19 @@ public class OI extends OIBase
 	public void mapOperations() {
 		whenPressed(d_Start, resetArm.c());
 		whenPressed(d_Back, resetSensors.c());
-		
-		whenHeld(o_A, intake.c());
-		whenHeld(o_B, outtake.c());
 
-		whenPressed(o_LT, lowFire.c());
-		whenPressed(o_RB, highFirePrime.c());
-		whenPressed(o_RT, highFireRelease.c());
+		whenPressed(d_LT, lowFire.c());
+		whenPressed(d_LB, quickFire.c());
+		whenPressed(d_RB, highFirePrime.c());
+		whenPressed(d_RT, highFireRelease.c());
+		
+		whenHeld(o_LT, intakeCube.c());
+		whenHeld(o_RT, outtakeCube.c());
+
+		whenPressed(o_X, armToLowFront.c());
+		whenPressed(o_Y, armToTop.c());
+		whenPressed(o_B, armToLowBack.c());
+		whenPressed(o_A, armToBaseBack.c());
 	}
 	
 	public static final Joystick stickDriver = new Joystick(0);
