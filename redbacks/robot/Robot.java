@@ -49,7 +49,7 @@ public class Robot extends ArachneRobot
 		MotionSettings2.encoderTicksPerMetre = 26713;
 //		MotionSettings2.trajectoryAngleForesight = 4;
 
-		Robot.sensors.yawMonitor.set(0);
+		Robot.sensors.yaw.set(0);
 		Robot.sensors.driveMonitorEncoderL.set(0);
 		Robot.sensors.driveMonitorEncoderR.set(0);
 		Thread t = new Thread(() -> {
@@ -62,7 +62,7 @@ public class Robot extends ArachneRobot
             	lastTime = newTime;
             	
             	double newDis = Robot.sensors.driveMonitorEncoderL.get() + Robot.sensors.driveMonitorEncoderR.get();
-        		double newAng = Robot.sensors.yawMonitor.get();
+        		double newAng = Robot.sensors.yaw.get();
         		
         		double disPos = newDis - oldDis;
         		double avgAng = Math.abs((oldAng + newAng) / 2);

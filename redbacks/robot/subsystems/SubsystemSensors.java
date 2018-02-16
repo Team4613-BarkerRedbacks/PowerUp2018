@@ -17,7 +17,6 @@ public class SubsystemSensors extends SubsystemBase
 
 	public SenCANEncoder.Displacement driveMonitorEncoderL = new SenCANEncoder.Displacement(idMotDriveL2);
 	public SenCANEncoder.Displacement driveMonitorEncoderR = new SenCANEncoder.Displacement(idMotDriveR1);
-	public NavX.Yaw yawMonitor = new NavX.Yaw();
 
 	public SubsystemSensors() {
 		super();
