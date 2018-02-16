@@ -19,7 +19,7 @@ public class AcTankDrive extends Action
 	}
 
 	public void onRun() {
-		Robot.driver.drivetrain.tankDrive(-l, -r);
+		Robot.driver.drivetrain.tankDrive(l, r);
 	}
 
 	public void onFinish() {
