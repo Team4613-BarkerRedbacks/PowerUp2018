@@ -61,10 +61,18 @@ public class CommandList extends CommandListStart
 	static {subsystemToUse = intake;}
 	public static CommandSetup
 		intakeCube = newCom(
+			new AcSolenoid.Single(shooter.shooterSol, false),
+			new AcMotor.Set(intake.intakeMotor, 0.8, new ChFalse())
+		),
+		intakeCubeSlow = newCom(
+			new AcSolenoid.Single(shooter.shooterSol, false),
 			new AcMotor.Set(intake.intakeMotor, 0.5, new ChFalse())
 		),
 		outtakeCube = newCom(
 			new AcMotor.Set(intake.intakeMotor, -0.5, new ChFalse())
+		),
+		outtakeCubeFast = newCom(
+			new AcMotor.Set(intake.intakeMotor, -1, new ChFalse())
 		),
 		solExtendIntake = newCom(
 			new AcSolenoid.Single(intake.intakeRightSol, true),
@@ -89,7 +97,7 @@ public class CommandList extends CommandListStart
 		highFireRelease = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, false),
 			new AcSeq.Parallel(
-					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(2))
+					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(1))
 			),
 			new AcWait(0.5),
 			new AcSolenoid.Single(shooter.shooterSol, false)
