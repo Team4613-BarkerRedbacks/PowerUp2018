@@ -23,7 +23,9 @@ public class RobotMap
 	
 	private static final CtrlCANVictor
 		victor9		= new CtrlCANVictor(9),
-		victor10	= new CtrlCANVictor(10);
+		victor10	= new CtrlCANVictor(10),
+		victor11	= new CtrlCANVictor(11),
+		victor12	= new CtrlCANVictor(12);
 		
 	public static final CtrlCANTalon
 		idMotDriveR1 = talon2,
@@ -35,13 +37,17 @@ public class RobotMap
 		idMotArm	 = talon8;
 	
 	public static final CtrlCANVictor
+	//FIXME Check LR on intake controllers
 		idMotIntakeL = victor9,
-		idMotIntakeR = victor10;
+		idMotIntakeR = victor10,
+		idMotClimb1 = victor11,
+		idMotClimb2 = victor12;
 		
 	public static final int
-		idSolCentreEncoder = 0,
-		idSolRightIntake = 1,
-		idSolLeftIntake = 2,
-		idSolShooter = 3,
-		idSolLock = 4;
+		idSolCentreEncoder = 1,//
+		idSolRightIntake = 5,
+		idSolLeftIntake = 4,
+		idSolShooter = 0,
+		idSolLock = 6,
+		idSolClimbRelease = 3;
 }
