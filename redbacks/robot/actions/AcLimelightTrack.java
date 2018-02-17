@@ -8,12 +8,12 @@ import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.robot.Robot;
 
-public class AcLimeLight extends Action {
+public class AcLimelightTrack extends Action {
 	
 	NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 	public double x, y;
 	
-	public AcLimeLight() {
+	public AcLimelightTrack() {
 		super(new ChFalse());
 		
 	}

@@ -20,60 +20,6 @@ public class CommandList extends CommandListStart
 		armToLowBack = newCom(new AcSetArm(-armSwitchPos)),
 		armToBaseBack = newCom(new AcSetArm(-armBasePos)),
 		armToTop = newCom(new AcSetArm(0)),
-		lowFire = newCom(
-			new AcSolenoid.Single(shooter.shooterLockSol, false), 
-			new AcSolenoid.Single(shooter.shooterSol, true), 
-			new AcWait(0.5), 
-			new AcSolenoid.Single(shooter.shooterSol, false)
-		),
-		highFirePrime = newCom(
-			new AcSolenoid.Single(shooter.shooterLockSol, true),
-			new AcWait(0.5),
-			new AcSolenoid.Single(shooter.shooterSol, true)
-		);
-	
-	static {subsystemToUse = driver;}
-	public static CommandSetup
-		drive = newCom(new AcDrive()),
-		limeLight = newCom(new AcLimeLight());
-	
-	static {subsystemToUse = sensors;}
-	public static CommandSetup
-		readSensors = newCom(new AcReadSensors()),
-		resetSensors = newCom(new AcResetSensors());
-	
-//	static {subsystemToUse = monitor;}
-//	public static CommandSetup
-//		monitorRobot = newCom(new AcMonitor());
-		
-	static {subsystemToUse = arm;}
-	public static CommandSetup
-		armLoop 	 = newCom(new AcArm()),
-		moveArm 	 = newCom(new AcMotor.Set(arm.armMotor, armMaxSpeed, new ChFalse())),
-		reverseArm 	 = newCom(new AcMotor.Set(arm.armMotor, -armMaxSpeed, new ChFalse()));
-
-//	static {subsystemToUse = climber;}
-//	public static CommandSetup
-//		climb = newCom(
-//			new AcMotor.Set(climber.climberMotor, 0.25, new ChFalse())
-//		);
-	
-	static {subsystemToUse = intake;}
-	public static CommandSetup
-		intakeCube = newCom(
-			new AcSolenoid.Single(shooter.shooterSol, false),
-			new AcMotor.Set(intake.intakeMotor, 0.8, new ChFalse())
-		),
-		intakeCubeSlow = newCom(
-			new AcSolenoid.Single(shooter.shooterSol, false),
-			new AcMotor.Set(intake.intakeMotor, 0.5, new ChFalse())
-		),
-		outtakeCube = newCom(
-			new AcMotor.Set(intake.intakeMotor, -0.5, new ChFalse())
-		),
-		outtakeCubeFast = newCom(
-			new AcMotor.Set(intake.intakeMotor, -1, new ChFalse())
-		),
 		solExtendIntake = newCom(
 			new AcSolenoid.Single(intake.intakeRightSol, true),
 			new AcSolenoid.Single(intake.intakeLeftSol, true)
@@ -93,6 +39,59 @@ public class CommandList extends CommandListStart
 		),
 		solRetractIntakeL = newCom(
 			new AcSolenoid.Single(intake.intakeLeftSol, false)
+		),
+		lowFire = newCom(
+			new AcSolenoid.Single(shooter.shooterLockSol, false), 
+			new AcSolenoid.Single(shooter.shooterSol, true), 
+			new AcWait(0.5), 
+			new AcSolenoid.Single(shooter.shooterSol, false)
+		),
+		highFirePrime = newCom(
+			new AcSolenoid.Single(shooter.shooterLockSol, true),
+			new AcWait(0.5),
+			new AcSolenoid.Single(shooter.shooterSol, true)
+		),
+		climberRelease = newCom(
+			new AcSolenoid.Single(climber.climberSol, true)
+		);
+	
+	static {subsystemToUse = driver;}
+	public static CommandSetup
+		drive = newCom(new AcDrive()),
+		limelightTrack = newCom(new AcLimelightTrack());
+	
+	static {subsystemToUse = sensors;}
+	public static CommandSetup
+		readSensors = newCom(new AcReadSensors()),
+		resetSensors = newCom(new AcResetSensors());
+	
+	static {subsystemToUse = arm;}
+	public static CommandSetup
+			armLoop = newCom(new AcArm()),
+			moveArm = newCom(new AcMotor.Set(arm.armMotor, armMaxSpeed, new ChFalse())),
+			reverseArm = newCom(new AcMotor.Set(arm.armMotor, -armMaxSpeed, new ChFalse()));
+
+	static {subsystemToUse = climber;}
+	public static CommandSetup
+		climb = newCom(
+			new AcMotor.Set(climber.climberMotor, 0.25, new ChFalse())
+		);
+	
+	static {subsystemToUse = intake;}
+	public static CommandSetup
+		intakeCube = newCom(
+			new AcSolenoid.Single(shooter.shooterSol, false),
+			new AcMotor.Set(intake.intakeMotor, 0.8, new ChFalse())
+		),
+		intakeCubeSlow = newCom(
+			new AcSolenoid.Single(shooter.shooterSol, false),
+			new AcMotor.Set(intake.intakeMotor, 0.5, new ChFalse())
+		),
+		outtakeCube = newCom(
+			new AcMotor.Set(intake.intakeMotor, -0.5, new ChFalse())
+		),
+		outtakeCubeFast = newCom(
+			new AcMotor.Set(intake.intakeMotor, -1, new ChFalse())
 		),
 		highFireRelease = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, false),
