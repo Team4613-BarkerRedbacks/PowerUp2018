@@ -28,7 +28,7 @@ public class Robot extends ArachneRobot
 	public void initDefaultCommands() {
 		driver.setDefaultCommand(drive.c());
 		sensors.setDefaultCommand(readSensors.c());
-//		arm.setDefaultCommand(armLoop.c());
+		arm.setDefaultCommand(armLoop.c());
 		oi.mapOperations();
 	}
 
@@ -43,6 +43,8 @@ public class Robot extends ArachneRobot
 		limelightTable.getEntry("ledMode").forceSetValue(1);
 		
 		MotionSettings2.encoderTicksPerMetre = 26713;
+		MotionSettings2.trajectoryMaxNegSpeed = -0.9;
+		MotionSettings2.trajectoryMaxPosSpeed = 0.9;
 	}
 	
 	public void initialiseAuto() {

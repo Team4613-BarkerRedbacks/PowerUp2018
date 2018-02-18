@@ -15,8 +15,8 @@ public class SubsystemDriver extends SubsystemBase {
 	
 	public SolSingle centreEncoderSol = new SolSingle(idSolCentreEncoder);
 	
-	public SubsystemDriver() {
-		super();
+	public SubsystemDriver(SubsystemBase... childSystems) {
+		super(childSystems);
 
 		idMotDriveL2.follow(idMotDriveL1);
 		idMotDriveL3.follow(idMotDriveL1);

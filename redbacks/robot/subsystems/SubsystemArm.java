@@ -15,7 +15,7 @@ public class SubsystemArm extends SubsystemBase
 	
 	public PIDController armPIDControl = new PIDController(armKP, armKI, armKD, Robot.sensors.armEncoder, armRawOutput);
 
-	public SubsystemArm() {
-		super();
+	public SubsystemArm(SubsystemBase... childSystems) {
+		super(childSystems);
 	}
 }
