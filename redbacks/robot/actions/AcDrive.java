@@ -8,7 +8,7 @@ import redbacks.robot.Robot;
 
 public class AcDrive extends Action {
 
-	double minR = 0.6D, difR = 0.15D;
+	double minR = 0.7D, difR = 0.3D;
 	
 	public AcDrive() {
 		super(new ChFalse());
