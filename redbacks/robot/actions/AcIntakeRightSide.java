@@ -2,6 +2,8 @@ package redbacks.robot.actions;
 
 import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.Check;
+import redbacks.robot.RobotMap;
+
 import static redbacks.robot.RobotMap.idMotIntakeL;
 import static redbacks.robot.RobotMap.idMotIntakeR;
 
@@ -14,8 +16,8 @@ public class AcIntakeRightSide extends Action
 	}
 
 	public void onStart() {
-		idMotIntakeR.set(ControlMode.PercentOutput, 0.8);
-		idMotIntakeL.set(ControlMode.PercentOutput, 0.5);
+		idMotIntakeL.set(ControlMode.PercentOutput, RobotMap.intakeSlowSpeed);
+		idMotIntakeR.set(ControlMode.PercentOutput, RobotMap.intakeFastSpeed);
 	}
 	
 	public void onFinish() {

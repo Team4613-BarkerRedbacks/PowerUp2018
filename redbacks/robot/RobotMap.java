@@ -7,10 +7,11 @@ public class RobotMap
 {
 	public static final double
 		armMaxSpeed = 1,
-		armKP = 1.5E-3, armKI = 1E-6, armKD = 2E-3;
+		armKP = 1.8E-3, armKI = 0, armKD = 4E-4,//2E-3,
+		intakeFastSpeed = 0.7, intakeSlowSpeed = 0.4;
 	
 	public static final int
-		armSwitchPos = 350, armBasePos = 1025;
+		armScalePos = 150, armSwitchPos = 350, armBasePos = 1025;
 	
 	private static final CtrlCANTalon
 		talon2	= new CtrlCANTalon(2),
@@ -44,10 +45,11 @@ public class RobotMap
 		idMotClimb2 = victor12;
 		
 	public static final int
-		idSolCentreEncoder = 1,//
-		idSolRightIntake = 5,
-		idSolLeftIntake = 4,
-		idSolShooter = 0,
+		idSolCentreEncoder = 7,//
+		idSolShooter2 = 1,
+		idSolRightIntake = 4,
+		idSolLeftIntake = 5,
+		idSolShooter1 = 0,
 		idSolLock = 6,
 		idSolClimbRelease = 3;
 }
