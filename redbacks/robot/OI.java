@@ -24,13 +24,18 @@ public class OI extends OIBase
 		whenPressed(d_RB, highFirePrime.c());
 		whenPressed(d_RT, highFireRelease.c());
 		
+//		whenPressed(d_Y, climberRelease.c());
+		
 		whenHeld(o_LT, intakeCube.c());
 		whenHeld(o_RT, outtakeCube.c());
 
+		whenPressed(o_LB, armToScaleFront.c());
+		whenPressed(o_Start, armToBaseFront.c());
 		whenPressed(o_X, armToLowFront.c());
 		whenPressed(o_Y, armToTop.c());
 		whenPressed(o_B, armToLowBack.c());
 		whenPressed(o_A, armToBaseBack.c());
+		whenPressed(o_RB, armToScaleBack.c());
 	}
 	
 	public static final Joystick stickDriver = new Joystick(0);
