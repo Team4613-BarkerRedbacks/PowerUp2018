@@ -29,8 +29,7 @@ public class AcArm extends Action
 	}
 	
 	public void onRun() {
-		System.out.println(arm.armPIDControl.get() + ", " + calculateCompensation());
-		arm.armMotor.set(arm.armRawOutput.output - calculateCompensation(), command);
+		arm.armMotor.set(arm.armRawOutput.output, command);
 	}
 
 	public void onFinish() {

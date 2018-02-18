@@ -6,7 +6,6 @@ import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
 import redbacks.arachne.ext.navx.sensors.NavX;
 import redbacks.arachne.ext.navx.sensors.NavXReading;
-import redbacks.robot.Robot;
 
 public class SubsystemSensors extends SubsystemBase
 {
@@ -30,9 +29,6 @@ public class SubsystemSensors extends SubsystemBase
 		driveLeftEncoder.set(0);
 		driveRightEncoder.set(0);
 		yaw.set(0);
-
-		Robot.posX = 0;
-		Robot.posY = 0;
 	}
 
 	public NavX.Sensor pitch = new NavX.Sensor(NavXReading.ANGLE_PITCH);
