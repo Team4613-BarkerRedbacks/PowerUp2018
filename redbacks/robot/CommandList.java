@@ -85,8 +85,11 @@ public class CommandList extends CommandListStart
 
 	static {subsystemToUse = climber;}
 	public static CommandSetup
-		climb = newCom(
+		climbUp = newCom(
 			new AcMotor.Set(climber.climberMotor, 0.25, new ChFalse())
+		),
+		climbDown = newCom(
+			new AcMotor.Set(climber.climberMotor, -0.25, new ChFalse())
 		);
 	
 	static {subsystemToUse = intake;}
@@ -94,7 +97,7 @@ public class CommandList extends CommandListStart
 		intakeCube = newCom(
 			new AcSolenoid.Single(shooter.shooterSol1, false),
 			new AcSolenoid.Single(shooter.shooterSol2, false),
-			new AcMotor.Set(intake.intakeMotor, intakeFastSpeed, new ChFalse())
+			new AcMotor.Set(intake.intakeMotor, intakeSlowSpeed, new ChFalse())
 		),
 		intakeCubeSlow = newCom(
 			new AcSolenoid.Single(shooter.shooterSol1, false),

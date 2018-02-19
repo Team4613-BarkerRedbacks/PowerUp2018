@@ -8,6 +8,7 @@ import redbacks.robot.RobotMap;
 import static redbacks.robot.Robot.*;
 
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AcArm extends Action
 {
@@ -29,7 +30,7 @@ public class AcArm extends Action
 	}
 	
 	public void onRun() {
-		arm.armMotor.set(arm.armRawOutput.output, command);
+		arm.armMotor.set(arm.armRawOutput.output - calculateCompensation(), command);
 	}
 
 	public void onFinish() {

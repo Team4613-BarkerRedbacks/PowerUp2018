@@ -3,20 +3,52 @@ package redbacks.robot;
 import static redbacks.arachne.lib.input.ButtonGettableWrapper.wrap;
 import static redbacks.robot.CommandList.*;
 
+import javax.print.attribute.standard.PrinterMoreInfoManufacturer;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import redbacks.arachne.core.OIBase;
+import redbacks.arachne.lib.actions.AcPrint;
+import redbacks.arachne.lib.checks.ChMulti;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.input.BtnAxis;
+import redbacks.arachne.lib.input.BtnMulti;
 import redbacks.arachne.lib.input.BtnPOV;
 import redbacks.arachne.lib.input.ButtonGettableWrapper;
 import redbacks.arachne.lib.input.JoystickAxis;
+import redbacks.arachne.lib.logic.LogicOperators;
 
-public class OI extends OIBase
-{
+public class OI extends OIBase {
+	
+	public static boolean climberReleased = false;
+	
 	public void mapOperations() {
-		whenPressed(d_Start, resetArm.c());
+		//Driver Control
+		whenPressed(new BtnMulti(LogicOperators.AND, d_LB, d_RB), climberRelease.c());
+		//whenPressed(d_LT, climbUp.c());
+		//whenPressed(d_RT, climbDown.c());
+		
+		//Operator Control
+		whenHeld(o_LT, intakeCube.c());
+		whenHeld(o_RT, outtakeCube.c());
+		whenPressedReleased(o_LB, solExtendIntakeL.c(), solRetractIntakeL.c());
+		whenPressedReleased(o_RB, solExtendIntakeR.c(), solRetractIntakeR.c());
+
+		//Arm Positions
+		whenPressed(o_B, armToBaseBack.c());
+		whenPressed(o_POV_R, armToLowBack.c());
+		whenPressed(o_POV_D, armToScaleBack.c());
+		whenPressed(o_Y, armToTop.c());
+		whenPressed(o_POV_U, armToScaleFront.c());
+		whenPressed(o_POV_L, armToLowFront.c());
+		whenPressed(o_X, armToBaseFront.c());
+		
+		whenPressedReleased(o_A, highFirePrime.c(), highFireRelease.c());
+		
+		whenPressed(o_Start, resetSensors.c());
+		
+		/*whenPressed(d_Start, resetArm.c());
 		whenPressed(d_Back, resetSensors.c());
 
 		whenPressed(d_LT, lowFire.c());
@@ -24,7 +56,7 @@ public class OI extends OIBase
 		whenPressed(d_RB, highFirePrime.c());
 		whenPressed(d_RT, highFireRelease.c());
 		
-//		whenPressed(d_Y, climberRelease.c());
+		whenPressed(d_Y, climberRelease.c());
 		
 		whenHeld(o_LT, intakeCube.c());
 		whenHeld(o_RT, outtakeCube.c());
@@ -35,7 +67,7 @@ public class OI extends OIBase
 		whenPressed(o_Y, armToTop.c());
 		whenPressed(o_B, armToLowBack.c());
 		whenPressed(o_A, armToBaseBack.c());
-		whenPressed(o_RB, armToScaleBack.c());
+		whenPressed(o_RB, armToScaleBack.c());*/
 	}
 	
 	public static final Joystick stickDriver = new Joystick(0);
@@ -102,13 +134,5 @@ public class OI extends OIBase
 		button.whenPressed(onPressed);
 		button.whenReleased(onReleased);
 	}
-
-	public static final ButtonGettableWrapper
-		d_1 = wrap(new JoystickButton(stickDriver, 1)),
-		d_2 = wrap(new JoystickButton(stickDriver, 2));
-		
-	public static final ButtonGettableWrapper
-		pov_d_45 = wrap(new BtnPOV(stickDriver, 45)),
-		pov_d_0 = wrap(new BtnPOV(stickDriver, 0));
-
+	
 }
