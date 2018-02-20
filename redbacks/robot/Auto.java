@@ -7,6 +7,7 @@ import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.actions.*;
 import redbacks.arachne.lib.checks.*;
+import redbacks.arachne.lib.checks.analog.ChGettableNumber;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.commands.CommandSetup;
@@ -128,6 +129,12 @@ public class Auto extends AutoStart
 					),
 					new AcDriveDirection(new ChNumSen(0, autoDistanceEncoder, true, false, false), 0.8, -5)
 				);
+			case(100):
+				return createAuto(
+						new AcResetSensors(), 
+						new AcDriveDirection(new ChGettableNumber(2.0, sensors.speedForward, true, false), 0.8, 0)
+				);
+						
 			/*case(1101):
 				//CC RIGHT COOPERATIVE
 				return createAuto(
