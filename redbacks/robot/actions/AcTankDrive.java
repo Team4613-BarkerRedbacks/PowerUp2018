@@ -8,6 +8,7 @@ public class AcTankDrive extends Action
 {
 	double l, r;
 	
+	@Deprecated
 	public AcTankDrive(Check check, double lSpeed, double rSpeed) {
 		super(check);
 		l = lSpeed;
