@@ -38,7 +38,8 @@ public class AcStraight extends AcPath
 	
 	public void onRun() {
 		acLinear.execute();
+		acRotation.execute();
 		
-		drivetrain.tankDrive(linearOut.output, linearOut.output);
+		drivetrain.tankDrive(linearOut.output + rotationOut.output, linearOut.output - rotationOut.output);
 	}
 }
