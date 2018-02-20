@@ -725,26 +725,44 @@ public class Auto extends AutoStart
 					new AcResetSensors(),
 					new AcStraight(4.70, 0, sensors.driveCentreEncoder, true),
 					new AcTurn(90),
-					new AcStraight(-4.2, 90, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(intakeCubeSlow),
+					new AcStraight(-4.7, 90, sensors.driveCentreEncoder, true),
+					new AcInterrupt.KillSubsystem(intake),
 					new AcSeq.Parallel(highFirePrime),
 					new AcSetArm(25),
 					new AcTurn(10),
-					new AcStraight(0.8, 10, sensors.driveCentreEncoder, true),
-					new AcSeq.Parallel(highFireRelease)
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcStraight(1.4, 10, sensors.driveCentreEncoder, true)
+					
 					// Cube 2
-/*					new AcStraight(-2.2, 10, sensors.driveCentreEncoder, true),
+/*					new AcStraight(-1.7, 10, sensors.driveCentreEncoder, true),
 					new AcTurn(75), // check angle of turning to align with 2nd cube along 
 //					new AcSetArm(1025), // check position of arm (needs to intake cube on ground)
 					new AcStraight(1.5, 60, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(intakeCube),
+					new AcSeq.Parallel(
+								new AcWait(1.25),
+								new AcInterrupt.KillSubsystem(intake)
+					),
+					new AcStraight(-1.5, 60, sensors.driveCentreEncoder, true),
+					new AcTurn(10)
+					new AcSeq.Parallel(highFirePrime),
 					new AcSetArm(350),
+					new AcStraight(1.7, 10, sensors.driveCentreEndoer, true),
 					new AcSeq.Parallel(highFireRelease),
 					// Cube 3
 					new AcStraight(-0.3, 60, sensors.driveCentreEncoder, true),
 					new AcSetArm(1025),
 					new AcTurn(50), // check angle of turning for 2nd cube along
-					new AcStraight(0.4, 50, sensors.driveCentreEncoder, true),
+					new AcStraight(1.4, 50, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(intakeCube),
+					new AcSeq.Parallel(
+								new AcWait(1.25),
+								new AcInterrupt.KillSubsystem(intake)
+					),
 					// Go to fire in scale now
 					new AcStraight(-1.6, 50, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(highFirePrime),
@@ -753,7 +771,26 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(highFireRelease)
 					*/
 				);
-			// 5.5, 4.75, 2.2
+			
+			case(102):
+				// FF Right individual Time Reduction
+				return createAuto(
+					new AcResetSensors(),
+					new AcStraight(4.70, 0, sensors.driveCentreEncoder, true),
+					// Initiate curve - insert SecondCurve
+					new AcSeq.Parallel(intakeCubeSlow),
+					new AcSeq.Parallel(
+							new AcSeq.Parallel(highFirePrime),
+							new AcSetArm(25),
+							new AcInterrupt.KillSubsystem(intake),
+							new AcWait(20),
+							new AcSeq.Parallel(
+									new AcDoNothing(new ChNumSen(ADD_DISTANCE_TO_FIRE * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+									new AcSeq.Parallel(highFireRelease)
+							)
+					)
+					// Initiate curve - insert ThirdCurve
+				);
 			default: return null;
 		}
 	}
