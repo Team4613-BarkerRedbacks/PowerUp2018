@@ -7,6 +7,7 @@ import redbacks.arachne.lib.checks.ChTime;
 import redbacks.arachne.lib.checks.analog.ChGettableNumber;
 import redbacks.arachne.lib.logic.LogicOperators;
 import redbacks.arachne.lib.override.MotionSettings2;
+import redbacks.arachne.lib.sensors.NumericSensor;
 import redbacks.arachne.lib.trajectories.AcPath;
 import redbacks.arachne.lib.trajectories.Path;
 import redbacks.robot.Robot;
@@ -17,12 +18,12 @@ import redbacks.robot.RobotMap;
  */
 public class AcStraight extends AcPath
 {
-	public AcStraight(double distance, double angle) {
+	public AcStraight(double distance, double angle, NumericSensor encoder) {
 		super(new ChMulti(
 				LogicOperators.AND,
 				new ChTime(0.2),
 				new ChGettableNumber(RobotMap.stoppedMoveThreshold, Robot.sensors.driveSpeed, false, true)
-		), true, new Path(new double[]{distance, angle, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, Robot.sensors.driveCentreEncoder, false, new Tolerances.Absolute(0.1 * MotionSettings2.encoderTicksPerMetre));
+		), true, new Path(new double[]{distance, angle, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, new Tolerances.Absolute(0.1 * MotionSettings2.encoderTicksPerMetre));
 	}
 	
 	public void onStart() {
