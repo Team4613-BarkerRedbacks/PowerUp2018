@@ -119,7 +119,7 @@ public class CommandList extends CommandListStart
 		highFireRelease = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, false),
 			new AcSeq.Parallel(
-					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
+					new AcMotor.Set(intake.intakeMotor, -0.7, new ChTime(0.5))
 			),
 			new AcWait(0.25),
 			new AcSolenoid.Single(shooter.shooterSol1, false),

@@ -33,13 +33,6 @@ public class Auto extends AutoStart
 	
 	public static CommandBase getAutonomous(int autoNumber) {
 		switch(autoNumber) {
-			case(200):
-				return createAuto(
-					new AcResetSensors(),
-					new AcTurn(90),
-					new AcTurn(0),
-					new AcTurn(135)
-				);
 			case(201):
 				return createAuto(
 					new AcResetSensors(),
@@ -100,40 +93,30 @@ public class Auto extends AutoStart
 							sensors.yaw, sensors.driveCentreEncoder, false,
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre)),
 					//4th cube
-					new AcSetArm(-armBasePos),
+					new AcSetNumSen(sensors.yaw, 0),
+					new AcStraight(-0.6, 0, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(45, sensors.yaw, true, false, false)),
+							new AcSetArm(-armBasePos)
+					),
+					new AcTurn(65),
 					new AcSeq.Parallel(intakeCube),
-//					new AcPath(new ChFalse(), true, HRToCube4, driver.drivetrain, 1, 1,
-//							sensors.yaw, sensors.driveCentreEncoder, false,
-//							new Tolerances.Absolute(0.15 * encoderTicksPerMetre)),
-					new AcSetArm(0),
+					new AcStraight(-1.5, 65, sensors.driveCentreEncoder, true),
 					new AcWait(0.3),
+					new AcSetArm(0),
 					new AcSeq.Parallel(
 							new AcWait(0.5),
 							new AcInterrupt.KillSubsystem(intake)
-					)
-//					new AcDriveDirection(new ChNumSen(-1 * encoderTicksPerMetre, autoDistanceEncoder, false, false, true), -0.7, 10),
-//					new AcDriveDirection(new ChNumSen(45, sensors.yaw, true, false, false), 0, 45),
-//					new AcSeq.Parallel(intakeCube),
-//					new AcSeq.Parallel(
-//							new AcWait(1.5),
-//							new AcInterrupt.KillSubsystem(intake),
-//							new AcSeq.Parallel(new AcIntakeRightSide(new ChTime(0.5))),
-//							new AcSeq.Parallel(intakeCube),
-//							new AcSeq.Parallel(highFirePrime),
-//							new AcSetArm(0)
-//					),
-//					new AcDriveDirection(new ChMulti(
-//							LogicOperators.OR,
-//							new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder),
-//							new ChTime(1.5)
-//					), -0.7, 40),
-//					new AcTankDrive(new ChNumSen(-1.2 * encoderTicksPerMetre, autoDistanceEncoder, true, false, false), 0.7, 0.7),
-//					new AcTankDrive(new ChNumSen(-5, sensors.yaw, false, false, false), -0.8, 0.8),
-//					new AcSeq.Parallel(
-//							new AcDoNothing(new ChNumSen(-0.35 * encoderTicksPerMetre, autoDistanceEncoder, true, false, false)),
-//							new AcSeq.Parallel(highFireRelease)
-//					),
-//					new AcDriveDirection(new ChNumSen(0, autoDistanceEncoder, true, false, false), 0.8, -5)
+					),
+					new AcSeq.Parallel(highFirePrime),
+					new AcSeq.Parallel(
+//							new AcDoNothing(new ChNumSen(cube4ToHR3.totalDistance - 0.8 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+							new AcDoNothing(new ChNumSen(-70, sensors.yaw, false, false, false)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcPath(new ChFalse(), true, cube4ToHR3, driver.drivetrain, 1, 1,
+							sensors.yaw, sensors.driveCentreEncoder, false,
+							new Tolerances.Absolute(0.15 * encoderTicksPerMetre))
 				);
 //			case(1100):
 //				//CC RIGHT INDIVIDUAL
