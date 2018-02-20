@@ -778,6 +778,9 @@ public class Auto extends AutoStart
 					new AcResetSensors(),
 					new AcStraight(4.70, 0, sensors.driveCentreEncoder, true),
 					// Initiate curve - insert SecondCurve
+					new AcPath(new ChFalse(), true, PathListLucas.Case102Secondv2Curve, driver.drivetrain, 1, 1,
+							sensors.yaw, sensors.driveCentreEncoder, false, 
+							new Tolerances.Absolute(0.1 * encoderTicksPerMetre)),
 					new AcSeq.Parallel(intakeCubeSlow),
 					new AcSeq.Parallel(
 							new AcSeq.Parallel(highFirePrime),
@@ -785,11 +788,14 @@ public class Auto extends AutoStart
 							new AcInterrupt.KillSubsystem(intake),
 							new AcWait(20),
 							new AcSeq.Parallel(
-									new AcDoNothing(new ChNumSen(ADD_DISTANCE_TO_FIRE * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+									new AcDoNothing(new ChNumSen((PathListLucas.Case102ThirdCurvev2.totalDistance - 0.7) * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 									new AcSeq.Parallel(highFireRelease)
 							)
-					)
+					),
 					// Initiate curve - insert ThirdCurve
+					new AcPath(new ChFalse(), true, PathListLucas.Case102ThirdCurvev2, driver.drivetrain, 1, 1,
+							sensors.yaw, sensors.driveCentreEncoder, false, 
+							new Tolerances.Absolute(0.1 * encoderTicksPerMetre))
 				);
 			default: return null;
 		}
