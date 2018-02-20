@@ -608,7 +608,7 @@ public class Auto extends AutoStart
 //					),
 //					new AcPath(new ChFalse(), true, wallToHL5, driver.drivetrain, 1, 1, 
 //							sensors.yaw, sensors.driveCentreEncoder, false, 
-//							new Tolerances.Absolute(0.1 * encoderTicksPerMetre),
+//						/	new Tolerances.Absolute(0.1 * encoderTicksPerMetre),
 //							new AcPath.ChangeMinMax(wallToHL5, sensors.driveCentreEncoder, (int) (1.25 * encoderTicksPerMetre), -0.6),
 //							new AcPath.ChangeMinMax(wallToHL5, sensors.driveCentreEncoder, (int) (1.25 * encoderTicksPerMetre), 0.6))
 //				);
@@ -626,6 +626,41 @@ public class Auto extends AutoStart
 //							sensors.yaw, sensors.driveCentreEncoder, false, 
 //							new Tolerances.Absolute(0.1 * encoderTicksPerMetre))
 //				);
+			case(101):
+				// FF Right individual
+				return createAuto(
+					new AcResetSensors(),
+					new AcStraight(5.5, 0, sensors.driveCentreEncoder, true),
+					new AcTurn(90),
+					new AcStraight(-4.75, 90, sensors.driveCentreEncoder, true),
+//					new AcSeq.Parallel(highFirePrime),
+//					new AcSetArm(25)
+					new AcTurn(10),
+					new AcStraight(2.2, 10, sensors.driveCentreEncoder, true)
+//					new AcSeq.Parallel(highFireRelease),
+					// Cube 2
+/*					new AcStraight(-2.2, 10, sensors.driveCentreEncoder, true),
+					new AcTurn(75), // check angle of turning to align with 2nd cube along 
+//					new AcSetArm(1025), // check position of arm (needs to intake cube on ground)
+					new AcStraight(1.5, 60, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(intakeCube),
+					new AcSetArm(350),
+					new AcSeq.Parallel(highFireRelease),
+					// Cube 3
+					new AcStraight(-0.3, 60, sensors.driveCentreEncoder, true),
+					new AcSetArm(1025),
+					new AcTurn(50), // check angle of turning for 2nd cube along
+					new AcStraight(0.4, 50, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(intakeCube),
+					// Go to fire in scale now
+					new AcStraight(-1.6, 50, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(highFirePrime),
+					new AcTurn(10),
+					new AcStraight(2.2, 10, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(highFireRelease)
+					*/
+				);
+			// 5.5, 4.75, 2.2
 			default: return null;
 		}
 	}
