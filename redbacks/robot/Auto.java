@@ -33,6 +33,99 @@ public class Auto extends AutoStart
 	
 	public static CommandBase getAutonomous(int autoNumber) {
 		switch(autoNumber) {
+			case(200):
+				return createAuto(
+					new AcResetSensors(),
+					new AcTurn(90),
+					new AcTurn(0),
+					new AcTurn(135)
+				);
+			case(201):
+				return createAuto(
+					new AcResetSensors(),
+					//1st cube
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcSeq.Parallel(highFirePrime),
+							new AcDoNothing(new ChNumSen(wallToHR.totalDistance - 0.42 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcPath(new ChMulti(
+									LogicOperators.AND,
+									new ChTime(4.5),
+									new ChNumSen(wallToHR.totalDistance - 0.2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)
+							), true, wallToHR, driver.drivetrain, 1, 1,
+							sensors.yaw, sensors.driveCentreEncoder, false, 
+							new Tolerances.Absolute(0.15 * encoderTicksPerMetre),
+							new AcPath.ChangeMinMax(wallToHR, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
+							new AcPath.ChangeMinMax(wallToHR, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+					//2nd cube
+					new AcSetArm(-armBasePos),
+					new AcTurn(12),
+					new AcSetNumSen(autoDistanceEncoder, 0),
+					new AcSeq.Parallel(intakeCube),
+					new AcStraight(-1.25, 12, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.25), -0.6, -0.6),
+					new AcSetArm(-armSwitchPos),
+					new AcSeq.Parallel(
+							new AcWait(0.25),
+							new AcInterrupt.KillSubsystem(intake),
+							new AcWait(0.25),
+							new AcSeq.Parallel(outtakeCube)
+					),
+					new AcWait(0.25),
+					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcWait(0.25),
+					new AcInterrupt.KillSubsystem(intake),
+					//3rd cube
+					new AcSeq.Parallel(
+							new AcWait(0.7),
+							new AcSetArm(-armBasePos)
+					),
+					new AcStraight(0.7, 12, sensors.driveCentreEncoder, true),
+					new AcTurn(45),
+					new AcSeq.Parallel(intakeCubeSpin),
+					new AcStraight(-0.9, 45, sensors.driveCentreEncoder, true),
+					new AcWait(0.3),
+					new AcTurn(60),
+					new AcSetArm(0),
+					new AcSeq.Parallel(
+							new AcWait(0.5),
+							new AcInterrupt.KillSubsystem(intake)
+					),
+					new AcSeq.Parallel(highFirePrime),
+					new AcStraight(-1.2, 55, autoDistanceEncoder, false),
+					new AcTurn(-10),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(-0.35 * encoderTicksPerMetre, autoDistanceEncoder, true, false, false)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcStraight(0, -10, autoDistanceEncoder, false)//,
+					//4th cube
+//					new AcDriveDirection(new ChNumSen(-1 * encoderTicksPerMetre, autoDistanceEncoder, false, false, true), -0.7, 10),
+//					new AcDriveDirection(new ChNumSen(45, sensors.yaw, true, false, false), 0, 45),
+//					new AcSeq.Parallel(intakeCube),
+//					new AcSeq.Parallel(
+//							new AcWait(1.5),
+//							new AcInterrupt.KillSubsystem(intake),
+//							new AcSeq.Parallel(new AcIntakeRightSide(new ChTime(0.5))),
+//							new AcSeq.Parallel(intakeCube),
+//							new AcSeq.Parallel(highFirePrime),
+//							new AcSetArm(0)
+//					),
+//					new AcDriveDirection(new ChMulti(
+//							LogicOperators.OR,
+//							new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder),
+//							new ChTime(1.5)
+//					), -0.7, 40),
+//					new AcTankDrive(new ChNumSen(-1.2 * encoderTicksPerMetre, autoDistanceEncoder, true, false, false), 0.7, 0.7),
+//					new AcTankDrive(new ChNumSen(-5, sensors.yaw, false, false, false), -0.8, 0.8),
+//					new AcSeq.Parallel(
+//							new AcDoNothing(new ChNumSen(-0.35 * encoderTicksPerMetre, autoDistanceEncoder, true, false, false)),
+//							new AcSeq.Parallel(highFireRelease)
+//					),
+//					new AcDriveDirection(new ChNumSen(0, autoDistanceEncoder, true, false, false), 0.8, -5)
+				);
 //			case(1100):
 //				//CC RIGHT INDIVIDUAL
 //				return createAuto(
