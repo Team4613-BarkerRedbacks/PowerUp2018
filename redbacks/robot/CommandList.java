@@ -90,6 +90,9 @@ public class CommandList extends CommandListStart
 		),
 		climbDown = newCom(
 			new AcMotor.Set(climber.climberMotor, -0.25, new ChFalse())
+		),
+		climbManual = newCom(
+			new AcClimber()
 		);
 	
 	static {subsystemToUse = intake;}

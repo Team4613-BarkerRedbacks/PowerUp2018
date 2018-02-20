@@ -25,7 +25,7 @@ public class OI extends OIBase {
 	
 	public void mapOperations() {
 		//Driver Control
-		whenPressed(new BtnMulti(LogicOperators.AND, d_LB, d_RB), climberRelease.c());
+		whenPressed(new BtnMulti(LogicOperators.AND, d_LB, d_RB), climberRelease.c(), climbManual.c());
 		//whenPressed(d_LT, climbUp.c());
 		//whenPressed(d_RT, climbDown.c());
 		
