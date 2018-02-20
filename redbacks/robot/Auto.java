@@ -79,29 +79,38 @@ public class Auto extends AutoStart
 					new AcInterrupt.KillSubsystem(intake),
 					//3rd cube
 					new AcSeq.Parallel(
-							new AcWait(0.7),
+							new AcDoNothing(new ChNumSen(45, sensors.yaw, true, false, false)),
 							new AcSetArm(-armBasePos)
 					),
-					new AcStraight(0.7, 12, sensors.driveCentreEncoder, true),
-					new AcTurn(45),
-					new AcSeq.Parallel(intakeCubeSpin),
-					new AcStraight(-0.9, 45, sensors.driveCentreEncoder, true),
+					new AcTurn(80),
+					new AcSeq.Parallel(intakeCube),
+					new AcStraight(-0.6, 80, sensors.driveCentreEncoder, true),
 					new AcWait(0.3),
-					new AcTurn(60),
 					new AcSetArm(0),
 					new AcSeq.Parallel(
 							new AcWait(0.5),
 							new AcInterrupt.KillSubsystem(intake)
 					),
 					new AcSeq.Parallel(highFirePrime),
-					new AcStraight(-1.2, 55, autoDistanceEncoder, false),
-					new AcTurn(-10),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(-0.35 * encoderTicksPerMetre, autoDistanceEncoder, true, false, false)),
+							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
-					new AcStraight(0, -10, autoDistanceEncoder, false)//,
+					new AcPath(new ChFalse(), true, cube5ToHR2, driver.drivetrain, 1, 1,
+							sensors.yaw, sensors.driveCentreEncoder, false,
+							new Tolerances.Absolute(0.15 * encoderTicksPerMetre)),
 					//4th cube
+					new AcSetArm(-armBasePos),
+					new AcSeq.Parallel(intakeCube),
+//					new AcPath(new ChFalse(), true, HRToCube4, driver.drivetrain, 1, 1,
+//							sensors.yaw, sensors.driveCentreEncoder, false,
+//							new Tolerances.Absolute(0.15 * encoderTicksPerMetre)),
+					new AcSetArm(0),
+					new AcWait(0.3),
+					new AcSeq.Parallel(
+							new AcWait(0.5),
+							new AcInterrupt.KillSubsystem(intake)
+					)
 //					new AcDriveDirection(new ChNumSen(-1 * encoderTicksPerMetre, autoDistanceEncoder, false, false, true), -0.7, 10),
 //					new AcDriveDirection(new ChNumSen(45, sensors.yaw, true, false, false), 0, 45),
 //					new AcSeq.Parallel(intakeCube),
