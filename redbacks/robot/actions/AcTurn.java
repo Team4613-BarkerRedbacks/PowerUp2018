@@ -34,7 +34,5 @@ public class AcTurn extends AcPath
 		acRotation.execute();
 		
 		drivetrain.tankDrive(rotationOut.output, - rotationOut.output);
-		
-		System.out.println(check.isFinished());
 	}
 }

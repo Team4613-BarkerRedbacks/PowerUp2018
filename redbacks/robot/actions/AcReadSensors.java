@@ -16,8 +16,9 @@ public class AcReadSensors extends Action
 		SmartDashboard.putNumber("Drive Centre Encoder", Robot.sensors.driveCentreEncoder.get());
 		SmartDashboard.putNumber("Drive Left Encoder", Robot.sensors.driveLeftEncoder.get());
 		SmartDashboard.putNumber("Drive Right Encoder", Robot.sensors.driveRightEncoder.get());
-		
+
 		SmartDashboard.putNumber("Heading", Robot.sensors.yaw.get());
+		SmartDashboard.putNumber("Heading Rate", Robot.sensors.rateYaw.get());
 		
 		SmartDashboard.putNumber("Speed Forward", Robot.sensors.speedForward.get());
 	}

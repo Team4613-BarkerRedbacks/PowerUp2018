@@ -40,8 +40,8 @@ public class RobotMap
 	
 	public static final CtrlCANVictor
 	//FIXME Check LR on intake controllers
-		idMotIntakeL = victor9,
-		idMotIntakeR = victor10,
+		idMotIntakeL = victor10,
+		idMotIntakeR = victor9,
 		idMotClimb1 = victor11,
 		idMotClimb2 = victor12;
 		
