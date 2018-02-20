@@ -14,12 +14,14 @@ import redbacks.arachne.lib.commands.CommandSetup;
 import redbacks.arachne.lib.logic.LogicOperators;
 import redbacks.arachne.lib.trajectories.AcPath;
 import redbacks.robot.actions.AcDriveDirection;
+import redbacks.robot.actions.AcEfficientTurn;
 import redbacks.robot.actions.AcIntakeRightSide;
 import redbacks.robot.actions.AcResetSensors;
 import redbacks.robot.actions.AcSetArm;
 import redbacks.robot.actions.AcStraight;
 import redbacks.robot.actions.AcTankDrive;
 import redbacks.robot.actions.AcTurn;
+import redbacks.robot.actions.AcTurnLenient;
 
 import static redbacks.robot.Robot.*;
 import static redbacks.robot.RobotMap.*;
@@ -33,6 +35,7 @@ public class Auto extends AutoStart
 	
 	public static CommandBase getAutonomous(int autoNumber) {
 		switch(autoNumber) {
+			//4 cube CC HLHH
 			case(201):
 				return createAuto(
 					new AcResetSensors(),
@@ -68,6 +71,7 @@ public class Auto extends AutoStart
 					),
 					new AcWait(0.25),
 					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					//FIXME Should be able to remove this.
 					new AcWait(0.25),
 					new AcInterrupt.KillSubsystem(intake),
 					//3rd cube
@@ -118,6 +122,88 @@ public class Auto extends AutoStart
 							sensors.yaw, sensors.driveCentreEncoder, false,
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre))
 				);
+			//3 cube FF HLH
+			case(101):
+				return createAuto(
+					new AcResetSensors(),
+					//1st cube
+					new AcStraight(4.7, 0, sensors.driveCentreEncoder, true),
+					new AcTurnLenient(90),
+					new AcSeq.Parallel(intakeCubeSlow),
+					new AcStraight(-4.75, 90, sensors.driveCentreEncoder, true),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcSeq.Parallel(highFirePrime),
+					new AcSetArm(25),
+					new AcTurn(10),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcStraight(1, 10, sensors.driveCentreEncoder, true),
+					//2nd cube
+					new AcSetArm(-armBasePos),
+					new AcTurn(-5),
+					new AcSetNumSen(autoDistanceEncoder, 0),
+					new AcSeq.Parallel(intakeCube),
+					new AcStraight(-0.7, -5, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(1), -0.6, -0.6),
+					new AcSetArm(-armSwitchPos),
+					new AcSeq.Parallel(
+							new AcWait(0.25),
+							new AcInterrupt.KillSubsystem(intake),
+							new AcWait(0.25),
+							new AcSeq.Parallel(outtakeCube)
+					),
+					new AcWait(0.25),
+					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcInterrupt.KillSubsystem(intake),
+					//3rd cube
+					new AcTurn(-80),
+					new AcSetArm(-armBasePos),
+					new AcSeq.Parallel(intakeCube),
+					new AcStraight(0.3, -80, sensors.driveCentreEncoder, true),
+					new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
+					new AcStraight(-0.6, -80, sensors.driveCentreEncoder, true),
+					new AcWait(0.3),
+					new AcSetArm(0),
+					new AcSeq.Parallel(
+							new AcWait(0.5),
+							new AcInterrupt.KillSubsystem(intake)
+					),
+					new AcSeq.Parallel(highFirePrime),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(cube2ToHL.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcPath(new ChFalse(), true, cube2ToHL, driver.drivetrain, 1, 1,
+							sensors.yaw, sensors.driveCentreEncoder, false,
+							new Tolerances.Absolute(0.15 * encoderTicksPerMetre))
+				);
+			case(200):
+				return createAuto(
+					new AcResetSensors(),
+					new AcEfficientTurn(90),
+					new AcEfficientTurn(0),
+					new AcEfficientTurn(45),
+					new AcEfficientTurn(-90)
+				);
+//			case(202):
+//				return createAuto(
+//					new AcResetSensors(),
+//					//1st cube
+//					new AcStraight(4.2, 0, sensors.driveCentreEncoder, true),
+//					new AcEfficientTurn(-90),
+//					new AcSeq.Parallel(intakeCubeSlow),
+//					new AcStraight(3.2, -90, sensors.driveCentreEncoder, true),
+//					new AcSeq.Parallel(highFirePrime),
+//					new AcInterrupt.KillSubsystem(intake),
+//					new AcEfficientTurn(10),
+//					new AcSeq.Parallel(
+//							new AcDoNothing(new ChNumSen(0.3 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+//							new AcSeq.Parallel(highFireRelease)
+//					),
+//					new AcStraight(0.6, 10, sensors.driveCentreEncoder, true)
+//				);
 //			case(1100):
 //				//CC RIGHT INDIVIDUAL
 //				return createAuto(
@@ -711,84 +797,32 @@ public class Auto extends AutoStart
 //							sensors.yaw, sensors.driveCentreEncoder, false, 
 //							new Tolerances.Absolute(0.1 * encoderTicksPerMetre))
 //				);
-			case(101):
-				// FF Right individual
-				return createAuto(
-					new AcResetSensors(),
-					new AcStraight(4.70, 0, sensors.driveCentreEncoder, true),
-					new AcTurn(90),
-					new AcSeq.Parallel(intakeCubeSlow),
-					new AcStraight(-4.7, 90, sensors.driveCentreEncoder, true),
-					new AcInterrupt.KillSubsystem(intake),
-					new AcSeq.Parallel(highFirePrime),
-					new AcSetArm(25),
-					new AcTurn(10),
-					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
-							new AcSeq.Parallel(highFireRelease)
-					),
-					new AcStraight(1.4, 10, sensors.driveCentreEncoder, true)
-					
-					// Cube 2
-/*					new AcStraight(-1.7, 10, sensors.driveCentreEncoder, true),
-					new AcTurn(75), // check angle of turning to align with 2nd cube along 
-//					new AcSetArm(1025), // check position of arm (needs to intake cube on ground)
-					new AcStraight(1.5, 60, sensors.driveCentreEncoder, true),
-					new AcSeq.Parallel(intakeCube),
-					new AcSeq.Parallel(
-								new AcWait(1.25),
-								new AcInterrupt.KillSubsystem(intake)
-					),
-					new AcStraight(-1.5, 60, sensors.driveCentreEncoder, true),
-					new AcTurn(10)
-					new AcSeq.Parallel(highFirePrime),
-					new AcSetArm(350),
-					new AcStraight(1.7, 10, sensors.driveCentreEndoer, true),
-					new AcSeq.Parallel(highFireRelease),
-					// Cube 3
-					new AcStraight(-0.3, 60, sensors.driveCentreEncoder, true),
-					new AcSetArm(1025),
-					new AcTurn(50), // check angle of turning for 2nd cube along
-					new AcStraight(1.4, 50, sensors.driveCentreEncoder, true),
-					new AcSeq.Parallel(intakeCube),
-					new AcSeq.Parallel(
-								new AcWait(1.25),
-								new AcInterrupt.KillSubsystem(intake)
-					),
-					// Go to fire in scale now
-					new AcStraight(-1.6, 50, sensors.driveCentreEncoder, true),
-					new AcSeq.Parallel(highFirePrime),
-					new AcTurn(10),
-					new AcStraight(2.2, 10, sensors.driveCentreEncoder, true),
-					new AcSeq.Parallel(highFireRelease)
-					*/
-				);
 			
-			case(102):
-				// FF Right individual Time Reduction
-				return createAuto(
-					new AcResetSensors(),
-					new AcStraight(4.70, 0, sensors.driveCentreEncoder, true),
-					// Initiate curve - insert SecondCurve
-					new AcPath(new ChFalse(), true, PathListLucas.Case102Secondv2Curve, driver.drivetrain, 1, 1,
-							sensors.yaw, sensors.driveCentreEncoder, false, 
-							new Tolerances.Absolute(0.1 * encoderTicksPerMetre)),
-					new AcSeq.Parallel(intakeCubeSlow),
-					new AcSeq.Parallel(
-							new AcSeq.Parallel(highFirePrime),
-							new AcSetArm(25),
-							new AcInterrupt.KillSubsystem(intake),
-							new AcWait(20),
-							new AcSeq.Parallel(
-									new AcDoNothing(new ChNumSen((PathListLucas.Case102ThirdCurvev2.totalDistance - 0.7) * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
-									new AcSeq.Parallel(highFireRelease)
-							)
-					),
-					// Initiate curve - insert ThirdCurve
-					new AcPath(new ChFalse(), true, PathListLucas.Case102ThirdCurvev2, driver.drivetrain, 1, 1,
-							sensors.yaw, sensors.driveCentreEncoder, false, 
-							new Tolerances.Absolute(0.1 * encoderTicksPerMetre))
-				);
+//			case(102):
+//				// FF Right individual Time Reduction
+//				return createAuto(
+//					new AcResetSensors(),
+//					new AcStraight(4.70, 0, sensors.driveCentreEncoder, true),
+//					// Initiate curve - insert SecondCurve
+//					new AcPath(new ChFalse(), true, PathListLucas.Case102Secondv2Curve, driver.drivetrain, 1, 1,
+//							sensors.yaw, sensors.driveCentreEncoder, false, 
+//							new Tolerances.Absolute(0.1 * encoderTicksPerMetre)),
+//					new AcSeq.Parallel(intakeCubeSlow),
+//					new AcSeq.Parallel(
+//							new AcSeq.Parallel(highFirePrime),
+//							new AcSetArm(25),
+//							new AcInterrupt.KillSubsystem(intake),
+//							new AcWait(20),
+//							new AcSeq.Parallel(
+//									new AcDoNothing(new ChNumSen((PathListLucas.Case102ThirdCurvev2.totalDistance - 0.7) * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+//									new AcSeq.Parallel(highFireRelease)
+//							)
+//					),
+//					// Initiate curve - insert ThirdCurve
+//					new AcPath(new ChFalse(), true, PathListLucas.Case102ThirdCurvev2, driver.drivetrain, 1, 1,
+//							sensors.yaw, sensors.driveCentreEncoder, false, 
+//							new Tolerances.Absolute(0.1 * encoderTicksPerMetre))
+//				);
 			default: return null;
 		}
 	}
