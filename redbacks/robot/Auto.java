@@ -630,14 +630,14 @@ public class Auto extends AutoStart
 				// FF Right individual
 				return createAuto(
 					new AcResetSensors(),
-					new AcStraight(5.5, 0, sensors.driveCentreEncoder, true),
+					new AcStraight(4.70, 0, sensors.driveCentreEncoder, true),
 					new AcTurn(90),
-					new AcStraight(-4.75, 90, sensors.driveCentreEncoder, true),
-//					new AcSeq.Parallel(highFirePrime),
-//					new AcSetArm(25)
+					new AcStraight(-4.2, 90, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(highFirePrime),
+					new AcSetArm(25),
 					new AcTurn(10),
-					new AcStraight(2.2, 10, sensors.driveCentreEncoder, true)
-//					new AcSeq.Parallel(highFireRelease),
+					new AcStraight(0.8, 10, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(highFireRelease)
 					// Cube 2
 /*					new AcStraight(-2.2, 10, sensors.driveCentreEncoder, true),
 					new AcTurn(75), // check angle of turning to align with 2nd cube along 
