@@ -10,12 +10,13 @@ import redbacks.robot.Robot;
  */
 public class AcDriveDirection extends Action
 {
-	double sp, target;
+	double sp, angle;
 	
-	public AcDriveDirection(Check check, double speed, double target) {
+	@Deprecated
+	public AcDriveDirection(Check check, double speed, double angle) {
 		super(check);
 		sp = speed;
-		this.target = target;
+		this.angle = angle;
 	}
 	
 	public void onStart() {
@@ -24,8 +25,8 @@ public class AcDriveDirection extends Action
 
 	public void onRun() {
 		Robot.driver.drivetrain.tankDrive(
-				sp - (Robot.sensors.yaw.get() - target) * MotionSettings2.drivePIDGyrokP,
-				sp + (Robot.sensors.yaw.get() - target) * MotionSettings2.drivePIDGyrokP
+				sp - (Robot.sensors.yaw.get() - angle) * MotionSettings2.drivePIDGyrokP,
+				sp + (Robot.sensors.yaw.get() - angle) * MotionSettings2.drivePIDGyrokP
 		);
 	}
 }

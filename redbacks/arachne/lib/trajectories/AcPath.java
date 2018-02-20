@@ -21,23 +21,23 @@ import redbacks.arachne.lib.sensors.NumericSensor;
  */
 public class AcPath extends Action
 {
-	Path path;
+	public Path path;
 	
-	CtrlDrivetrain drivetrain;
-	double[] driveMults = {1, 1};
+	public CtrlDrivetrain drivetrain;
+	public double[] driveMults = {1, 1};
 	
-	NumericSensor gyro;
+	public NumericSensor gyro;
 
-	NumericSensor encoder;
-	boolean invertEncoder;
+	public NumericSensor encoder;
+	public boolean invertEncoder;
 
-	PIDAxis rotationOut;
-	AcPIDDynamicControl acRotation;
+	public PIDAxis rotationOut;
+	public AcPIDDynamicControl acRotation;
 	
-	PIDAxis linearOut;
-	AcPIDControl2 acLinear;
+	public PIDAxis linearOut;
+	public AcPIDControl2 acLinear;
 	
-	GettableNumber minOut, maxOut;
+	public GettableNumber minOut, maxOut;
 	
 	public AcPath(Check check, boolean shouldFinish, Path path, CtrlDrivetrain drivetrain, double leftMult, double rightMult, NumericSensor gyro,
 			NumericSensor encoder, boolean invertEncoder, Tolerances tolerance) {

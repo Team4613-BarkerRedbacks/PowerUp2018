@@ -3,14 +3,10 @@ package redbacks.robot;
 import static redbacks.arachne.lib.input.ButtonGettableWrapper.wrap;
 import static redbacks.robot.CommandList.*;
 
-import javax.print.attribute.standard.PrinterMoreInfoManufacturer;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import redbacks.arachne.core.OIBase;
-import redbacks.arachne.lib.actions.AcPrint;
-import redbacks.arachne.lib.checks.ChMulti;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.input.BtnAxis;
 import redbacks.arachne.lib.input.BtnMulti;
@@ -47,27 +43,6 @@ public class OI extends OIBase {
 		whenPressedReleased(o_A, highFirePrime.c(), highFireRelease.c());
 		
 		whenPressed(o_Start, resetSensors.c());
-		
-		/*whenPressed(d_Start, resetArm.c());
-		whenPressed(d_Back, resetSensors.c());
-
-		whenPressed(d_LT, lowFire.c());
-		whenPressed(d_LB, quickFire.c());
-		whenPressed(d_RB, highFirePrime.c());
-		whenPressed(d_RT, highFireRelease.c());
-		
-		whenPressed(d_Y, climberRelease.c());
-		
-		whenHeld(o_LT, intakeCube.c());
-		whenHeld(o_RT, outtakeCube.c());
-
-		whenPressed(o_LB, armToScaleFront.c());
-		whenPressed(o_Start, armToBaseFront.c());
-		whenPressed(o_X, armToLowFront.c());
-		whenPressed(o_Y, armToTop.c());
-		whenPressed(o_B, armToLowBack.c());
-		whenPressed(o_A, armToBaseBack.c());
-		whenPressed(o_RB, armToScaleBack.c());*/
 	}
 	
 	public static final Joystick stickDriver = new Joystick(0);
