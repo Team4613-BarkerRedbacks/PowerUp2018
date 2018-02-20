@@ -27,7 +27,7 @@ public class AcStraight extends AcPath
 				new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
 				new ChNumSen(0.5, new SenTimer()),
 				new ChGettableNumber(RobotMap.stoppedMoveThreshold, Robot.sensors.driveSpeed, false, true)
-		), true, new Path(new double[]{distance, angle, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, new Tolerances.Absolute(0.15 * MotionSettings2.encoderTicksPerMetre));
+		), true, new Path(new double[]{distance, angle, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, new Tolerances.Absolute(0.20 * MotionSettings2.encoderTicksPerMetre));
 		this.shouldReset = shouldReset;
 	}
 	
