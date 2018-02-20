@@ -1,5 +1,6 @@
 package redbacks.robot.actions;
 
+import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.checks.ChMulti;
 import redbacks.arachne.lib.checks.ChTime;
@@ -21,6 +22,13 @@ public class AcTurn extends AcPath
 				new ChTime(0.2),
 				new ChGettableNumber(RobotMap.stoppedTurnThreshold, Robot.sensors.rateYaw, false, true)
 		), false, new Path(new double[]{0, angleTarget, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, Robot.sensors.driveCentreEncoder, false, new Tolerances.Absolute(5));
+	}
+	
+	public void onStart() {
+		path.reset();
+		ArachneRobot.isIndivDriveControl = false;
+		acLinear.initialise(command);
+		acRotation.initialise(command);
 	}
 	
 	public void onRun() {
