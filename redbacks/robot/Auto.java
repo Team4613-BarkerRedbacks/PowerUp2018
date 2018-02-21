@@ -179,6 +179,41 @@ public class Auto extends AutoStart
 							sensors.yaw, sensors.driveCentreEncoder, false,
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre))
 				);
+			case(202):
+				return createAuto(
+					new AcResetSensors(),
+					//1st cube
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(2.5 * encoderTicksPerMetre, sensors.driveCentreEncoder)),
+							new AcSeq.Parallel(solExtendIntakeL),
+							new AcWait(1),
+							new AcSeq.Parallel(solRetractIntakeL),
+							new AcSetArm(-armBasePos),
+							new AcSeq.Parallel(intakeCube)
+					),
+					new AcStraight(3, -15, sensors.driveCentreEncoder, true),
+					//2nd cube
+					new AcStraight(5.5, 5, sensors.driveCentreEncoder, false),
+					new AcTurn(40),
+					new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
+					new AcStraight(-0.7, 40, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcSetArm(0),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcTurn(130),
+					new AcStraight(-0.7, 130, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(intakeCube),
+					new AcStraight(-4, 90, sensors.driveCentreEncoder, false),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcSeq.Parallel(highFirePrime),
+					new AcSetArm(25),
+					new AcTurn(10),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(0.5 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcStraight(1, 10, sensors.driveCentreEncoder, true)
+				);
 			case(200):
 				return createAuto(
 					new AcResetSensors(),
