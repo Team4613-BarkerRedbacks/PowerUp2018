@@ -113,13 +113,16 @@ public class CommandList extends CommandListStart
 		outtakeCube = newCom(
 			new AcMotor.Set(intake.intakeMotor, -0.5, new ChFalse())
 		),
+		outtakeCubeSlow = newCom(
+			new AcMotor.Set(intake.intakeMotor, -0.35, new ChFalse())
+		),
 		outtakeCubeFast = newCom(
 			new AcMotor.Set(intake.intakeMotor, -1, new ChFalse())
 		),
 		highFireRelease = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, false),
 			new AcSeq.Parallel(
-					new AcMotor.Set(intake.intakeMotor, -0.7, new ChTime(0.5))
+					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
 			),
 			new AcWait(0.25),
 			new AcSolenoid.Single(shooter.shooterSol1, false),

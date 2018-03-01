@@ -21,17 +21,17 @@ import edu.wpi.first.wpilibj.CameraServer;
  */
 public class Robot extends ArachneRobot
 {
-	public static SubsystemSensors		sensors		= new SubsystemSensors();
-	public static SubsystemDriver		driver		= new SubsystemDriver();
-	public static SubsystemIntake		intake		= new SubsystemIntake();
-	public static SubsystemClimber		climber		= new SubsystemClimber();
-	public static SubsystemArm			arm			= new SubsystemArm();
-	public static SubsystemShooter		shooter		= new SubsystemShooter();
-	
+	public static SubsystemSensors sensors = new SubsystemSensors();
+	public static SubsystemDriver driver = new SubsystemDriver();
+	public static SubsystemIntake intake = new SubsystemIntake();
+	public static SubsystemClimber climber = new SubsystemClimber();
+	public static SubsystemArm arm = new SubsystemArm();
+	public static SubsystemShooter shooter = new SubsystemShooter();
+
 	public static OI oi = new OI();
-	
+
 	private boolean hasCameraStarted = false;
-	
+
 	public void initDefaultCommands() {
 		driver.setDefaultCommand(drive.c());
 		sensors.setDefaultCommand(readSensors.c());
@@ -44,38 +44,33 @@ public class Robot extends ArachneRobot
 		//return autoID < 100 ? Auto.getAutonomous(autoID) : Auto2.getAutonomous(autoID);
 		return Auto.getAutonomous(autoID);
 	}
-	
+
 	public void initialiseRobot() {
-		
-		NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
-		limelightTable.getEntry("ledMode").forceSetValue(1);
-		
 		MotionSettings2.encoderTicksPerMetre = 26713;
 		MotionSettings2.trajectoryMaxNegSpeed = -0.9;
 		MotionSettings2.trajectoryMaxPosSpeed = 0.9;
-		
+
 		if(!hasCameraStarted) {
 			new Thread(() -> {
-	            CameraServer.getInstance().startAutomaticCapture();
-	            
-	            CvSink cvSink = CameraServer.getInstance().getVideo();
-	            CvSource outputStream = CameraServer.getInstance().putVideo("Camera", 320, 240);
-	            
-	            Mat source = new Mat();
-	            
-	            while(!Thread.interrupted()) {
-	                cvSink.grabFrame(source);
-	                outputStream.putFrame(source);
-	            }
-	        }).start();
-			hasCameraStarted = true;
-}
+				CameraServer.getInstance().startAutomaticCapture();
+
+				CvSink cvSink = CameraServer.getInstance().getVideo();
+				CvSource outputStream = CameraServer.getInstance().putVideo("Camera", 320, 240);
+
+				Mat source = new Mat();
+
+				while(!Thread.interrupted()) {
+					cvSink.grabFrame(source);
+					outputStream.putFrame(source);
+				}
+			}).start();
+		}
 	}
-	
+
 	public void initialiseAuto() {
 		driver.centreEncoderSol.set(false);
 	}
-	
+
 	public void initialiseTeleop() {
 		driver.centreEncoderSol.set(true);
 	}

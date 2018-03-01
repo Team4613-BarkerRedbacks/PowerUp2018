@@ -12,7 +12,8 @@ public class RobotMap
 		stoppedMoveThreshold = 0.2, stoppedTurnThreshold = 10;
 	
 	public static final int
-		armScalePos = 150, armSwitchPos = 350, armBasePos = 1025;
+		armScalePos = 150, armSwitchPos = 350, armBasePos = 1025,
+		sideEncoderTicksPerMetre = 14704;
 	
 	private static final CtrlCANTalon
 		talon2	= new CtrlCANTalon(2),
@@ -46,7 +47,7 @@ public class RobotMap
 		idMotClimb2 = victor12;
 		
 	public static final int
-		idSolCentreEncoder = 7,//
+		idSolCentreEncoder = 2,
 		idSolShooter2 = 1,
 		idSolRightIntake = 4,
 		idSolLeftIntake = 5,
