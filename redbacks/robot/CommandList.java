@@ -67,11 +67,6 @@ public class CommandList extends CommandListStart
 			new AcIntakeRightSide(new ChTime(3))
 		);
 	
-	static {subsystemToUse = driver;}
-	public static CommandSetup
-		drive = newCom(new AcDrive()),
-		limelightTrack = newCom(new AcLimelightTrack()),
-		cubeFollow = newCom(new AcMovetoCube(cubeTrackkp, new ChFalse()));
 	static {subsystemToUse = sensors;}
 	public static CommandSetup
 		readSensors = newCom(new AcReadSensors()),
@@ -135,5 +130,15 @@ public class CommandList extends CommandListStart
 			new AcSeq.Parallel(highFirePrime),
 			new AcWait(2.5),
 			new AcSeq.Parallel(highFireRelease)
+		);
+	
+	static {subsystemToUse = driver;}
+	public static CommandSetup
+		drive = newCom(new AcDrive()),
+		limelightTrack = newCom(new AcLimelightTrack()),
+		cubeFollow = newCom(
+//				new AcSeq.Parallel(intakeCube),
+				new AcMovetoCube(0),
+				new AcPrint("Found cube!")
 		);
 }

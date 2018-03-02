@@ -1,5 +1,7 @@
 package redbacks.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import redbacks.arachne.ext.ctre.controllers.CtrlCANTalon;
 import redbacks.arachne.ext.ctre.controllers.CtrlCANVictor;
 
@@ -10,7 +12,7 @@ public class RobotMap
 		armKP = 1.8E-3, armKI = 0, armKD = 4E-4,//2E-3,
 		intakeFastSpeed = 0.7, intakeSlowSpeed = 0.4,
 		stoppedMoveThreshold = 0.2, stoppedTurnThreshold = 10,
-		cubeTrackkp = 0.01;
+		cubeTrackKP = 0.01;
 	
 	public static final int
 		armScalePos = 150, armSwitchPos = 350, armBasePos = 1025,
@@ -55,4 +57,6 @@ public class RobotMap
 		idSolShooter1 = 0,
 		idSolLock = 6,
 		idSolClimbRelease = 3;
+	
+	public static final NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
 }
