@@ -12,7 +12,7 @@ public class RobotMap
 		armKP = 1.8E-3, armKI = 0, armKD = 4E-4,//2E-3,
 		intakeFastSpeed = 0.7, intakeSlowSpeed = 0.4,
 		stoppedMoveThreshold = 0.2, stoppedTurnThreshold = 10,
-		cubeTrackKP = 0.01;
+		cubeTrackKP = 0.1;
 	
 	public static final int
 		armScalePos = 150, armSwitchPos = 350, armBasePos = 1025,

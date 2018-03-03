@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.override.MotionSettings2;
+import redbacks.robot.Robot;
 
 public class AcReadSensors extends Action
 {
@@ -16,10 +17,12 @@ public class AcReadSensors extends Action
 	}
 	
 	public void onRun() {
-		limelightTable.getEntry("ledMode").forceSetValue(1);
+		limelightTable.getEntry("ledMode").setNumber(1);
+		limelightTable.getEntry("camMode").setNumber(Robot.isLimelightVision ? 0 : 1);
 
 		SmartDashboard.putNumber("Cube found", limelightTable.getEntry("tv").getDouble(0));
 		SmartDashboard.putNumber("Cube offset", limelightTable.getEntry("ty").getDouble(0));
+		SmartDashboard.putNumber("Camera mode", limelightTable.getEntry("camMode").getDouble(-1));
 		
 		SmartDashboard.putNumber("Arm Encoder", sensors.armEncoder.get());
 		SmartDashboard.putNumber("Drive Centre Encoder", sensors.driveCentreEncoder.get());

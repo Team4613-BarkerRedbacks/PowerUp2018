@@ -63,9 +63,8 @@ public class CommandList extends CommandListStart
 			new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
 			new AcSolenoid.Single(climber.climberSol, true)
 		),
-		spinLeft = newCom(
-			new AcIntakeRightSide(new ChTime(3))
-		);
+		stopIntake = newCom(new AcInterrupt.KillSubsystem(intake)),
+		stopAll = newCom(new AcInterrupt.KillAllCommands());
 	
 	static {subsystemToUse = sensors;}
 	public static CommandSetup
@@ -137,8 +136,7 @@ public class CommandList extends CommandListStart
 		drive = newCom(new AcDrive()),
 		limelightTrack = newCom(new AcLimelightTrack()),
 		cubeFollow = newCom(
-//				new AcSeq.Parallel(intakeCube),
-				new AcMovetoCube(0),
-				new AcPrint("Found cube!")
+				new AcSeq.Parallel(intakeCube),
+				new AcMovetoCube(0.55)
 		);
 }
