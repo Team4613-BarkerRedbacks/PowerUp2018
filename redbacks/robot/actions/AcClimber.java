@@ -12,6 +12,8 @@ public class AcClimber extends Action
 	}
 
 	public void onRun() {
-		Robot.climber.climberMotor.set(OI.axis_o_LY.get(), command);
+		double val = OI.axis_d_RT.get() - OI.axis_d_LT.get();
+		
+		Robot.climber.climberMotor.set(Math.abs(val) > 0.1 ? val : 0, command);
 	}
 }

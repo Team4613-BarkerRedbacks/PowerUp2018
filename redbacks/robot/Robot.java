@@ -6,11 +6,6 @@ import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.robot.subsystems.*;
 import static redbacks.robot.CommandList.*;
 
-import org.opencv.core.Mat;
-
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
