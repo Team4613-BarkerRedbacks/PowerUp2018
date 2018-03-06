@@ -6,6 +6,7 @@ import static redbacks.arachne.lib.override.MotionSettings2.encoderTicksPerMetre
 import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.actions.*;
+import redbacks.arachne.lib.actions.SwitchAction.OptionAction;
 import redbacks.arachne.lib.checks.*;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandBase;
@@ -159,24 +160,24 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR.totalDistance - 0.42 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR2.totalDistance - 0.42 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChMulti(
 									LogicOperators.AND,
 									new ChTime(4.5),
-									new ChNumSen(wallToHR.totalDistance - 0.2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)
-							), true, wallToHR, driver.drivetrain, 1, 1,
+									new ChNumSen(wallToHR2.totalDistance - 0.2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)
+							), true, wallToHR2, driver.drivetrain, 1, 1,
 							sensors.yaw, sensors.driveCentreEncoder, false, 
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre),
-							new AcPath.ChangeMinMax(wallToHR, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
-							new AcPath.ChangeMinMax(wallToHR, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
+							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
 					//2nd cube
 					new AcSetArm(-armBasePos),
-					new AcTurn(12),
+					new AcTurn(8),
 					new AcSetNumSen(autoDistanceEncoder, 0),
-					new AcSeq.Parallel(intakeCube),
-					new AcStraight(-1.25, 12, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(intakeCubeFast),
+					new AcStraight(-1.3, 8, sensors.driveCentreEncoder, true),
 					new AcTankDrive(new ChTime(0.25), -0.6, -0.6),
 					new AcSetArm(-armSwitchPos),
 					new AcSeq.Parallel(
@@ -196,15 +197,17 @@ public class Auto extends AutoStart
 							new AcSetArm(-armBasePos)
 					),
 					new AcTurn(80),
-					new AcSeq.Parallel(intakeCube),
-					new AcStraight(-0.6, 80, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(intakeCubeSlow),
+					new AcStraight(-0.65, 80, sensors.driveCentreEncoder, true),
 					new AcWait(0.3),
 					new AcSetArm(0),
+					new AcSeq.Parallel(intakeCubeSpin),
 					new AcSeq.Parallel(
-							new AcWait(0.5),
+							new AcWait(1),
 							new AcInterrupt.KillSubsystem(intake)
 					),
 					new AcSeq.Parallel(highFirePrime),
+					new AcStraight(0.35, 80, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
@@ -214,14 +217,15 @@ public class Auto extends AutoStart
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre)),
 					//4th cube
 					new AcSetNumSen(sensors.yaw, 0),
-					new AcStraight(-0.6, 0, sensors.driveCentreEncoder, true),
+					new AcStraight(-0.5, 0, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(45, sensors.yaw, true, false, false)),
 							new AcSetArm(-armBasePos)
 					),
 					new AcTurn(65),
-					new AcSeq.Parallel(intakeCube),
-					new AcStraight(-1.5, 65, sensors.driveCentreEncoder, true),
+					new AcSeq.Parallel(intakeCubeFast),
+					new AcStraight(-1.4, 60, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
 					new AcWait(0.3),
 					new AcSetArm(0),
 					new AcSeq.Parallel(
@@ -230,9 +234,11 @@ public class Auto extends AutoStart
 					),
 					new AcSeq.Parallel(highFirePrime),
 					new AcSeq.Parallel(
-//							new AcDoNothing(new ChNumSen(cube4ToHR3.totalDistance - 0.8 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
-							new AcDoNothing(new ChNumSen(-70, sensors.yaw, false, false, false)),
-							new AcSeq.Parallel(highFireRelease)
+							new AcDoNothing(new ChNumSen(-65, sensors.yaw, false, false, false)),
+							new SwitchAction(
+									new AcDoNothing(new ChTrue()),
+									new OptionAction(new ChNumSen(cube4ToHR3.totalDistance - 0.8 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false), new AcSeq.Parallel(highFireRelease))
+							)
 					),
 					new AcPath(new ChFalse(), true, cube4ToHR3, driver.drivetrain, 1, 1,
 							sensors.yaw, sensors.driveCentreEncoder, false,
