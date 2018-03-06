@@ -94,6 +94,11 @@ public class CommandList extends CommandListStart
 		intakeCube = newCom(
 			new AcSolenoid.Single(shooter.shooterSol1, false),
 			new AcSolenoid.Single(shooter.shooterSol2, false),
+			new AcMotor.Set(intake.intakeMotor, intakeSpeed, new ChFalse())
+		),
+		intakeCubeFast = newCom(
+			new AcSolenoid.Single(shooter.shooterSol1, false),
+			new AcSolenoid.Single(shooter.shooterSol2, false),
 			new AcMotor.Set(intake.intakeMotor, intakeFastSpeed, new ChFalse())
 		),
 		intakeCubeSpin = newCom(

@@ -17,7 +17,7 @@ public class AcIntakeRightSide extends Action
 
 	public void onStart() {
 		idMotIntakeL.set(ControlMode.PercentOutput, RobotMap.intakeSlowSpeed);
-		idMotIntakeR.set(ControlMode.PercentOutput, RobotMap.intakeFastSpeed);
+		idMotIntakeR.set(ControlMode.PercentOutput, RobotMap.intakeSpeed);
 	}
 	
 	public void onFinish() {
