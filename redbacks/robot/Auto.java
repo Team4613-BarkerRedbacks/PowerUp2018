@@ -100,7 +100,7 @@ public class Auto extends AutoStart
 											new AcSeq.Parallel(highFirePrime),
 											new AcInterrupt.KillSubsystem(intake)
 									),
-									new AcStraight(-4.8, -120, sensors.averageEncoder, true,
+									new AcStraightSafe(-4.8, -120, sensors.averageEncoder, true,
 											new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.2 * encoderTicksPerMetre), -0.6),
 											new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.2 * encoderTicksPerMetre), 0.6)),
 									new AcSetArm(armScalePos),
