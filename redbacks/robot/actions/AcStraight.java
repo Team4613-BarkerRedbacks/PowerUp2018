@@ -1,10 +1,14 @@
 package redbacks.robot.actions;
 
+import static redbacks.arachne.ext.motion.MotionSettings.trajectoryMaxNegSpeed;
+import static redbacks.arachne.ext.motion.MotionSettings.trajectoryMaxPosSpeed;
+
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.checks.ChMulti;
 import redbacks.arachne.lib.checks.analog.ChGettableNumber;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
+import redbacks.arachne.lib.logic.GettableNumber;
 import redbacks.arachne.lib.logic.ListOperators;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.arachne.lib.sensors.NumericSensor;
@@ -31,6 +35,12 @@ public class AcStraight extends AcPath
 		this.shouldReset = shouldReset;
 	}
 	
+	public AcStraight(double distance, double angle, NumericSensor encoder, boolean shouldReset, GettableNumber minOut, GettableNumber maxOut) {
+		this(distance, angle, encoder, shouldReset);
+		this.minOut = minOut;
+		this.maxOut = maxOut;
+	}
+	
 	public void onStart() {
 		path.reset();
 		if(shouldReset) encoder.set(0);
@@ -43,6 +53,26 @@ public class AcStraight extends AcPath
 		acLinear.execute();
 		acRotation.execute();
 		
-		drivetrain.tankDrive(linearOut.output + rotationOut.output, linearOut.output - rotationOut.output);
+		double linearOutput = linearOut.output;
+		if(minOut != null && maxOut != null) linearOutput = Math.max(Math.min(linearOutput, maxOut.get()), minOut.get());
+		
+		drivetrain.tankDrive(linearOutput + rotationOut.output, linearOutput - rotationOut.output);
+	}
+	
+	public static class ChangeMinMax implements GettableNumber
+	{
+		public NumericSensor encoder;
+		public int triggerDistance;
+		public double newSpeed;
+		
+		public ChangeMinMax(NumericSensor encoder, int triggerDistance, double newSpeed) {
+			this.encoder = encoder;
+			this.triggerDistance = triggerDistance;
+			this.newSpeed = newSpeed;
+		}
+		
+		public double get() {
+			return Math.abs(encoder.get()) > triggerDistance ? newSpeed : (newSpeed < 0 ? trajectoryMaxNegSpeed : trajectoryMaxPosSpeed);
+		}
 	}
 }
