@@ -104,6 +104,9 @@ public class CommandList extends CommandListStart
 		intakeCubeSpin = newCom(
 			new AcIntakeRightSide(new ChFalse())
 		),
+		outtakeCubeSpin = newCom(
+			new AcOuttakeLeftSide(new ChFalse())
+		),
 		intakeCubeSlow = newCom(
 			new AcSolenoid.Single(shooter.shooterSol1, false),
 			new AcSolenoid.Single(shooter.shooterSol2, false),

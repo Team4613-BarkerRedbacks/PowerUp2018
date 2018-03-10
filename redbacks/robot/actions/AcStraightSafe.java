@@ -1,8 +1,5 @@
 package redbacks.robot.actions;
 
-import static redbacks.arachne.ext.motion.MotionSettings.trajectoryMaxNegSpeed;
-import static redbacks.arachne.ext.motion.MotionSettings.trajectoryMaxPosSpeed;
-
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.checks.ChFalse;
