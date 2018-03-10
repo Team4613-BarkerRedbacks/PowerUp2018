@@ -640,6 +640,62 @@ public class Auto extends AutoStart
 					),
 					new AcTankDrive(new ChTime(1), 0.5, 0.5)
 				);
+			//Coop CF LHP
+			case(14):
+				return createAuto(
+					new AcResetSensors(),
+					//1st cube
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder)),
+							new AcSeq.Parallel(solExtendIntakeL),
+							new AcWait(1),
+							new AcSeq.Parallel(solRetractIntakeL),
+							new AcSetArm(-armBasePos),
+							new AcSeq.Parallel(intakeCubeSpin)
+					),
+					new AcStraight(3, -12, sensors.driveCentreEncoder, true),
+					//2nd cube
+					new AcStraight(5, 5, sensors.driveCentreEncoder, false),
+					new AcTurn(40),
+					new AcDoNothing(new ChNumSen(-armBasePos + 100, sensors.armEncoder, false, false, false)),
+					new AcStraight(-0.7, 40, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
+					new AcWait(0.25),
+					new AcSetArm(0),
+					new AcSeq.Parallel(intakeCubeSlow),
+					new AcTurn(130),
+					new AcStraight(-0.7, 130, sensors.averageEncoder, true),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
+							new AcSeq.Parallel(highFirePrime)
+					),
+					new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
+							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
+							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcTurn(12),
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+							new AcSeq.Parallel(highFireRelease)
+					),
+					new AcStraight(1.05, 12, sensors.driveCentreEncoder, true),
+					//3rd cube
+					new AcSetNumSen(autoDistanceEncoder, 0),
+					new AcStraight(0.3, 0, sensors.driveCentreEncoder, false,
+							new AcStraight.ChangeMinMax(autoDistanceEncoder, (int) (0.3 * encoderTicksPerMetre), -0.6),
+							new AcStraight.ChangeMinMax(autoDistanceEncoder, (int) (0.3 * encoderTicksPerMetre), 0.6)),
+					new AcTurn(90),
+					new AcSetArm(-armSwitchPos),
+					new AcStraightSafe(3.2, 90, sensors.averageEncoder, true,
+							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
+							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+					new AcSetArm(-armBasePos),
+					new AcTurn(0),
+					new AcSeq.Parallel(intakeCubeFast),
+					new AcTankDrive(new ChTime(1.5), -0.5, -0.5),
+					new AcSetArm(0),
+					new AcInterrupt.KillSubsystem(intake)
+				);
 			default: return null;
 		}
 	}
