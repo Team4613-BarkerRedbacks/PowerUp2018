@@ -19,6 +19,9 @@ import redbacks.robot.actions.*;
 
 import static redbacks.robot.Robot.*;
 import static redbacks.robot.RobotMap.*;
+
+import edu.wpi.first.wpilibj.DriverStation;
+
 import static redbacks.robot.PathList.*;
 import static redbacks.robot.CommandList.*;
 
@@ -27,33 +30,79 @@ public class Auto extends AutoStart
 	public static SenCANEncoder.Displacement autoDistanceEncoder = new SenCANEncoder.Displacement(idMotDriveL3);
 	
 	public static CommandBase getAutonomous(int autoNumber) {
-		switch(autoNumber) {
+		return getAutoComponent(AutoComponent.FF_HLH);
+		
+//		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+//		
+//		switch(autoNumber) {
+//			case 0:
+//				System.out.println(gameData);
+//				return null;
+//			case 1: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
+//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
+//				case "LRL": return getAutoComponent(AutoComponent.FC_HLH);
+//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
+//				default: return null;
+//			}
+//			case 2: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent._C_HHHH);
+//				case "RLR": return getAutoComponent(AutoComponent._F_HHH);
+//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
+//				case "LLL": return getAutoComponent(AutoComponent._F_HHH);
+//				default: return null;
+//			}
+//			case 3: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
+//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
+//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
+//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
+//				default: return null;
+//			}
+//			default: return null;
+//		}
+	}
+	
+	public static enum AutoComponent {
+		CC_HLHH_1,
+		CC_HLHH_2,
+		_C_HHHH,
+		FC_HLH,
+		CF_LHH,
+		FF_HLH,
+		_F_HHH,
+		COOP_CC_HLH,
+		COOP_CF_LHP
+	}
+	
+	public static CommandBase getAutoComponent(AutoComponent autoComponent) {
+		switch(autoComponent) {
 			//4 cube CC HLHH
-			case(1):
+			case CC_HLHH_1:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR2.totalDistance - 0.42 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChMulti(
 									LogicOperators.AND,
 									new ChTime(4.5),
-									new ChNumSen(wallToHR2.totalDistance - 0.2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)
-							), true, wallToHR2, driver.drivetrain, 1, 1,
-							sensors.yaw, sensors.driveCentreEncoder, false, 
+									new ChNumSen(wallToHR3.totalDistance - 0.2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)
+							), true, wallToHR3, driver.drivetrain, 1, 1,
+							sensors.yaw, sensors.driveCentreEncoder, false,
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre),
-							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
-							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+							new AcPath.ChangeMinMax(wallToHR3, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.55),
+							new AcPath.ChangeMinMax(wallToHR3, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.55)),
 					//2nd cube
 					new AcSetArm(-armBasePos),
-					new AcTurn(8),
+					new AcTurn(6),
 					new AcSetNumSen(autoDistanceEncoder, 0),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.3, 8, sensors.driveCentreEncoder, true),
+					new AcStraight(-1.6, 6, sensors.driveCentreEncoder, true),
 					new AcTankDrive(new ChTime(0.25), -0.6, -0.6),
 					new AcSetArm(-armSwitchPos - 75),
 					new AcSeq.Parallel(
@@ -76,7 +125,7 @@ public class Auto extends AutoStart
 					new AcWait(0.3),
 					new AcSetArm(0),
 //					new AcSeq.Parallel(intakeCubeSpin),
-					new AcSeq.Parallel(intakeCube),
+					new AcSeq.Parallel(intakeCubeFast),
 					new AcSeq.Parallel(
 							new AcWait(1),
 							new AcInterrupt.KillSubsystem(intake)
@@ -84,7 +133,8 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(highFirePrime),
 					new AcStraight(0.35, 80, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+							//TODO
+							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.8 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChFalse(), true, cube5ToHR2, driver.drivetrain, 1, 1,
@@ -121,7 +171,7 @@ public class Auto extends AutoStart
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre))
 				);
 			//3 cube CF LHH
-			case(2):
+			case CF_LHH:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -176,7 +226,7 @@ public class Auto extends AutoStart
 					new AcStraight(0, 2, sensors.driveCentreEncoder, false)
 				);
 			//3 cube FC HLH
-			case(3):
+			case FC_HLH:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -260,7 +310,7 @@ public class Auto extends AutoStart
 					)
 				);
 			//3 cube FF HLH
-			case(4):
+			case FF_HLH:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -322,7 +372,7 @@ public class Auto extends AutoStart
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre))
 				);
 			//4 cube CC HLHH
-			case(5):
+			case CC_HLHH_2:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -421,7 +471,7 @@ public class Auto extends AutoStart
 					)
 				);
 			//4 cube _C HHHH
-			case(9):
+			case _C_HHHH:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -516,7 +566,7 @@ public class Auto extends AutoStart
 					)
 				);
 			//3 cube _F HHH
-			case(10):
+			case _F_HHH:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -577,7 +627,7 @@ public class Auto extends AutoStart
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre))
 				);
 			//Coop CC HLH
-			case(13):
+			case COOP_CC_HLH:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -641,7 +691,7 @@ public class Auto extends AutoStart
 					new AcTankDrive(new ChTime(1), 0.5, 0.5)
 				);
 			//Coop CF LHP
-			case(14):
+			case COOP_CF_LHP:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
