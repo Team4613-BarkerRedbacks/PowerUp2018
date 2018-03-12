@@ -58,6 +58,13 @@ public class CommandList extends CommandListStart
 			new AcSolenoid.Single(shooter.shooterSol1, true),
 			new AcSolenoid.Single(shooter.shooterSol2, true)
 		),
+		superFirePrime = newCom(
+			new AcSolenoid.Single(shooter.shooterLockSol, true),
+			new AcWait(0.5),
+			new AcSolenoid.Single(shooter.shooterSol1, true),
+			new AcSolenoid.Single(shooter.shooterSol2, true),
+			new AcSolenoid.Single(shooter.shooterSolHigh, true)
+		),
 		climberRelease = newCom(
 			new AcSetArm(-armBasePos),
 			new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
@@ -129,6 +136,16 @@ public class CommandList extends CommandListStart
 			new AcWait(0.25),
 			new AcSolenoid.Single(shooter.shooterSol1, false),
 			new AcSolenoid.Single(shooter.shooterSol2, false)
+		),
+		superFireRelease = newCom(
+			new AcSolenoid.Single(shooter.shooterLockSol, false),
+			new AcSeq.Parallel(
+					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
+			),
+			new AcWait(0.25),
+			new AcSolenoid.Single(shooter.shooterSol1, false),
+			new AcSolenoid.Single(shooter.shooterSol2, false),
+			new AcSolenoid.Single(shooter.shooterSolHigh, false)
 		);
 	
 	static{subsystemToUse = shooter;}

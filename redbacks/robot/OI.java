@@ -42,10 +42,9 @@ public class OI extends OIBase {
 		whenPressed(o_POV_U, armToScaleFront.c());
 		whenPressed(o_POV_L, armToLowFront.c());
 		whenPressed(o_X, armToBaseFront.c());
-		
+
 		whenPressedReleased(o_A, highFirePrime.c(), highFireRelease.c());
-		
-		whenPressed(o_Start, resetSensors.c());
+		whenPressedReleased(o_Start, superFirePrime.c(), superFireRelease.c());
 	}
 	
 	public static final Joystick stickDriver = new Joystick(0);

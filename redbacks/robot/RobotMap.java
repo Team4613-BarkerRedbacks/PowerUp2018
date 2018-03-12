@@ -52,6 +52,7 @@ public class RobotMap
 	public static final int
 		idSolCentreEncoder = 2,
 		idSolShooter2 = 1,
+		idSolShooterHigh = 7,
 		idSolRightIntake = 4,
 		idSolLeftIntake = 5,
 		idSolShooter1 = 0,
