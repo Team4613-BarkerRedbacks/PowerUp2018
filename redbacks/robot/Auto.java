@@ -97,11 +97,11 @@ public class Auto extends AutoStart
 							new AcPath.ChangeMinMax(wallToHR3, sensors.driveCentreEncoder, (int) (1.75 * encoderTicksPerMetre), 0.55)),
 					//2nd cube
 					new AcSetArm(-armBasePos),
-					new AcTurn(8),
+					new AcTurn(9),
 					new AcSetNumSen(autoDistanceEncoder, 0),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.6, 8, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.25), -0.6, -0.6),
+					new AcStraight(-1.5, 9, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.3), -0.55, -0.55),
 					new AcSetArm(-armSwitchPos - 75),
 					new AcSeq.Parallel(
 							new AcWait(0.25),
