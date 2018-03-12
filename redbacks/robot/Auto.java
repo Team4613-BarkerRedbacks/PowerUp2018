@@ -81,7 +81,7 @@ public class Auto extends AutoStart
 					new AcResetSensors(),
 					//1st cube
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(2.15 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
 							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
@@ -268,7 +268,7 @@ public class Auto extends AutoStart
 					new AcResetSensors(),
 					//1st cube
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(2.15 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
 							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
@@ -287,7 +287,7 @@ public class Auto extends AutoStart
 							new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.7),
 							new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.7)),
 					new AcTurn(90),
-					new AcSetArm(armSwitchPos),
+					new AcSetArm(-armSwitchPos),
 					new AcStraight(-2.45, 90, sensors.averageEncoder, true,
 							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
 							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
@@ -296,7 +296,7 @@ public class Auto extends AutoStart
 					new AcTurn(30),
 					new AcSeq.Parallel(intakeCubeFast),
 					new AcStraight(-0.5, 30, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.25), -0.6, -0.6),
+					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
 					new AcSeq.Parallel(intakeCube),
 					new AcSetArm(-armSwitchPos),
 					new AcSeq.Parallel(
@@ -316,7 +316,7 @@ public class Auto extends AutoStart
 					new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
 					new AcInterrupt.KillSubsystem(sequencer),
 					new AcSeq.Parallel(intakeCube),
-					new AcStraight(-0.4, -70, sensors.driveCentreEncoder, false),
+					new AcStraight(-0.7, -70, sensors.driveCentreEncoder, false),
 					new AcSetArm(0),
 					new AcSeq.Parallel(intakeCubeSlow),
 					new AcTurn(-115),
