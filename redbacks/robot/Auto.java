@@ -183,7 +183,11 @@ public class Auto extends AutoStart
 					//2nd cube
 					new AcStraight(4.85, 5, sensors.driveCentreEncoder, false),
 					new AcTurn(40),
+					new AcSeq.Parallel(sequencer,
+							new AcTankDrive(new ChTime(0.25), 0.5, 0.5)
+					),
 					new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
+					new AcInterrupt.KillSubsystem(sequencer),
 					new AcStraight(-0.7, 40, sensors.driveCentreEncoder, true),
 					new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 					new AcWait(0.25),
@@ -216,10 +220,10 @@ public class Auto extends AutoStart
 					new AcDoNothing(new ChNumSen(-25, sensors.armEncoder, true, false, false)),
 					new AcInterrupt.KillSubsystem(intake),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(-0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+							new AcDoNothing(new ChNumSen(-0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
-					new AcStraight(0.1, -2, sensors.driveCentreEncoder, false)
+					new AcStraight(0, -2, sensors.driveCentreEncoder, false)
 				);
 			//3 cube FC HLH
 			case FC_HLH:
