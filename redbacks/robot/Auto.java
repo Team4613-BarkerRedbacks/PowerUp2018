@@ -81,7 +81,7 @@ public class Auto extends AutoStart
 					new AcResetSensors(),
 					//1st cube
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(2.15 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
 							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
@@ -268,9 +268,9 @@ public class Auto extends AutoStart
 					new AcResetSensors(),
 					//1st cube
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(2.15 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChMulti(
