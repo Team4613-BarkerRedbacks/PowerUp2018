@@ -186,44 +186,81 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(sequencer,
 							new AcTankDrive(new ChTime(0.25), 0.5, 0.5)
 					),
-					new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
-					new AcInterrupt.KillSubsystem(sequencer),
-					new AcStraight(-0.7, 40, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
-					new AcWait(0.25),
-					new AcSetArm(0),
-					new AcSeq.Parallel(intakeCubeSlow),
-					new AcTurn(130),
-					new AcStraight(-0.7, 130, sensors.averageEncoder, true),
-					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
-							new AcSeq.Parallel(highFirePrime)
-					),
-					new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
-					new AcInterrupt.KillSubsystem(intake),
-					new AcTurn(12),
-					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
-							new AcSeq.Parallel(highFireRelease)
-					),
-					new AcStraight(1.05, 12, sensors.driveCentreEncoder, true),
-					//3rd cube
-					new AcSetArm(-armBasePos),
-					new AcTurn(-2),
-					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1, -2, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(1), -0.6, -0.6),
-					new AcSeq.Parallel(highFirePrime),
-					new AcSetArm(0),
-					new AcDoNothing(new ChNumSen(-25, sensors.armEncoder, true, false, false)),
-					new AcInterrupt.KillSubsystem(intake),
-					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(-0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
-							new AcSeq.Parallel(highFireRelease)
-					),
-					new AcStraight(0, -2, sensors.driveCentreEncoder, false)
+					new AcDoNothing(new ChMulti(
+							LogicOperators.OR,
+							new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false),
+							new ChNumSen(3, new SenTimer())
+					)),
+					new SwitchAction(
+							new AcSeq.Parallel(
+									new AcInterrupt.KillSubsystem(sequencer),
+									new AcStraight(-0.7, 40, sensors.driveCentreEncoder, true),
+									new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
+									new AcWait(0.25),
+									new AcSetArm(0),
+									new AcSeq.Parallel(intakeCubeSlow),
+									new AcTurn(130),
+									new AcStraight(-0.7, 130, sensors.averageEncoder, true),
+									new AcSeq.Parallel(
+											new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
+											new AcSeq.Parallel(highFirePrime)
+									),
+									new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
+											new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
+											new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+									new AcInterrupt.KillSubsystem(intake),
+									new AcTurn(12),
+									new AcSeq.Parallel(
+											new AcDoNothing(new ChNumSen(0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+											new AcSeq.Parallel(highFireRelease)
+									),
+									new AcStraight(1.05, 12, sensors.driveCentreEncoder, true),
+									//3rd cube
+									new AcSetArm(-armBasePos),
+									new AcTurn(-2),
+									new AcSeq.Parallel(intakeCubeFast),
+									new AcStraight(-1, -2, sensors.driveCentreEncoder, true),
+									new AcTankDrive(new ChTime(1), -0.6, -0.6),
+									new AcSeq.Parallel(highFirePrime),
+									new AcSetArm(0),
+									new AcDoNothing(new ChNumSen(-25, sensors.armEncoder, true, false, false)),
+									new AcInterrupt.KillSubsystem(intake),
+									new AcSeq.Parallel(
+											new AcDoNothing(new ChNumSen(-0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+											new AcSeq.Parallel(highFireRelease)
+									),
+									new AcStraight(0, -2, sensors.driveCentreEncoder, false)),
+							new OptionAction(new ChNumSen(-armBasePos + 50, sensors.armEncoder, true, false, false),
+									new AcSeq.Parallel(
+											new AcInterrupt.KillSubsystem(sequencer),
+											new AcSetArm(-armSwitchPos),
+											new AcWait(0.25),
+											new AcTankDrive(new ChTime(0.75), 0.5, 0.5),
+											new AcSetArm(-armBasePos),
+											new AcTankDrive(new ChTime(1.25), -0.5, -0.5),
+											new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
+											new AcWait(0.25),
+											new AcSetArm(0),
+											new AcSeq.Parallel(intakeCubeSlow),
+											new AcTurn(130),
+											new AcStraight(-0.7, 130, sensors.averageEncoder, true),
+											new AcSeq.Parallel(
+													new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
+													new AcSeq.Parallel(highFirePrime)
+											),
+											new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
+													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
+													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+											new AcInterrupt.KillSubsystem(intake),
+											new AcTurn(12),
+											new AcSeq.Parallel(
+													new AcDoNothing(new ChNumSen(0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+													new AcSeq.Parallel(highFireRelease)
+											),
+											new AcStraight(1.05, 12, sensors.driveCentreEncoder, true)
+									)
+							)
+					)
 				);
 			//3 cube FC HLH
 			case FC_HLH:
