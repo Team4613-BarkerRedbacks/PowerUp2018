@@ -83,7 +83,7 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChMulti(
@@ -97,10 +97,10 @@ public class Auto extends AutoStart
 							new AcPath.ChangeMinMax(wallToHR3, sensors.driveCentreEncoder, (int) (1.75 * encoderTicksPerMetre), 0.55)),
 					//2nd cube
 					new AcSetArm(-armBasePos),
-					new AcTurn(6),
+					new AcTurn(8),
 					new AcSetNumSen(autoDistanceEncoder, 0),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.6, 6, sensors.driveCentreEncoder, true),
+					new AcStraight(-1.6, 8, sensors.driveCentreEncoder, true),
 					new AcTankDrive(new ChTime(0.25), -0.6, -0.6),
 					new AcSetArm(-armSwitchPos - 75),
 					new AcSeq.Parallel(
@@ -130,7 +130,7 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(highFirePrime),
 					new AcStraight(0.35, 80, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChFalse(), true, cube5ToHR2, driver.drivetrain, 1, 1,
