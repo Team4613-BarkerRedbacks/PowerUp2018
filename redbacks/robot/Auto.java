@@ -612,7 +612,7 @@ public class Auto extends AutoStart
 							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
 					new AcTurnLenient(90),
 					new AcSeq.Parallel(intakeCubeSlow),
-					new AcStraightSafe(-5.3, 90, sensors.averageEncoder, true,
+					new AcStraightSafe(-5.15, 90, sensors.averageEncoder, true,
 							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.6),
 							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.6)),
 					new AcInterrupt.KillSubsystem(intake),
