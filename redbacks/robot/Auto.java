@@ -205,7 +205,7 @@ public class Auto extends AutoStart
 					new AcInterrupt.KillSubsystem(intake),
 					new AcTurn(12),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+							new AcDoNothing(new ChNumSen(0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcStraight(1.05, 12, sensors.driveCentreEncoder, true),
