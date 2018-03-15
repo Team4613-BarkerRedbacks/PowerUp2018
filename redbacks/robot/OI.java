@@ -9,11 +9,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import redbacks.arachne.core.OIBase;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.input.BtnAxis;
-import redbacks.arachne.lib.input.BtnMulti;
 import redbacks.arachne.lib.input.BtnPOV;
 import redbacks.arachne.lib.input.ButtonGettableWrapper;
 import redbacks.arachne.lib.input.JoystickAxis;
-import redbacks.arachne.lib.logic.LogicOperators;
 
 public class OI extends OIBase {
 	
@@ -29,8 +27,8 @@ public class OI extends OIBase {
 		whenPressed(d_Start, stopAll.c());
 		
 		//Operator Control
-		whenHeld(o_LT, intakeCube.c());
-		whenHeld(o_RT, outtakeCube.c());
+		whenHeld(o_LT, intakeCubeAnalog.c());
+		whenHeld(o_RT, outtakeCubeAnalog.c());
 		whenPressedReleased(o_LB, solExtendIntakeL.c(), solRetractIntakeL.c());
 		whenPressedReleased(o_RB, solExtendIntakeR.c(), solRetractIntakeR.c());
 
@@ -104,8 +102,8 @@ public class OI extends OIBase {
 		o_POV_D = wrap(new BtnPOV(stickOperator, 180)),
 		o_POV_L = wrap(new BtnPOV(stickOperator, 270)),
 	
-		o_LT = wrap(new BtnAxis(axis_o_LT, false, 0.5D)),
-		o_RT = wrap(new BtnAxis(axis_o_RT, false, 0.5D));
+		o_LT = wrap(new BtnAxis(axis_o_LT, false, 0.2D)),
+		o_RT = wrap(new BtnAxis(axis_o_RT, false, 0.2D));
 	
 	public void whenPressedReleased(Button button, CommandBase onPressed, CommandBase onReleased) {
 		button.whenPressed(onPressed);

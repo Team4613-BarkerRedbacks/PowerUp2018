@@ -128,6 +128,18 @@ public class CommandList extends CommandListStart
 		outtakeCubeFast = newCom(
 			new AcMotor.Set(intake.intakeMotor, -1, new ChFalse())
 		),
+		intakeCubeAnalog = newCom(new AcIntakeAnalog() {
+			public double getSpeed() {
+				double trigger = OI.axis_o_LT.get();
+				return 0.3 + (trigger - 0.2) / 2;
+			}
+		}),
+		outtakeCubeAnalog = newCom(new AcIntakeAnalog() {
+			public double getSpeed() {
+				double trigger = OI.axis_o_RT.get();
+				return -0.2 + (trigger - 0.2) * 3 / 8;
+			}
+		}),
 		highFireRelease = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, false),
 			new AcSeq.Parallel(
