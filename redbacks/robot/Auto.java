@@ -32,7 +32,7 @@ public class Auto extends AutoStart
 	public static CommandBase getAutonomous(int autoNumber) {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		return getAutoComponent(AutoComponent.FF_HLH_2);
+		return getAutoComponent(AutoComponent.CC_LHH);
 		
 //		switch(autoNumber) {
 //			case 0:
@@ -59,7 +59,14 @@ public class Auto extends AutoStart
 //				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
 //				default: return null;
 //			}
-//			case 4:
+//			case 4: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
+//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);//CF
+//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);//FC
+//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);//FF
+//				default: return null;
+//			}
+//			case 5:
 //			default: switch(gameData) {
 //				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
 //				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);//CF
@@ -84,7 +91,8 @@ public class Auto extends AutoStart
 		C__L,
 		_C_H,
 		CC_LHH,
-		FF_HH
+		FF_HH,
+		FC_HL
 	}
 	
 	public static CommandBase getAutoComponent(AutoComponent autoComponent) {
@@ -1010,6 +1018,50 @@ public class Auto extends AutoStart
 //						new AcWait(0.25),
 //						new AcSeq.Parallel(highFireRelease)
 //					);
+			//2 cube FC HL
+			case FC_HL:
+				return createAuto(
+						new AcResetSensors(),
+						//1st cube
+						new AcSeq.Parallel(
+								new AcDoNothing(new ChNumSen(6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+								new AcSeq.Parallel(highFirePrime)
+						),
+						new AcStraight(6.25, -1.5, sensors.driveCentreEncoder, true,
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -0.6),
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), 0.6)),
+						new AcSetArm(-armScalePos),
+						new AcTurn(105),
+						new AcWait(0.25),
+						new AcSeq.Parallel(highFireRelease),
+						//2nd cube
+						new AcWait(0.5),
+						new AcTurn(20),
+						new AcStraight(5.45, 20, sensors.driveCentreEncoder, false,
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.7),
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.7)),
+						new AcTurn(90),
+						new AcStraight(-3.2, 90, sensors.averageEncoder, true,
+								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
+								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+						new AcSetArm(-armBasePos),
+						new AcTurn(5),
+						new AcSeq.Parallel(intakeCubeFast),
+						new AcDoNothing(new ChNumSen(-armBasePos + 100, sensors.armEncoder, false, false, false)),
+						new AcStraight(-0.75, 5, sensors.driveCentreEncoder, true,
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.5),
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.5)),
+						new AcSetArm(-armSwitchPos - 75),
+						new AcSeq.Parallel(
+								new AcWait(0.5),
+								new AcInterrupt.KillSubsystem(intake)
+						),
+						new AcWait(0.25),
+						new AcTankDrive(new ChTime(0.75), -0.5, -0.5),
+						new AcSeq.Parallel(outtakeCube),
+						new AcWait(0.25),
+						new AcInterrupt.KillSubsystem(intake)
+				);
 			default: return null;
 		}
 	}
