@@ -32,49 +32,47 @@ public class Auto extends AutoStart
 	public static CommandBase getAutonomous(int autoNumber) {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		return getAutoComponent(AutoComponent.CC_LHH);
-		
-//		switch(autoNumber) {
-//			case 0:
-//				System.out.println(gameData);
-//				return null;
-//			case 1: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
-//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
-//				case "LRL": return getAutoComponent(AutoComponent.FC_HLH);
-//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
-//				default: return null;
-//			}
-//			case 2: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent._C_HHHH);
-//				case "RLR": return getAutoComponent(AutoComponent._F_HHH);
-//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
-//				case "LLL": return getAutoComponent(AutoComponent._F_HHH);
-//				default: return null;
-//			}
-//			case 3: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
-//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
-//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
-//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
-//				default: return null;
-//			}
-//			case 4: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
-//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);//CF
-//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);//FC
-//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);//FF
-//				default: return null;
-//			}
-//			case 5:
-//			default: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
-//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);//CF
-//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);//FC
-//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);//FF
-//				default: return null;
-//			}
-//		}
+		switch(autoNumber) {
+			case 0:
+				System.out.println(gameData);
+				return null;
+			case 1: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
+				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
+				case "LRL": return getAutoComponent(AutoComponent.FC_HLH);
+				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
+				default: return null;
+			}
+			case 2: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent._C_HHHH);
+				case "RLR": return getAutoComponent(AutoComponent._F_HHH);
+				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
+				case "LLL": return getAutoComponent(AutoComponent._F_HHH);
+				default: return null;
+			}
+			case 3: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
+				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
+				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
+				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
+				default: return null;
+			}
+			case 4: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
+				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);//CF
+				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);//FC
+				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);//FF
+				default: return null;
+			}
+			case 5:
+			default: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent.CC_LHH);
+				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
+				case "LRL": return getAutoComponent(AutoComponent.FC_HL);
+				case "LLL": return getAutoComponent(AutoComponent.FF_HL);
+				default: return null;
+			}
+		}
 	}
 	
 	public static enum AutoComponent {
@@ -83,8 +81,8 @@ public class Auto extends AutoStart
 		_C_HHHH,
 		FC_HLH,
 		CF_LHH,
-		FF_HLH_1,
-		FF_HLH_2,
+		FF_HLH,
+		FF_HL,
 		_F_HHH,
 		COOP_CC_HLH,
 		COOP_CF_LHP,
@@ -369,7 +367,7 @@ public class Auto extends AutoStart
 					)
 				);
 			//3 cube FF HLH
-			case FF_HLH_1:
+			case FF_HLH:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -928,7 +926,7 @@ public class Auto extends AutoStart
 					)
 				);
 			//3 cube FF HLH
-			case FF_HLH_2:
+			case FF_HL:
 				return createAuto(
 						new AcResetSensors(),
 						//1st cube
