@@ -1037,9 +1037,9 @@ public class Auto extends AutoStart
 						//2nd cube
 						new AcWait(0.5),
 						new AcTurn(20),
-						new AcStraight(5.05, 20, sensors.driveCentreEncoder, false,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.6),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.6)),
+						new AcStraight(5.65, 20, sensors.driveCentreEncoder, false,
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.65),
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.65)),
 						new AcTurn(90),
 						new AcStraight(-3.2, 90, sensors.averageEncoder, true,
 								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
