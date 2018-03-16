@@ -32,49 +32,47 @@ public class Auto extends AutoStart
 	public static CommandBase getAutonomous(int autoNumber) {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-		return getAutoComponent(AutoComponent.FC_HL);
-		
-//		switch(autoNumber) {
-//			case 0:
-//				System.out.println(gameData);
-//				return null;
-//			case 1: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
-//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
-//				case "LRL": return getAutoComponent(AutoComponent.FC_HLH);
-//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
-//				default: return null;
-//			}
-//			case 2: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent._C_HHHH);
-//				case "RLR": return getAutoComponent(AutoComponent._F_HHH);
-//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
-//				case "LLL": return getAutoComponent(AutoComponent._F_HHH);
-//				default: return null;
-//			}
-//			case 3: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
-//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
-//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
-//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
-//				default: return null;
-//			}
-//			case 4: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
-//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);//CF
-//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);//FC
-//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);//FF
-//				default: return null;
-//			}
-//			case 5:
-//			default: switch(gameData) {
-//				case "RRR": return getAutoComponent(AutoComponent.CC_LHH);
-//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
-//				case "LRL": return getAutoComponent(AutoComponent.FC_HL);
-//				case "LLL": return getAutoComponent(AutoComponent.FF_HL);
-//				default: return null;
-//			}
-//		}
+		switch(autoNumber) {
+			case 0:
+				System.out.println(gameData);
+				return null;
+			case 1: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
+				case "RLR": return getAutoComponent(AutoComponent.CF_LHH_2);
+				case "LRL": return getAutoComponent(AutoComponent.FC_HLH);
+				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
+				default: return null;
+			}
+			case 2: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent._C_HHHH);
+				case "RLR": return getAutoComponent(AutoComponent._F_HHH);
+				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
+				case "LLL": return getAutoComponent(AutoComponent._F_HHH);
+				default: return null;
+			}
+			case 3: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
+				case "RLR": return getAutoComponent(AutoComponent.CF_LHH_2);
+				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
+				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
+				default: return null;
+			}
+			case 4: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
+				case "RLR": return getAutoComponent(AutoComponent.CF_LHH_2);//CF
+				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);//FC
+				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);//FF
+				default: return null;
+			}
+			case 5:
+			default: switch(gameData) {
+				case "RRR": return getAutoComponent(AutoComponent.CC_LHH);
+				case "RLR": return getAutoComponent(AutoComponent.CF_LHH_2);
+				case "LRL": return getAutoComponent(AutoComponent.FC_HL);
+				case "LLL": return getAutoComponent(AutoComponent.FF_HL);
+				default: return null;
+			}
+		}
 	}
 	
 	public static enum AutoComponent {
@@ -82,7 +80,7 @@ public class Auto extends AutoStart
 		CC_HLHH_2,
 		_C_HHHH,
 		FC_HLH,
-		CF_LHH,
+		CF_LHH_1,
 		FF_HLH,
 		FF_HL,
 		_F_HHH,
@@ -92,7 +90,8 @@ public class Auto extends AutoStart
 		_C_H,
 		CC_LHH,
 		FF_HH,
-		FC_HL
+		FC_HL,
+		CF_LHH_2
 	}
 	
 	public static CommandBase getAutoComponent(AutoComponent autoComponent) {
@@ -189,7 +188,7 @@ public class Auto extends AutoStart
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre))
 				);
 			//3 cube CF LHH
-			case CF_LHH:
+			case CF_LHH_1:
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -1062,6 +1061,60 @@ public class Auto extends AutoStart
 						new AcWait(0.25),
 						new AcInterrupt.KillSubsystem(intake)
 				);
+			case CF_LHH_2:
+				return createAuto(
+						new AcResetSensors(),
+						//1st cube
+						new AcSeq.Parallel(
+								new AcDoNothing(new ChNumSen(1.5 * encoderTicksPerMetre, sensors.driveCentreEncoder)),
+								new AcSeq.Parallel(solExtendIntakeL),
+								new AcWait(1),
+								new AcSeq.Parallel(solRetractIntakeL),
+								new AcSetArm(-armBasePos),
+								new AcSeq.Parallel(intakeCubeSpin)
+						),
+						new AcStraight(3, -11, sensors.driveCentreEncoder, true),
+						//2nd cube
+						new AcStraight(4.7, 5, sensors.driveCentreEncoder, false),
+						new AcTurn(30),
+						new AcDoNothing(new ChNumSen(-armBasePos + 100, sensors.armEncoder, false, false, false)),
+						new AcStraight(-0.7, 30, sensors.driveCentreEncoder, true),
+						new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
+						new AcWait(0.25),
+						new AcSetArm(0),
+						new AcSeq.Parallel(intakeCubeSlow),
+						new AcTurn(130),
+						new AcStraight(-0., 130, sensors.averageEncoder, true),
+						new AcSeq.Parallel(
+								new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
+								new AcSeq.Parallel(highFirePrime)
+						),
+						new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
+								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
+								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+						new AcInterrupt.KillSubsystem(intake),
+						new AcTurn(12),
+						new AcSeq.Parallel(
+								new AcDoNothing(new ChNumSen(0.55 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+								new AcSeq.Parallel(highFireRelease)
+						),
+						new AcStraight(1.05, 12, sensors.driveCentreEncoder, true),
+						//3rd cube
+						new AcSetArm(-armBasePos),
+						new AcTurn(-4),
+						new AcSeq.Parallel(intakeCubeFast),
+						new AcStraight(-1, -4, sensors.driveCentreEncoder, true),
+						new AcTankDrive(new ChTime(1), -0.6, -0.6),
+						new AcSeq.Parallel(highFirePrime),
+						new AcSetArm(0),
+						new AcDoNothing(new ChNumSen(-25, sensors.armEncoder, true, false, false)),
+						new AcInterrupt.KillSubsystem(intake),
+						new AcSeq.Parallel(
+								new AcDoNothing(new ChNumSen(-0.85 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+								new AcSeq.Parallel(highFireRelease)
+						),
+						new AcStraight(0, -4, sensors.driveCentreEncoder, false)
+					);
 			default: return null;
 		}
 	}
