@@ -137,7 +137,7 @@ public class CommandList extends CommandListStart
 		outtakeCubeAnalog = newCom(new AcIntakeAnalog() {
 			public double getSpeed() {
 				double trigger = OI.axis_o_RT.get();
-				return -0.2 + (trigger - 0.2) * 3 / 8;
+				return -0.2 - (trigger - 0.2) * 3 / 8;
 			}
 		}),
 		highFireRelease = newCom(

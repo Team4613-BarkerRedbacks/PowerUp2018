@@ -31,48 +31,50 @@ public class Auto extends AutoStart
 	
 	public static CommandBase getAutonomous(int autoNumber) {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+
+		return getAutoComponent(AutoComponent.FC_HL);
 		
-		switch(autoNumber) {
-			case 0:
-				System.out.println(gameData);
-				return null;
-			case 1: switch(gameData) {
-				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
-				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
-				case "LRL": return getAutoComponent(AutoComponent.FC_HLH);
-				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
-				default: return null;
-			}
-			case 2: switch(gameData) {
-				case "RRR": return getAutoComponent(AutoComponent._C_HHHH);
-				case "RLR": return getAutoComponent(AutoComponent._F_HHH);
-				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
-				case "LLL": return getAutoComponent(AutoComponent._F_HHH);
-				default: return null;
-			}
-			case 3: switch(gameData) {
-				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
-				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
-				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
-				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
-				default: return null;
-			}
-			case 4: switch(gameData) {
-				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
-				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);//CF
-				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);//FC
-				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);//FF
-				default: return null;
-			}
-			case 5:
-			default: switch(gameData) {
-				case "RRR": return getAutoComponent(AutoComponent.CC_LHH);
-				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
-				case "LRL": return getAutoComponent(AutoComponent.FC_HL);
-				case "LLL": return getAutoComponent(AutoComponent.FF_HL);
-				default: return null;
-			}
-		}
+//		switch(autoNumber) {
+//			case 0:
+//				System.out.println(gameData);
+//				return null;
+//			case 1: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
+//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
+//				case "LRL": return getAutoComponent(AutoComponent.FC_HLH);
+//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
+//				default: return null;
+//			}
+//			case 2: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent._C_HHHH);
+//				case "RLR": return getAutoComponent(AutoComponent._F_HHH);
+//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
+//				case "LLL": return getAutoComponent(AutoComponent._F_HHH);
+//				default: return null;
+//			}
+//			case 3: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent.CC_HLHH_1);
+//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
+//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);
+//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);
+//				default: return null;
+//			}
+//			case 4: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent.C__L);//CC Side kick then stop
+//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);//CF
+//				case "LRL": return getAutoComponent(AutoComponent._C_HHHH);//FC
+//				case "LLL": return getAutoComponent(AutoComponent.FF_HLH);//FF
+//				default: return null;
+//			}
+//			case 5:
+//			default: switch(gameData) {
+//				case "RRR": return getAutoComponent(AutoComponent.CC_LHH);
+//				case "RLR": return getAutoComponent(AutoComponent.CF_LHH);
+//				case "LRL": return getAutoComponent(AutoComponent.FC_HL);
+//				case "LLL": return getAutoComponent(AutoComponent.FF_HL);
+//				default: return null;
+//			}
+//		}
 	}
 	
 	public static enum AutoComponent {
@@ -1025,7 +1027,7 @@ public class Auto extends AutoStart
 								new AcDoNothing(new ChNumSen(6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 								new AcSeq.Parallel(highFirePrime)
 						),
-						new AcStraight(6.25, -1.5, sensors.driveCentreEncoder, true,
+						new AcStraight(6.25, 0.5, sensors.driveCentreEncoder, true,
 								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -0.6),
 								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), 0.6)),
 						new AcSetArm(-armScalePos),
@@ -1035,9 +1037,9 @@ public class Auto extends AutoStart
 						//2nd cube
 						new AcWait(0.5),
 						new AcTurn(20),
-						new AcStraight(5.45, 20, sensors.driveCentreEncoder, false,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.7),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.7)),
+						new AcStraight(5.05, 20, sensors.driveCentreEncoder, false,
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.6),
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.6)),
 						new AcTurn(90),
 						new AcStraight(-3.2, 90, sensors.averageEncoder, true,
 								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
