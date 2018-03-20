@@ -25,7 +25,7 @@ public class OI extends OIBase {
 		whenHeld(d_A, cubeFollow.c());
 		whenReleased(d_A, stopIntake.c());
 		whenPressed(d_Start, stopAll.c());
-		
+
 		//Operator Control
 		whenHeld(o_LT, intakeCubeAnalog.c());
 		whenHeld(o_RT, outtakeCubeAnalog.c());
