@@ -1259,15 +1259,16 @@ public class Auto extends AutoStart
 						),
 						new AcStraight(7.25, 0, sensors.driveCentreEncoder, true,
 								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -driveSlowVoltage),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), driveSlowVoltage)),
+								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), driveSlowVoltage))
+						/*
 						new AcSetArm(armScalePos),
-						new AcTurn(-70),
+						new AcTurnGimble(-70),
 						new AcWait(0.25),
 						new AcSeq.Parallel(highFireRelease),
 						//2nd cube
 						new AcWait(0.5),
 						new AcSetArm(armBasePos),
-						new AcTurn(-150),
+						new AcTurnGimble(-150),
 						new AcWait(5),
 						new AcSeq.Parallel(
 								new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
@@ -1286,9 +1287,11 @@ public class Auto extends AutoStart
 								new AcStraight.ChangeMinMaxNeg(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -driveSlowVoltage),
 								new AcStraight.ChangeMinMaxNeg(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), driveSlowVoltage)),
 						new AcWait(5),
-						new AcTurn(-80),
+						new AcTurnGimble(-80),
 						new AcWait(0.25),
-						new AcSeq.Parallel(highFireRelease)//,
+						new AcSeq.Parallel(highFireRelease)
+						*/
+						//,
 //						//3rd cube
 //						new AcWait(0.5),
 //						new AcSetArm(armBasePos),
