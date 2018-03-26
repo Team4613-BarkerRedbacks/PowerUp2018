@@ -2,6 +2,7 @@ package redbacks.robot.actions;
 
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.ext.motion.pid.Tolerances;
+import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChMulti;
 import redbacks.arachne.lib.checks.Check;
 import redbacks.arachne.lib.checks.analog.ChGettableNumber;
@@ -18,19 +19,17 @@ import redbacks.robot.RobotMap;
 /**
  * @author Sean Zammit
  */
-public class AcTurnGimble extends AcPath
+public class AcTurnGimble extends Action
 {
 	double lSpeed, rSpeed;
 	
 	public AcTurnGimble(Check check, double lSpeed, double rSpeed) {
-		super();
+		super(check);
 		lSpeed = 0.1;
 		rSpeed = 0.8;
 	}
 	
 	public void onRun() {
-		acRotation.execute();
-		
-		drivetrain.tankDrive(lSpeed, rSpeed);
+		Robot.driver.drivetrain.tankDrive(lSpeed, rSpeed);
 	}
 }
