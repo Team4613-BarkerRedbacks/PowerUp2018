@@ -40,7 +40,7 @@ public class Robot extends ArachneRobot
 	}
 
 	public void initialiseRobot() {
-		MotionSettings2.encoderTicksPerMetre = 29713;
+		MotionSettings2.encoderTicksPerMetre = 25000;
 		MotionSettings2.trajectoryMaxNegSpeed = -0.9;
 		MotionSettings2.trajectoryMaxPosSpeed = 0.9;
 	}
@@ -51,7 +51,7 @@ public class Robot extends ArachneRobot
 
 	public void initialiseTeleop() {
 		Scheduler.getInstance().removeAll();
-		driver.centreEncoderSol.set(true);
+//		driver.centreEncoderSol.set(true);
 	}
 	
 	public void initialiseDisabled() {

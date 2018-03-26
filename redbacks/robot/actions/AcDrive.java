@@ -33,6 +33,6 @@ public class AcDrive extends Action {
 		double mod = minR + difR * Math.pow(1 - Math.abs(sp), 2);
 		double r = Math.pow(rotation, 3) * mod;
 		Robot.driver.drivetrain.tankDrive(- sp - r, - sp + r);
-}
-
+		System.out.println(sp);
+	}
 }

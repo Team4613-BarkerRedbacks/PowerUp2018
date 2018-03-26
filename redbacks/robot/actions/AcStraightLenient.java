@@ -3,12 +3,10 @@ package redbacks.robot.actions;
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.checks.ChMulti;
-import redbacks.arachne.lib.checks.Check;
 import redbacks.arachne.lib.checks.analog.ChGettableNumber;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.logic.GettableNumber;
 import redbacks.arachne.lib.logic.ListOperators;
-import redbacks.arachne.lib.logic.LogicOperators;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.arachne.lib.sensors.NumericSensor;
 import redbacks.arachne.lib.sensors.SenTimer;
@@ -20,25 +18,22 @@ import redbacks.robot.RobotMap;
 /**
  * @author Sean Zammit
  */
-@Deprecated
-public class AcStraightPrecise extends AcPath
+public class AcStraightLenient extends AcPath
 {
 	public boolean shouldReset;
 	
-	public AcStraightPrecise(Check check, double distance, double angle, NumericSensor encoder, boolean shouldReset) {
-		super(new ChMulti(LogicOperators.OR,
-				new ChMulti(
-						ListOperators.ORDER,
-						new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
-						new ChNumSen(0.5, new SenTimer()),
-						new ChGettableNumber(RobotMap.stoppedMoveThreshold, Robot.sensors.driveSpeed, false, true)),
-				check
-		), true, new Path(new double[]{distance, angle, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, new Tolerances.Absolute(0.05 * MotionSettings2.encoderTicksPerMetre));
+	public AcStraightLenient(double distance, double angle, NumericSensor encoder, boolean shouldReset) {
+		super(new ChMulti(
+				ListOperators.ORDER,
+				new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
+				new ChNumSen(0.5, new SenTimer()),
+				new ChGettableNumber(RobotMap.stoppedMoveThreshold, Robot.sensors.driveSpeed, false, true)
+		), true, new Path(new double[]{distance, angle, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, new Tolerances.Absolute(0.20 * MotionSettings2.encoderTicksPerMetre));
 		this.shouldReset = shouldReset;
 	}
 	
-	public AcStraightPrecise(Check check, double distance, double angle, NumericSensor encoder, boolean shouldReset, GettableNumber minOut, GettableNumber maxOut) {
-		this(check, distance, angle, encoder, shouldReset);
+	public AcStraightLenient(double distance, double angle, NumericSensor encoder, boolean shouldReset, GettableNumber minOut, GettableNumber maxOut) {
+		this(distance, angle, encoder, shouldReset);
 		this.minOut = minOut;
 		this.maxOut = maxOut;
 	}

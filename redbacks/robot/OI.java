@@ -24,7 +24,7 @@ public class OI extends OIBase {
 		whenPressed(d_RB, climberRelease.c(), climbManual.c());
 		whenHeld(d_A, cubeFollow.c());
 		whenReleased(d_A, stopIntake.c());
-		whenPressed(d_Start, stopAll.c());
+		whenPressed(d_Start, stopAll.c(), resetSensors.c());
 
 		//Operator Control
 		whenHeld(o_LT, intakeCubeAnalog.c());
