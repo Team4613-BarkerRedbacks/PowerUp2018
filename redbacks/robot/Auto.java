@@ -1248,6 +1248,7 @@ public class Auto extends AutoStart
 						new AcSeq.Parallel(highFireRelease)
 				);
 			//Test auto
+			//NOTE: Turn is currently inconsistent - must fix
 			case TEST:
 				return createAuto(
 						new AcResetSensors(),
