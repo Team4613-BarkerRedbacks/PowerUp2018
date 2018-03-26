@@ -32,7 +32,7 @@ public class Auto extends AutoStart
 	
 	public static CommandBase getAutonomous(int autoNumber) {
 		if(autoNumber < 0) {
-			return getAutoComponent(AutoComponent.getAutoFromID(-autoNumber));
+			return getAutoComponent(AutoComponent.getAutoFromID(autoNumber));
 		}
 		
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -103,7 +103,7 @@ public class Auto extends AutoStart
 		FC_HL(15),
 		CF_LHH_2(16),
 		_C_HHH(17),
-		TEST(100)
+		TEST(-100)
 		;
 		
 		private int id;
@@ -1253,18 +1253,20 @@ public class Auto extends AutoStart
 				return createAuto(
 						new AcResetSensors(),
 						//1st cube
-						new AcSeq.Parallel(
-								new AcDoNothing(new ChNumSen(6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
-								new AcSeq.Parallel(highFirePrime)
-						),
-						new AcStraight(7.25, 0, sensors.driveCentreEncoder, true,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -driveSlowVoltage),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), driveSlowVoltage))
+//						new AcSeq.Parallel(
+//								new AcDoNothing(new ChNumSen(6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+//								new AcSeq.Parallel(highFirePrime)
+//						),
+//						new AcStraightLenient(5, 0, sensors.driveCentreEncoder, true,
+//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -driveSlowVoltage),
+//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), driveSlowVoltage)),
+//						
+//						new AcSetArm(armScalePos),
+						new AcTurnGimble(new ChTime(3), 0.1, 0.8)
 						/*
-						new AcSetArm(armScalePos),
-						new AcTurnGimble(-70),
 						new AcWait(0.25),
 						new AcSeq.Parallel(highFireRelease),
+						
 						//2nd cube
 						new AcWait(0.5),
 						new AcSetArm(armBasePos),
