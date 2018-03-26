@@ -117,7 +117,7 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.45 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChMulti(
@@ -134,7 +134,7 @@ public class Auto extends AutoStart
 					new AcTurn(9),
 					new AcSetNumSen(autoDistanceEncoder, 0),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.5, 9, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-1.5, 9, sensors.driveCentreEncoder, true),
 					new AcTankDrive(new ChTime(0.3), -0.55, -0.55),
 					new AcSetArm(-armSwitchPos - 75),
 					new AcSeq.Parallel(
@@ -144,7 +144,7 @@ public class Auto extends AutoStart
 							new AcSeq.Parallel(outtakeCube)
 					),
 					new AcWait(0.25),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcInterrupt.KillSubsystem(intake),
 					//3rd cube
 					new AcSeq.Parallel(
@@ -153,7 +153,7 @@ public class Auto extends AutoStart
 					),
 					new AcTurn(80),
 					new AcSeq.Parallel(intakeCube),
-					new AcStraight(-0.65, 80, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-0.45, 80, sensors.driveCentreEncoder, true),
 					new AcWait(0.3),
 					new AcSetArm(0),
 //					new AcSeq.Parallel(intakeCube),
@@ -162,9 +162,9 @@ public class Auto extends AutoStart
 							new AcInterrupt.KillSubsystem(intake)
 					),
 					new AcSeq.Parallel(highFirePrime),
-					new AcStraight(0.35, 80, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(0.35, 80, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChFalse(), true, cube5ToHR2, driver.drivetrain, 1, 1,
@@ -172,15 +172,15 @@ public class Auto extends AutoStart
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre)),
 					//4th cube
 					new AcSetNumSen(sensors.yaw, 0),
-					new AcStraight(-0.5, 0, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-0.5, 0, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(45, sensors.yaw, true, false, false)),
 							new AcSetArm(-armBasePos)
 					),
 					new AcTurn(65),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.4, 60, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcStraightSafe(-1.4, 60, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcWait(0.3),
 					new AcSetArm(0),
 					new AcSeq.Parallel(
@@ -213,9 +213,9 @@ public class Auto extends AutoStart
 							new AcSetArm(-armBasePos),
 							new AcSeq.Parallel(intakeCubeSpin)
 					),
-					new AcStraight(3, -11, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(3, -11, sensors.driveCentreEncoder, true),
 					//2nd cube
-					new AcStraight(4.85, 5, sensors.driveCentreEncoder, false),
+					new AcStraightSafe(4.85, 5, sensors.driveCentreEncoder, false),
 					new AcTurn(40),
 					new AcSeq.Parallel(sequencer,
 							new AcTankDrive(new ChTime(0.25), 0.5, 0.5)
@@ -228,33 +228,33 @@ public class Auto extends AutoStart
 					new SwitchAction(
 							new AcSeq.Parallel(
 									new AcInterrupt.KillSubsystem(sequencer),
-									new AcStraight(-0.7, 40, sensors.driveCentreEncoder, true),
+									new AcStraightSafe(-0.7, 40, sensors.driveCentreEncoder, true),
 									new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 									new AcWait(0.25),
 									new AcSetArm(0),
 									new AcSeq.Parallel(intakeCubeSlow),
 									new AcTurn(130),
-									new AcStraight(-0.7, 130, sensors.averageEncoder, true),
+									new AcStraightSafe(-0.7, 130, sensors.averageEncoder, true),
 									new AcSeq.Parallel(
 											new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
 											new AcSeq.Parallel(highFirePrime)
 									),
-									new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
-											new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-											new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+									new AcStraightSafeSafe(-4.75, 90, sensors.averageEncoder, false,
+											new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+											new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 									new AcInterrupt.KillSubsystem(intake),
 									new AcTurn(12),
 									new AcSeq.Parallel(
-											new AcDoNothing(new ChNumSen(0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+											new AcDoNothing(new ChNumSen(0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 											new AcSeq.Parallel(highFireRelease)
 									),
-									new AcStraight(1.05, 12, sensors.driveCentreEncoder, true),
+									new AcStraightSafe(1.05, 12, sensors.driveCentreEncoder, true),
 									//3rd cube
 									new AcSetArm(-armBasePos),
 									new AcTurn(-2),
 									new AcSeq.Parallel(intakeCubeFast),
-									new AcStraight(-1, -2, sensors.driveCentreEncoder, true),
-									new AcTankDrive(new ChTime(1), -0.6, -0.6),
+									new AcStraightSafe(-1, -2, sensors.driveCentreEncoder, true),
+									new AcTankDrive(new ChTime(1), -0.4, -0.4),
 									new AcSeq.Parallel(highFirePrime),
 									new AcSetArm(0),
 									new AcDoNothing(new ChNumSen(-25, sensors.armEncoder, true, false, false)),
@@ -263,7 +263,7 @@ public class Auto extends AutoStart
 											new AcDoNothing(new ChNumSen(-0.75 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 											new AcSeq.Parallel(highFireRelease)
 									),
-									new AcStraight(0, -2, sensors.driveCentreEncoder, false)),
+									new AcStraightSafe(0, -2, sensors.driveCentreEncoder, false)),
 							new OptionAction(new ChNumSen(-armBasePos + 50, sensors.armEncoder, true, false, false),
 									new AcSeq.Parallel(
 											new AcInterrupt.KillSubsystem(sequencer),
@@ -277,21 +277,21 @@ public class Auto extends AutoStart
 											new AcSetArm(0),
 											new AcSeq.Parallel(intakeCubeSlow),
 											new AcTurn(130),
-											new AcStraight(-0.7, 130, sensors.averageEncoder, true),
+											new AcStraightSafe(-0.7, 130, sensors.averageEncoder, true),
 											new AcSeq.Parallel(
 													new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
 													new AcSeq.Parallel(highFirePrime)
 											),
-											new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
-													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+											new AcStraightSafeSafe(-4.75, 90, sensors.averageEncoder, false,
+													new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+													new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 											new AcInterrupt.KillSubsystem(intake),
 											new AcTurn(12),
 											new AcSeq.Parallel(
-													new AcDoNothing(new ChNumSen(0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+													new AcDoNothing(new ChNumSen(0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 													new AcSeq.Parallel(highFireRelease)
 											),
-											new AcStraight(1.05, 12, sensors.driveCentreEncoder, true)
+											new AcStraightSafe(1.05, 12, sensors.driveCentreEncoder, true)
 									)
 							)
 					)
@@ -304,7 +304,7 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.45 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChMulti(
@@ -317,20 +317,20 @@ public class Auto extends AutoStart
 							new AcPath.ChangeMinMax(wallToHR3, sensors.driveCentreEncoder, (int) (1.75 * encoderTicksPerMetre), -0.55),
 							new AcPath.ChangeMinMax(wallToHR3, sensors.driveCentreEncoder, (int) (1.75 * encoderTicksPerMetre), 0.55)),
 					//2nd cube
-					new AcStraightPrecise(new ChNumSen(1.2, new SenTimer()), wallToHR2.totalDistance / encoderTicksPerMetre - 0.7, 0, sensors.driveCentreEncoder, false,
-							new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.7),
-							new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.7)),
+					new AcStraightSafePrecise(new ChNumSen(1.2, new SenTimer()), wallToHR2.totalDistance / encoderTicksPerMetre - 0.7, 0, sensors.driveCentreEncoder, false,
+							new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.7),
+							new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.7)),
 					new AcTurn(90),
 					new AcSetArm(-armSwitchPos),
-					new AcStraight(-2.45, 90, sensors.averageEncoder, true,
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+					new AcStraightSafe(-2.45, 90, sensors.averageEncoder, true,
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 					new AcTankDrive(new ChTime(0.1), 0.1, 0.1),
 					new AcSetArm(-armBasePos),
 					new AcTurn(30),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-0.5, 30, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcStraightSafe(-0.5, 30, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcSeq.Parallel(intakeCube),
 					new AcSetArm(-armSwitchPos),
 					new AcSeq.Parallel(
@@ -340,17 +340,17 @@ public class Auto extends AutoStart
 							new AcSeq.Parallel(outtakeCube)
 					),
 					new AcWait(0.25),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcWait(0.25),
 					new AcInterrupt.KillSubsystem(intake),
 					//3rd cube
 					new AcTurn(-75),
 					new AcSetArm(-armBasePos),
-					new AcSeq.Parallel(sequencer, new AcStraight(0.3, -70, sensors.driveCentreEncoder, true)),
+					new AcSeq.Parallel(sequencer, new AcStraightSafe(0.3, -70, sensors.driveCentreEncoder, true)),
 					new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
 					new AcInterrupt.KillSubsystem(sequencer),
 					new AcSeq.Parallel(intakeCube),
-					new AcStraight(-0.7, -70, sensors.driveCentreEncoder, false),
+					new AcStraightSafe(-0.7, -70, sensors.driveCentreEncoder, false),
 					new AcSetArm(0),
 					new AcSeq.Parallel(intakeCubeSlow),
 					new AcTurn(-115),
@@ -369,9 +369,9 @@ public class Auto extends AutoStart
 													new AcSeq.Parallel(highFirePrime),
 													new AcInterrupt.KillSubsystem(intake)
 											),
-											new AcStraightSafe(-4.8, -120, sensors.averageEncoder, true,
-													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.2 * encoderTicksPerMetre), -0.6),
-													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.2 * encoderTicksPerMetre), 0.6)),
+											new AcStraightSafeSafe(-4.8, -120, sensors.averageEncoder, true,
+													new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.2 * encoderTicksPerMetre), -0.4),
+													new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.2 * encoderTicksPerMetre), 0.4)),
 											new AcSetArm(armScalePos),
 											new AcTurn(-90),
 											new AcWait(0.25),
@@ -385,14 +385,14 @@ public class Auto extends AutoStart
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
-					new AcStraight(5.1, 0, sensors.driveCentreEncoder, true,
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+					new AcStraightSafe(5.1, 0, sensors.driveCentreEncoder, true,
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 					new AcTurnLenient(90),
 					new AcSeq.Parallel(intakeCubeSlow),
-					new AcStraightSafe(-5.15, 90, sensors.averageEncoder, true,
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.6)),
+					new AcStraightSafeSafe(-5.15, 90, sensors.averageEncoder, true,
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.4),
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.4)),
 					new AcInterrupt.KillSubsystem(intake),
 					new AcSeq.Parallel(highFirePrime),
 					new AcTurn(10),
@@ -400,14 +400,14 @@ public class Auto extends AutoStart
 							new AcDoNothing(new ChNumSen(0.45 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 							new AcSeq.Parallel(highFireRelease)
 					),
-					new AcStraight(1, 10, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(1, 10, sensors.driveCentreEncoder, true),
 					//2nd cube
 					new AcSetArm(-armBasePos),
 					new AcTurn(-7),
 					new AcSetNumSen(autoDistanceEncoder, 0),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.2, -7, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(1), -0.6, -0.6),
+					new AcStraightSafe(-1.2, -7, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(1), -0.4, -0.4),
 					new AcSetArm(-armSwitchPos),
 					new AcSeq.Parallel(
 							new AcWait(0.25),
@@ -416,17 +416,17 @@ public class Auto extends AutoStart
 							new AcSeq.Parallel(outtakeCube)
 					),
 					new AcWait(0.25),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcInterrupt.KillSubsystem(intake),
 					//3rd cube
 					new AcTankDrive(new ChTime(0.25), 0.5, 0.5),
 					new AcTurn(-80),
 					new AcSetArm(-armBasePos),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcSeq.Parallel(sequencer, new AcStraight(0.3, -80, sensors.driveCentreEncoder, true)),
+					new AcSeq.Parallel(sequencer, new AcStraightSafe(0.3, -80, sensors.driveCentreEncoder, true)),
 					new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
 					new AcInterrupt.KillSubsystem(sequencer),
-					new AcStraight(-0.7, -80, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-0.7, -80, sensors.driveCentreEncoder, true),
 					new AcWait(0.3),
 					new AcSetArm(0),
 					new AcSeq.Parallel(
@@ -435,7 +435,7 @@ public class Auto extends AutoStart
 					),
 					new AcSeq.Parallel(highFirePrime),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(cube2ToHL.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+							new AcDoNothing(new ChNumSen(cube2ToHL.totalDistance - 0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChFalse(), true, cube2ToHL, driver.drivetrain, 1, 1,
@@ -460,15 +460,15 @@ public class Auto extends AutoStart
 							), true, wallToHR2, driver.drivetrain, 1, 1,
 							sensors.yaw, sensors.driveCentreEncoder, false, 
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre),
-							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
-							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.4),
+							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.4)),
 					//2nd cube
 					new AcSetArm(-armBasePos),
 					new AcTurn(8),
 					new AcSetNumSen(autoDistanceEncoder, 0),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.3, 8, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.25), -0.6, -0.6),
+					new AcStraightSafe(-1.3, 8, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.25), -0.4, -0.4),
 					new AcSetArm(-armSwitchPos - 75),
 					new AcSeq.Parallel(
 							new AcWait(0.25),
@@ -477,7 +477,7 @@ public class Auto extends AutoStart
 							new AcSeq.Parallel(outtakeCube)
 					),
 					new AcWait(0.25),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcInterrupt.KillSubsystem(intake),
 					//3rd cube
 					new AcSeq.Parallel(
@@ -486,7 +486,7 @@ public class Auto extends AutoStart
 					),
 					new AcTurn(80),
 					new AcSeq.Parallel(intakeCubeSlow),
-					new AcStraight(-0.65, 80, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-0.45, 80, sensors.driveCentreEncoder, true),
 					new AcWait(0.3),
 					new AcSetArm(0),
 //					new AcSeq.Parallel(intakeCubeSpin),
@@ -496,9 +496,9 @@ public class Auto extends AutoStart
 							new AcInterrupt.KillSubsystem(intake)
 					),
 					new AcSeq.Parallel(highFirePrime),
-					new AcStraight(0.35, 80, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(0.35, 80, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
+							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChFalse(), true, cube5ToHR2, driver.drivetrain, 1, 1,
@@ -506,15 +506,15 @@ public class Auto extends AutoStart
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre)),
 					//4th cube
 					new AcSetNumSen(sensors.yaw, 0),
-					new AcStraight(-0.5, 0, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-0.5, 0, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(45, sensors.yaw, true, false, false)),
 							new AcSetArm(-armBasePos)
 					),
 					new AcTurn(70),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.4, 65, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcStraightSafe(-1.4, 65, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcWait(0.3),
 					new AcSetArm(0),
 					new AcSeq.Parallel(intakeCubeSlow),
@@ -530,9 +530,9 @@ public class Auto extends AutoStart
 													new AcSeq.Parallel(highFirePrime),
 													new AcInterrupt.KillSubsystem(intake)
 											),
-											new AcStraightSafe(3.6, 52, sensors.averageEncoder, true,
-													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (2.4 * encoderTicksPerMetre), -0.6),
-													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (2.4 * encoderTicksPerMetre), 0.6)),
+											new AcStraightSafeSafe(3.6, 52, sensors.averageEncoder, true,
+													new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (2.4 * encoderTicksPerMetre), -0.4),
+													new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (2.4 * encoderTicksPerMetre), 0.4)),
 											new AcSetArm(-armScalePos),
 											new AcTurn(90),
 											new AcWait(0.25),
@@ -549,7 +549,7 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.45 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChMulti(
@@ -565,7 +565,7 @@ public class Auto extends AutoStart
 					new AcSetArm(-armBasePos),
 					new AcTurn(10),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.5, 10, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-1.5, 10, sensors.driveCentreEncoder, true),
 					new AcTankDrive(new ChTime(0.3), -0.55, -0.55),
 					new AcSeq.Parallel(highFirePrime),
 					new AcSetArm(0),
@@ -575,13 +575,13 @@ public class Auto extends AutoStart
 							new AcDoNothing(new ChNumSen(-0.8 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
-					new AcStraight(0, 5, sensors.driveCentreEncoder, false),
+					new AcStraightSafe(0, 5, sensors.driveCentreEncoder, false),
 					//3rd cube
 					new AcSetArm(-armBasePos),
 					new AcTurn(20),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.2, 20, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcStraightSafe(-1.2, 20, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcWait(0.3),
 					new AcSetArm(0),
 					new AcSeq.Parallel(intakeCubeSlow),
@@ -591,7 +591,7 @@ public class Auto extends AutoStart
 					),
 					new AcTurn(80),
 					new AcSeq.Parallel(highFirePrime),
-					new AcStraight(0.35, 80, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(0.35, 80, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(cube5ToHR2.totalDistance - 0.8 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
@@ -601,15 +601,15 @@ public class Auto extends AutoStart
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre)),
 					//4th cube
 					new AcSetNumSen(sensors.yaw, 0),
-					new AcStraight(-0.5, 0, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-0.5, 0, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(45, sensors.yaw, true, false, false)),
 							new AcSetArm(-armBasePos)
 					),
 					new AcTurn(63),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.4, 58, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcStraightSafe(-1.4, 58, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcWait(0.3),
 					new AcSetArm(0),
 					new AcSeq.Parallel(intakeCubeSlow),
@@ -625,9 +625,9 @@ public class Auto extends AutoStart
 													new AcSeq.Parallel(highFirePrime),
 													new AcInterrupt.KillSubsystem(intake)
 											),
-											new AcStraightSafe(3.6, 50, sensors.averageEncoder, true,
-													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (2.4 * encoderTicksPerMetre), -0.6),
-													new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (2.4 * encoderTicksPerMetre), 0.6)),
+											new AcStraightSafeSafe(3.6, 50, sensors.averageEncoder, true,
+													new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (2.4 * encoderTicksPerMetre), -0.4),
+													new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (2.4 * encoderTicksPerMetre), 0.4)),
 											new AcSetArm(-armScalePos),
 											new AcTurn(90),
 											new AcWait(0.25),
@@ -641,14 +641,14 @@ public class Auto extends AutoStart
 				return createAuto(
 					new AcResetSensors(),
 					//1st cube
-					new AcStraight(5, 0, sensors.driveCentreEncoder, true,
-							new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+					new AcStraightSafe(5, 0, sensors.driveCentreEncoder, true,
+							new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+							new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 					new AcTurnLenient(90),
 					new AcSeq.Parallel(intakeCubeSlow),
-					new AcStraightSafe(-5.15, 90, sensors.averageEncoder, true,
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.6)),
+					new AcStraightSafeSafe(-5.15, 90, sensors.averageEncoder, true,
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.4),
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.4)),
 					new AcInterrupt.KillSubsystem(intake),
 					new AcSeq.Parallel(highFirePrime),
 					new AcTurn(10),
@@ -656,13 +656,13 @@ public class Auto extends AutoStart
 							new AcDoNothing(new ChNumSen(0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 							new AcSeq.Parallel(highFireRelease)
 					),
-					new AcStraight(1, 10, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(1, 10, sensors.driveCentreEncoder, true),
 					//2nd cube
 					new AcSetArm(-armBasePos),
 					new AcTurn(-5),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1, -5, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.7), -0.6, -0.6),
+					new AcStraightSafe(-1, -5, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.7), -0.4, -0.4),
 					new AcSeq.Parallel(highFirePrime),
 					new AcSeq.Parallel(intakeCube),
 					new AcSetArm(0),
@@ -672,13 +672,13 @@ public class Auto extends AutoStart
 							new AcDoNothing(new ChNumSen(-0.8 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
-					new AcStraight(0, -5, sensors.driveCentreEncoder, false),
+					new AcStraightSafe(0, -5, sensors.driveCentreEncoder, false),
 					//3rd cube
 					new AcSetArm(-armBasePos),
 					new AcTurn(-20),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.2, -20, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcStraightSafe(-1.2, -20, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcWait(0.2),
 					new AcSetArm(0),
 					new AcSeq.Parallel(intakeCubeSlow),
@@ -688,7 +688,7 @@ public class Auto extends AutoStart
 					),
 					new AcTurnPrecise(-75),
 					new AcSeq.Parallel(highFirePrime),
-					new AcStraight(0.35, -75, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(0.35, -75, sensors.driveCentreEncoder, true),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(cube2ToHL.totalDistance - 0.8 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 							new AcSeq.Parallel(highFireRelease)
@@ -715,15 +715,15 @@ public class Auto extends AutoStart
 							), true, wallToHR2, driver.drivetrain, 1, 1,
 							sensors.yaw, sensors.driveCentreEncoder, false, 
 							new Tolerances.Absolute(0.15 * encoderTicksPerMetre),
-							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
-							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), -0.4),
+							new AcPath.ChangeMinMax(wallToHR2, sensors.driveCentreEncoder, (int) (1.5 * encoderTicksPerMetre), 0.4)),
 					//2nd cube
 					new AcSetArm(-armBasePos),
 					new AcTurn(10),
 					new AcSetNumSen(autoDistanceEncoder, 0),
 					new AcSeq.Parallel(intakeCubeFast),
-					new AcStraight(-1.3, 10, sensors.driveCentreEncoder, true),
-					new AcTankDrive(new ChTime(0.25), -0.6, -0.6),
+					new AcStraightSafe(-1.3, 10, sensors.driveCentreEncoder, true),
+					new AcTankDrive(new ChTime(0.25), -0.4, -0.4),
 					new AcSetArm(-armSwitchPos - 75),
 					new AcSeq.Parallel(
 							new AcWait(0.25),
@@ -732,7 +732,7 @@ public class Auto extends AutoStart
 							new AcSeq.Parallel(outtakeCube)
 					),
 					new AcWait(0.25),
-					new AcTankDrive(new ChTime(0.5), -0.6, -0.6),
+					new AcTankDrive(new ChTime(0.5), -0.4, -0.4),
 					new AcInterrupt.KillSubsystem(intake),
 					//3rd cube
 					new AcSeq.Parallel(
@@ -741,7 +741,7 @@ public class Auto extends AutoStart
 					),
 					new AcTurn(80),
 					new AcSeq.Parallel(intakeCubeSlow),
-					new AcStraight(-0.65, 80, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-0.45, 80, sensors.driveCentreEncoder, true),
 					new AcWait(0.3),
 					new AcSetArm(0),
 					new AcSeq.Parallel(intakeCube),
@@ -749,10 +749,10 @@ public class Auto extends AutoStart
 							new AcWait(1),
 							new AcInterrupt.KillSubsystem(intake)
 					),
-					new AcStraight(1.5, 90, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(1.5, 90, sensors.driveCentreEncoder, true),
 					new AcTurn(0),
 					new AcSeq.Parallel(highFirePrime),
-					new AcStraight(2, 0, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(2, 0, sensors.driveCentreEncoder, true),
 					new AcSetArm(armScalePos),
 					new AcTurn(-90),
 					new AcSeq.Parallel(
@@ -774,42 +774,42 @@ public class Auto extends AutoStart
 							new AcSetArm(-armBasePos),
 							new AcSeq.Parallel(intakeCubeSpin)
 					),
-					new AcStraight(3, -12, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(3, -12, sensors.driveCentreEncoder, true),
 					//2nd cube
-					new AcStraight(5, 5, sensors.driveCentreEncoder, false),
+					new AcStraightSafe(5, 5, sensors.driveCentreEncoder, false),
 					new AcTurn(40),
 					new AcDoNothing(new ChNumSen(-armBasePos + 100, sensors.armEncoder, false, false, false)),
-					new AcStraight(-0.7, 40, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(-0.7, 40, sensors.driveCentreEncoder, true),
 					new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 					new AcWait(0.25),
 					new AcSetArm(0),
 					new AcSeq.Parallel(intakeCubeSlow),
 					new AcTurn(130),
-					new AcStraight(-0.7, 130, sensors.averageEncoder, true),
+					new AcStraightSafe(-0.7, 130, sensors.averageEncoder, true),
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
 							new AcSeq.Parallel(highFirePrime)
 					),
-					new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+					new AcStraightSafeSafe(-4.75, 90, sensors.averageEncoder, false,
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 					new AcInterrupt.KillSubsystem(intake),
 					new AcTurn(12),
 					new AcSeq.Parallel(
-							new AcDoNothing(new ChNumSen(0.6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+							new AcDoNothing(new ChNumSen(0.4 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 							new AcSeq.Parallel(highFireRelease)
 					),
-					new AcStraight(1.05, 12, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(1.05, 12, sensors.driveCentreEncoder, true),
 					//3rd cube
 					new AcSetNumSen(autoDistanceEncoder, 0),
-					new AcStraight(0.3, 0, sensors.driveCentreEncoder, false,
-							new AcStraight.ChangeMinMax(autoDistanceEncoder, (int) (0.3 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(autoDistanceEncoder, (int) (0.3 * encoderTicksPerMetre), 0.6)),
+					new AcStraightSafe(0.3, 0, sensors.driveCentreEncoder, false,
+							new AcStraightSafe.ChangeMinMax(autoDistanceEncoder, (int) (0.3 * encoderTicksPerMetre), -0.4),
+							new AcStraightSafe.ChangeMinMax(autoDistanceEncoder, (int) (0.3 * encoderTicksPerMetre), 0.4)),
 					new AcTurn(90),
 					new AcSetArm(-armSwitchPos),
-					new AcStraightSafe(3.2, 90, sensors.averageEncoder, true,
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
-							new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+					new AcStraightSafeSafe(3.2, 90, sensors.averageEncoder, true,
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), -0.4),
+							new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), 0.4)),
 					new AcSetArm(-armBasePos),
 					new AcTurn(0),
 					new AcSeq.Parallel(intakeCubeFast),
@@ -828,8 +828,8 @@ public class Auto extends AutoStart
 								new AcWait(1),
 								new AcSeq.Parallel(solRetractIntakeL)
 						),
-						new AcStraight(3, -12, sensors.driveCentreEncoder, true),
-						new AcStraight(-0.5, -40, sensors.driveCentreEncoder, true)
+						new AcStraightSafe(3, -12, sensors.driveCentreEncoder, true),
+						new AcStraightSafe(-0.5, -40, sensors.driveCentreEncoder, true)
 				);
 			//1 cube _C H
 			case _C_H:
@@ -839,7 +839,7 @@ public class Auto extends AutoStart
 					new AcSeq.Parallel(
 							new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFirePrime),
-							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.65 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
+							new AcDoNothing(new ChNumSen(wallToHR3.totalDistance - 0.45 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, true, false)),
 							new AcSeq.Parallel(highFireRelease)
 					),
 					new AcPath(new ChMulti(
@@ -864,9 +864,9 @@ public class Auto extends AutoStart
 							new AcSetArm(-armBasePos),
 							new AcSeq.Parallel(intakeCubeSpin)
 					),
-					new AcStraight(3, -11, sensors.driveCentreEncoder, true),
+					new AcStraightSafe(3, -11, sensors.driveCentreEncoder, true),
 					//2nd cube
-					new AcStraight(4.85, 5, sensors.driveCentreEncoder, false),
+					new AcStraightSafe(4.85, 5, sensors.driveCentreEncoder, false),
 					new AcTurn(40),
 					new AcSeq.Parallel(sequencer,
 							new AcTankDrive(new ChTime(0.25), 0.5, 0.5)
@@ -879,16 +879,16 @@ public class Auto extends AutoStart
 					new SwitchAction(
 							new AcSeq.Parallel(
 									new AcInterrupt.KillSubsystem(sequencer),
-									new AcStraight(-0.7, 40, sensors.driveCentreEncoder, true,
-											new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.7),
-											new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.7)),
+									new AcStraightSafe(-0.7, 40, sensors.driveCentreEncoder, true,
+											new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.7),
+											new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.7)),
 									new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 									new AcWait(0.25),
 									new AcSetArm(0),
 									new AcSeq.Parallel(intakeCubeSlow),
 									new AcTurn(20),
 									new AcSeq.Parallel(highFirePrime),
-									new AcStraight(1.5, 20, sensors.driveCentreEncoder, true),
+									new AcStraightSafe(1.5, 20, sensors.driveCentreEncoder, true),
 									new AcSetArm(-armScalePos),
 									new AcTurn(100),
 									new AcWait(0.25),
@@ -900,17 +900,17 @@ public class Auto extends AutoStart
 											new AcDoNothing(new ChNumSen(-1 * encoderTicksPerMetre, sensors.driveCentreEncoder, false, false, true)),
 											new AcSeq.Parallel(intakeCube)
 									),
-									new AcStraight(-2.2, 35, sensors.driveCentreEncoder, true,
-											new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-											new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+									new AcStraightSafe(-2.2, 35, sensors.driveCentreEncoder, true,
+											new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+											new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 									new AcTankDrive(new ChTime(0.5), -0.5, -0.5),
 									new AcTankDrive(new ChTime(0.25), 0.5, 0.5),
 									new AcSetArm(0),
 									new AcSeq.Parallel(intakeCubeSlow),
 									new AcSeq.Parallel(highFirePrime),
-									new AcStraight(2.2, 35, sensors.driveCentreEncoder, true,
-											new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.7),
-											new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.7)),
+									new AcStraightSafe(2.2, 35, sensors.driveCentreEncoder, true,
+											new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.7),
+											new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.7)),
 									new AcSetArm(-armScalePos),
 									new AcTurn(90),
 									new AcWait(0.25),
@@ -930,7 +930,7 @@ public class Auto extends AutoStart
 											new AcSeq.Parallel(intakeCubeSlow),
 											new AcTurn(20),
 											new AcSeq.Parallel(highFirePrime),
-											new AcStraight(1.5, 20, sensors.driveCentreEncoder, true),
+											new AcStraightSafe(1.5, 20, sensors.driveCentreEncoder, true),
 											new AcSetArm(-armScalePos),
 											new AcTurn(100),
 											new AcWait(0.25),
@@ -944,14 +944,14 @@ public class Auto extends AutoStart
 				return createAuto(
 						new AcResetSensors(),
 						//1st cube
-						new AcStraight(4.9, 0, sensors.driveCentreEncoder, true,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+						new AcStraightSafe(4.9, 0, sensors.driveCentreEncoder, true,
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 						new AcTurnLenient(90),
 						new AcSeq.Parallel(intakeCubeSlow),
-						new AcStraightSafe(-5.3, 90, sensors.averageEncoder, true,
-								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.6),
-								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.6)),
+						new AcStraightSafeSafe(-5.3, 90, sensors.averageEncoder, true,
+								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.4),
+								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.4)),
 						new AcInterrupt.KillSubsystem(intake),
 						new AcTurn(155),
 						new AcSetArm(armScalePos),
@@ -959,7 +959,7 @@ public class Auto extends AutoStart
 								new AcDoNothing(new ChNumSen(-0.7 * encoderTicksPerMetre, sensors.driveCentreEncoder, false, false, true)),
 								new AcSeq.Parallel(highFirePrime)
 						),
-						new AcStraight(-1.4, 155, sensors.driveCentreEncoder, true),
+						new AcStraightSafe(-1.4, 155, sensors.driveCentreEncoder, true),
 						new AcTurn(100),
 						new AcWait(0.25),
 						new AcSeq.Parallel(highFireRelease),
@@ -971,9 +971,9 @@ public class Auto extends AutoStart
 								new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 								new AcSeq.Parallel(intakeCube)
 						),
-						new AcStraight(1.6, 160, sensors.driveCentreEncoder, true,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+						new AcStraightSafe(1.6, 160, sensors.driveCentreEncoder, true,
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 						new AcTankDrive(new ChTime(0.7), 0.5, 0.5),
 						new AcSetArm(armSwitchPos + 75),
 						new AcSeq.Parallel(
@@ -990,19 +990,19 @@ public class Auto extends AutoStart
 //				return createAuto(
 //						new AcResetSensors(),
 //						//1st cube
-//						new AcStraight(5.1, 0, sensors.driveCentreEncoder, true,
-//								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-//								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+//						new AcStraightSafe(5.1, 0, sensors.driveCentreEncoder, true,
+//								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+//								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 //						new AcTurnLenient(90),
 //						new AcSeq.Parallel(intakeCubeSlow),
-//						new AcStraightSafe(-5.15, 90, sensors.averageEncoder, true,
-//								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.6),
-//								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.6)),
+//						new AcStraightSafeSafe(-5.15, 90, sensors.averageEncoder, true,
+//								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.4),
+//								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.4)),
 //						new AcInterrupt.KillSubsystem(intake),
 //						new AcSeq.Parallel(highFirePrime),
 //						new AcTurn(150),
 //						new AcSetArm(armScalePos),
-//						new AcStraight(-1.4, 150, sensors.driveCentreEncoder, true),
+//						new AcStraightSafe(-1.4, 150, sensors.driveCentreEncoder, true),
 //						new AcTurn(90),
 //						new AcWait(0.25),
 //						new AcSeq.Parallel(highFireRelease),
@@ -1014,17 +1014,17 @@ public class Auto extends AutoStart
 //								new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 //								new AcSeq.Parallel(intakeCube)
 //						),
-//						new AcStraight(1.6, 160, sensors.driveCentreEncoder, true,
-//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+//						new AcStraightSafe(1.6, 160, sensors.driveCentreEncoder, true,
+//								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+//								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 //						new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 //						new AcTankDrive(new ChTime(0.25), -0.5, -0.5),
 //						new AcSetArm(0),
 //						new AcSeq.Parallel(intakeCubeSlow),
 //						new AcSeq.Parallel(highFirePrime),
-//						new AcStraight(-1.6, 155, sensors.driveCentreEncoder, true,
-//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+//						new AcStraightSafe(-1.6, 155, sensors.driveCentreEncoder, true,
+//								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+//								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 //						new AcSetArm(armScalePos),
 //						new AcTurn(90),
 //						new AcWait(0.25),
@@ -1035,15 +1035,15 @@ public class Auto extends AutoStart
 					return createAuto(
 							new AcResetSensors(),
 							//1st cube
-							new AcStraight(4.9, 0, sensors.driveCentreEncoder, true,
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+							new AcStraightSafe(4.9, 0, sensors.driveCentreEncoder, true,
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 							new AcTurnLenient(90),
 							new AcSeq.Parallel(intakeCubeSlow),
 							new AcWait(2),
-							new AcStraightSafe(-5.3, 90, sensors.averageEncoder, true,
-									new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.6),
-									new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.6)),
+							new AcStraightSafeSafe(-5.3, 90, sensors.averageEncoder, true,
+									new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), -0.4),
+									new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (4 * encoderTicksPerMetre), 0.4)),
 							new AcInterrupt.KillSubsystem(intake),
 							new AcTurn(155),
 							new AcSetArm(armScalePos),
@@ -1051,7 +1051,7 @@ public class Auto extends AutoStart
 									new AcDoNothing(new ChNumSen(-0.7 * encoderTicksPerMetre, sensors.driveCentreEncoder, false, false, true)),
 									new AcSeq.Parallel(highFirePrime)
 							),
-							new AcStraight(-1.4, 155, sensors.driveCentreEncoder, true),
+							new AcStraightSafe(-1.4, 155, sensors.driveCentreEncoder, true),
 							new AcTurn(100),
 							new AcWait(0.25),
 							new AcSeq.Parallel(highFireRelease),
@@ -1063,17 +1063,17 @@ public class Auto extends AutoStart
 									new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 									new AcSeq.Parallel(intakeCube)
 							),
-							new AcStraight(1.6, 160, sensors.driveCentreEncoder, true,
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+							new AcStraightSafe(1.6, 160, sensors.driveCentreEncoder, true,
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 							new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 							new AcTankDrive(new ChTime(0.25), -0.5, -0.5),
 							new AcSetArm(0),
 							new AcSeq.Parallel(intakeCubeSlow),
 							new AcSeq.Parallel(highFirePrime),
-							new AcStraight(-1.6, 155, sensors.driveCentreEncoder, true,
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+							new AcStraightSafe(-1.6, 155, sensors.driveCentreEncoder, true,
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 							new AcSetArm(armScalePos),
 							new AcTurn(90),
 							new AcWait(0.25),
@@ -1088,9 +1088,9 @@ public class Auto extends AutoStart
 								new AcDoNothing(new ChNumSen(6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 								new AcSeq.Parallel(highFirePrime)
 						),
-						new AcStraight(6.25, 0.5, sensors.driveCentreEncoder, true,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -0.6),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), 0.6)),
+						new AcStraightSafe(6.25, 0.5, sensors.driveCentreEncoder, true,
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -0.4),
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), 0.4)),
 						new AcSetArm(-armScalePos),
 						new AcTurn(105),
 						new AcWait(0.25),
@@ -1098,21 +1098,21 @@ public class Auto extends AutoStart
 						//2nd cube
 						new AcWait(0.5),
 						new AcTurn(20),
-						new AcStraightSafe(5.55, 20, sensors.driveCentreEncoder, false,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.65),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.65)),
+						new AcStraightSafeSafe(5.55, 20, sensors.driveCentreEncoder, false,
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.45),
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.45)),
 						new AcTurn(90),
-						new AcStraightSafe(-3.3, 90, sensors.averageEncoder, true,
-								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), -0.6),
-								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), 0.6)),
+						new AcStraightSafeSafe(-3.3, 90, sensors.averageEncoder, true,
+								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), -0.4),
+								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (1.5 * encoderTicksPerMetre), 0.4)),
 						new AcTurn(5),
 						new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 						new AcSetArm(-armBasePos),
 						new AcSeq.Parallel(intakeCubeFast),
 						new AcDoNothing(new ChNumSen(-armBasePos + 100, sensors.armEncoder, false, false, false)),
-						new AcStraight(-0.9, 5, sensors.driveCentreEncoder, true,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.5),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.5)),
+						new AcStraightSafe(-0.9, 5, sensors.driveCentreEncoder, true,
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, 0, -0.5),
+								new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, 0, 0.5)),
 						new AcSetArm(-armSwitchPos - 75),
 						new AcSeq.Parallel(
 								new AcWait(0.5),
@@ -1136,38 +1136,38 @@ public class Auto extends AutoStart
 								new AcSetArm(-armBasePos),
 								new AcSeq.Parallel(intakeCubeSpin)
 						),
-						new AcStraight(3, -11, sensors.driveCentreEncoder, true),
+						new AcStraightSafe(3, -11, sensors.driveCentreEncoder, true),
 						//2nd cube
-						new AcStraight(5.1, 5, sensors.driveCentreEncoder, false),
+						new AcStraightSafe(5.1, 5, sensors.driveCentreEncoder, false),
 						new AcTurn(33),
 						new AcDoNothing(new ChNumSen(-armBasePos + 100, sensors.armEncoder, false, false, false)),
-						new AcStraight(-0.7, 33, sensors.driveCentreEncoder, true),
+						new AcStraightSafe(-0.7, 33, sensors.driveCentreEncoder, true),
 						new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 						new AcWait(0.25),
 						new AcSetArm(0),
 						new AcSeq.Parallel(intakeCubeSlow),
 						new AcTurn(130),
-						new AcStraight(-0.7, 130, sensors.averageEncoder, true),
+						new AcStraightSafe(-0.7, 130, sensors.averageEncoder, true),
 						new AcSeq.Parallel(
 								new AcDoNothing(new ChNumSen(-3 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
 								new AcSeq.Parallel(highFirePrime)
 						),
 						new AcStraightSafe(-4.75, 90, sensors.averageEncoder, false,
-								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.6),
-								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.6)),
+								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), -0.4),
+								new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (3.5 * encoderTicksPerMetre), 0.4)),
 						new AcInterrupt.KillSubsystem(intake),
 						new AcTurn(12),
 						new AcSeq.Parallel(
 								new AcDoNothing(new ChNumSen(0.475 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 								new AcSeq.Parallel(highFireRelease)
 						),
-						new AcStraight(1.05, 12, sensors.driveCentreEncoder, true),
+						new AcStraightSafe(1.05, 12, sensors.driveCentreEncoder, true),
 						//3rd cube
 						new AcSetArm(-armBasePos),
 						new AcTurn(-4),
 						new AcSeq.Parallel(intakeCubeFast),
-						new AcStraight(-1, -4, sensors.driveCentreEncoder, true),
-						new AcTankDrive(new ChTime(1), -0.6, -0.6),
+						new AcStraightSafe(-1, -4, sensors.driveCentreEncoder, true),
+						new AcTankDrive(new ChTime(1), -0.4, -0.4),
 						new AcSeq.Parallel(highFirePrime),
 						new AcSetArm(0),
 						new AcDoNothing(new ChNumSen(-25, sensors.armEncoder, true, false, false)),
@@ -1176,7 +1176,7 @@ public class Auto extends AutoStart
 								new AcDoNothing(new ChNumSen(-0.85 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, false)),
 								new AcSeq.Parallel(highFireRelease)
 						),
-						new AcStraight(0, -4, sensors.driveCentreEncoder, false)
+						new AcStraightSafe(0, -4, sensors.driveCentreEncoder, false)
 					);
 				//3 cube _C HHH
 				case _C_HHH:
@@ -1187,9 +1187,9 @@ public class Auto extends AutoStart
 									new AcDoNothing(new ChNumSen(6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 									new AcSeq.Parallel(highFirePrime)
 							),
-							new AcStraight(6.25, 0.5, sensors.driveCentreEncoder, true,
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -0.6),
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), 0.6)),
+							new AcStraightSafe(6.25, 0.5, sensors.driveCentreEncoder, true,
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -0.4),
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), 0.4)),
 							new AcSetArm(armScalePos),
 							new AcTurn(-70),
 							new AcWait(0.25),
@@ -1202,16 +1202,16 @@ public class Auto extends AutoStart
 									new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 									new AcSeq.Parallel(intakeCube)
 							),
-							new AcStraight(1.8, -150, sensors.driveCentreEncoder, true,
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-									new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+							new AcStraightSafe(1.8, -150, sensors.driveCentreEncoder, true,
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+									new AcStraightSafe.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 							new AcTankDrive(new ChTime(0.7), 0.5, 0.5),
 							new AcSetArm(armScalePos),
 							new AcSeq.Parallel(
 									new AcDoNothing(new ChNumSen(0.5 * encoderTicksPerMetre, sensors.driveCentreEncoder, false, false, false)),
 									new AcSeq.Parallel(highFirePrime)
 							),
-							new AcStraight(0.1, -150, sensors.driveCentreEncoder, false),
+							new AcStraightSafe(0.1, -150, sensors.driveCentreEncoder, false),
 							new AcTurn(-80),
 							new AcWait(0.25),
 							new AcSeq.Parallel(highFireRelease),
@@ -1223,16 +1223,16 @@ public class Auto extends AutoStart
 									new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 									new AcSeq.Parallel(intakeCube)
 							),
-							new AcStraight(2.4, -140, sensors.averageEncoder, true,
-									new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-									new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+							new AcStraightSafe(2.4, -140, sensors.averageEncoder, true,
+									new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), -0.4),
+									new AcStraightSafe.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), 0.4)),
 							new AcTankDrive(new ChTime(1), 0.5, 0.5),
 							new AcSetArm(armScalePos),
 							new AcSeq.Parallel(
 									new AcDoNothing(new ChNumSen(0.5 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
 									new AcSeq.Parallel(highFirePrime)
 							),
-							new AcStraight(0.3, -140, sensors.averageEncoder, false),
+							new AcStraightSafe(0.3, -140, sensors.averageEncoder, false),
 							new AcTurn(-80),
 							new AcWait(0.25),
 							new AcSeq.Parallel(highFireRelease)
