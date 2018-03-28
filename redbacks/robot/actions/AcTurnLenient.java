@@ -25,7 +25,7 @@ public class AcTurnLenient extends AcPath
 				new ChGettableNumber(RobotMap.stoppedTurnThreshold * 10, Robot.sensors.rateYaw, true, true),
 				new ChNumSen(0.5, new SenTimer()),
 				new ChGettableNumber(RobotMap.stoppedTurnThreshold, Robot.sensors.rateYaw, false, true)
-		), false, new Path(new double[]{0, angleTarget, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, Robot.sensors.driveCentreEncoder, false, new Tolerances.Absolute(0));
+		), false, new Path(new double[]{0, angleTarget, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, Robot.sensors.distanceEncoder, false, new Tolerances.Absolute(0));
 		
 		this.angleTarget = angleTarget;
 	}

@@ -54,6 +54,12 @@ public class AcStraight extends AcPath
 		drivetrain.tankDrive(linearOutput + rotationOut.output, linearOutput - rotationOut.output);
 	}
 	
+	public void onFinish() {
+		super.onFinish();
+		
+		System.out.println(encoder.get());
+	}
+	
 	public static class ChangeMinMax implements GettableNumber
 	{
 		public NumericSensor encoder;

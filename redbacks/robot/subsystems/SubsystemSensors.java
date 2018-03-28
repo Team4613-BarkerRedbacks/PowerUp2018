@@ -8,6 +8,7 @@ import redbacks.arachne.ext.navx.sensors.NavX;
 import redbacks.arachne.ext.navx.sensors.NavXReading;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.arachne.lib.sensors.NumericSensor;
+import redbacks.robot.RobotMap;
 
 public class SubsystemSensors extends SubsystemBase
 {
@@ -23,9 +24,17 @@ public class SubsystemSensors extends SubsystemBase
 	
 	public NumericSensor averageEncoder = new NumericSensor() {
 		protected double getSenVal() {
-			return (driveLeftEncoder.get() + driveRightEncoder.get()) / 2;
+			return (driveLeftEncoder.get() + driveRightEncoder.get()) / 2 / RobotMap.sideEncoderTicksPerMetre * MotionSettings2.encoderTicksPerMetre;
 		}
 	};
+
+//	public NumericSensor distanceEncoder = new NumericSensor() {
+//		protected double getSenVal() {
+//			return driveRightEncoder.get() / RobotMap.sideEncoderTicksPerMetre * MotionSettings2.encoderTicksPerMetre;
+//		}
+//	};
+	
+	public NumericSensor distanceEncoder = averageEncoder;
 
 	public SubsystemSensors() {
 		super();

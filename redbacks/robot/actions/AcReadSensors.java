@@ -1,6 +1,5 @@
 package redbacks.robot.actions;
 
-import static redbacks.robot.RobotMap.sideEncoderTicksPerMetre;
 import static redbacks.robot.RobotMap.limelightTable;
 import static redbacks.robot.Robot.sensors;
 
@@ -25,9 +24,9 @@ public class AcReadSensors extends Action
 		SmartDashboard.putNumber("Camera mode", limelightTable.getEntry("camMode").getDouble(-1));
 		
 		SmartDashboard.putNumber("Arm Encoder", sensors.armEncoder.get());
-		SmartDashboard.putNumber("Drive Centre Encoder", sensors.driveCentreEncoder.get());
+		SmartDashboard.putNumber("Drive Distance Encoder", sensors.distanceEncoder.get());
+		SmartDashboard.putNumber("Metres", sensors.distanceEncoder.get() / MotionSettings2.encoderTicksPerMetre);
 		
-		sensors.averageEncoder.setScaleFactor((double) MotionSettings2.encoderTicksPerMetre / sideEncoderTicksPerMetre);
 		SmartDashboard.putNumber("Drive Average Encoder", sensors.averageEncoder.get());
 		
 		SmartDashboard.putNumber("Drive Left Encoder", sensors.driveLeftEncoder.get());

@@ -15,7 +15,7 @@ public class AcTurnPrecise extends AcPath
 	double angleTarget;
 	
 	public AcTurnPrecise(double angleTarget) {
-		super(new ChFalse(), false, new Path(new double[]{0, angleTarget, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, Robot.sensors.driveCentreEncoder, false, new Tolerances.Absolute(0));
+		super(new ChFalse(), false, new Path(new double[]{0, angleTarget, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, Robot.sensors.distanceEncoder, false, new Tolerances.Absolute(0));
 		
 		this.angleTarget = angleTarget;
 	}
