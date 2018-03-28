@@ -1403,11 +1403,11 @@ public class Auto extends AutoStart
 			case PROGRESS_4:
 				return createAuto(
 						new AcResetSensors(),
-						new AcStraight(5.57, 0, sensors.distanceEncoder, true,
+						new AcStraightTrigger(5.57, 0, sensors.distanceEncoder, true,
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, (int) (3 * encoderTicksPerMetre), -driveSlowVoltagePro),
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, (int) (3 * encoderTicksPerMetre), driveSlowVoltagePro)),
 						new AcTurn(90),
-						new AcStraight(-5.3, 90, sensors.distanceEncoder, true,
+						new AcStraightTrigger(-5.3, 90, sensors.distanceEncoder, true,
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, (int) (3 * encoderTicksPerMetre), -driveSlowVoltagePro),
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, (int) (3 * encoderTicksPerMetre), driveSlowVoltagePro)),
 						new AcSeq.Parallel(highFirePrime),
@@ -1417,7 +1417,7 @@ public class Auto extends AutoStart
 								new AcDoNothing(new ChNumSen(0.8 * encoderTicksPerMetre, sensors.distanceEncoder, true, false, false)),
 								new AcSeq.Parallel(highFireRelease)
 						),
-						new AcStraight(1.25, 10, sensors.distanceEncoder, true,
+						new AcStraightTrigger(1.25, 10, sensors.distanceEncoder, true,
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, 0, -driveSlowVoltagePro - 0.1),
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, 0, driveSlowVoltagePro + 0.1))
 				);

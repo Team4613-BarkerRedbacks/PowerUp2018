@@ -23,6 +23,8 @@ public class CommandList extends CommandListStart
 		armToBaseFront = newCom(new AcSetArm(armBasePos)),
 		armToScaleBack = newCom(new AcSetArm(-armScalePos)),
 		armToScaleFront = newCom(new AcSetArm(armScalePos)),
+		armToSlightBack = newCom(new AcSetArm(-armSlightPos)),
+		armToSlightFront = newCom(new AcSetArm(armSlightPos)),
 		armToTop = newCom(new AcSetArm(0)),
 		solExtendIntake = newCom(
 			new AcSolenoid.Single(intake.intakeRightSol, true),

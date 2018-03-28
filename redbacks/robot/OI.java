@@ -41,6 +41,9 @@ public class OI extends OIBase {
 		whenPressed(o_POV_L, armToLowFront.c());
 		whenPressed(o_X, armToBaseFront.c());
 
+		whenPressed(o_RX_L, armToSlightFront.c());
+		whenPressed(o_RX_R, armToSlightBack.c());
+
 		whenPressedReleased(o_A, highFirePrime.c(), highFireRelease.c());
 		whenPressedReleased(o_Start, superFirePrime.c(), superFireRelease.c());
 	}
@@ -103,7 +106,10 @@ public class OI extends OIBase {
 		o_POV_L = wrap(new BtnPOV(stickOperator, 270)),
 	
 		o_LT = wrap(new BtnAxis(axis_o_LT, false, 0.2D)),
-		o_RT = wrap(new BtnAxis(axis_o_RT, false, 0.2D));
+		o_RT = wrap(new BtnAxis(axis_o_RT, false, 0.2D)),
+		
+		o_RX_L = wrap(new BtnAxis(axis_o_RX, true, 0.5)),
+		o_RX_R = wrap(new BtnAxis(axis_o_RX, false, 0.5));
 	
 	public void whenPressedReleased(Button button, CommandBase onPressed, CommandBase onReleased) {
 		button.whenPressed(onPressed);
