@@ -20,7 +20,8 @@ public class MotionSettings2 extends MotionSettings
 		 * 28/3: 0.35 -> 0.3 -> 0.2 -> 0.35 -> 0.3
 		 */
 		driveMinVoltage = 0.35,
+		driveMinVoltagePro = 0.4,
 		
-		
-		driveSlowVoltage = 0.4;
+		driveSlowVoltage = 0.4,
+		driveSlowVoltagePro = 0.5;
 }

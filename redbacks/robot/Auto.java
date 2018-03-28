@@ -110,7 +110,8 @@ public class Auto extends AutoStart
 		PROGRESS_0(300),
 		PROGRESS_1(301),
 		PROGRESS_2(302),
-		PROGRESS_3(303)
+		PROGRESS_3(303),
+		PROGRESS_4(202)
 		;
 		
 		private int id;
@@ -1398,6 +1399,27 @@ public class Auto extends AutoStart
 						new AcStraightTrigger(1.25, -30, sensors.distanceEncoder, true,
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, 0, -driveSlowVoltage - 0.1),
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, 0, driveSlowVoltage + 0.1))
+				);
+			case PROGRESS_4:
+				return createAuto(
+						new AcResetSensors(),
+						new AcStraight(5.57, 0, sensors.distanceEncoder, true,
+								new AcStraight.ChangeMinMax(sensors.distanceEncoder, (int) (3 * encoderTicksPerMetre), -driveSlowVoltagePro),
+								new AcStraight.ChangeMinMax(sensors.distanceEncoder, (int) (3 * encoderTicksPerMetre), driveSlowVoltagePro)),
+						new AcTurn(90),
+						new AcStraight(-5.3, 90, sensors.distanceEncoder, true,
+								new AcStraight.ChangeMinMax(sensors.distanceEncoder, (int) (3 * encoderTicksPerMetre), -driveSlowVoltagePro),
+								new AcStraight.ChangeMinMax(sensors.distanceEncoder, (int) (3 * encoderTicksPerMetre), driveSlowVoltagePro)),
+						new AcSeq.Parallel(highFirePrime),
+						new AcTurn(10),
+						new AcSeq.Parallel(
+								new AcSetArm(100),
+								new AcDoNothing(new ChNumSen(0.8 * encoderTicksPerMetre, sensors.distanceEncoder, true, false, false)),
+								new AcSeq.Parallel(highFireRelease)
+						),
+						new AcStraight(1.25, 10, sensors.distanceEncoder, true,
+								new AcStraight.ChangeMinMax(sensors.distanceEncoder, 0, -driveSlowVoltagePro - 0.1),
+								new AcStraight.ChangeMinMax(sensors.distanceEncoder, 0, driveSlowVoltagePro + 0.1))
 				);
 			default: return null;
 		}
