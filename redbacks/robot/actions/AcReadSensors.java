@@ -28,6 +28,8 @@ public class AcReadSensors extends Action
 		SmartDashboard.putNumber("Metres", sensors.distanceEncoder.get() / MotionSettings2.encoderTicksPerMetre);
 		
 		SmartDashboard.putNumber("Drive Average Encoder", sensors.averageEncoder.get());
+
+		SmartDashboard.putNumber("Centre Encoder", sensors.driveCentreEncoder.get());
 		
 		SmartDashboard.putNumber("Drive Left Encoder", sensors.driveLeftEncoder.get());
 		SmartDashboard.putNumber("Drive Right Encoder", sensors.driveRightEncoder.get());

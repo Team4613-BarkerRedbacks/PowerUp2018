@@ -34,7 +34,7 @@ public class SubsystemSensors extends SubsystemBase
 //		}
 //	};
 	
-	public NumericSensor distanceEncoder = averageEncoder;
+	public NumericSensor distanceEncoder = driveCentreEncoder;
 
 	public SubsystemSensors() {
 		super();

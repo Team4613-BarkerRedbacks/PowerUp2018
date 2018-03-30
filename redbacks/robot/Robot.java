@@ -40,7 +40,7 @@ public class Robot extends ArachneRobot
 	}
 
 	public void initialiseRobot() {
-		MotionSettings2.encoderTicksPerMetre = 26350;
+		MotionSettings2.encoderTicksPerMetre = 25929;
 		MotionSettings2.trajectoryMaxNegSpeed = -0.9;
 		MotionSettings2.trajectoryMaxPosSpeed = 0.9;
 	}

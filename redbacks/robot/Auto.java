@@ -111,7 +111,7 @@ public class Auto extends AutoStart
 		PROGRESS_1(301),
 		PROGRESS_2(302),
 		PROGRESS_3(303),
-		PROGRESS_4(202)
+		PROGRESS_4(304)
 		;
 		
 		private int id;
