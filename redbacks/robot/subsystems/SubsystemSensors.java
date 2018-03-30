@@ -2,12 +2,15 @@ package redbacks.robot.subsystems;
 
 import static redbacks.robot.RobotMap.*;
 
+import edu.wpi.first.wpilibj.I2C.Port;
 import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
 import redbacks.arachne.ext.navx.sensors.NavX;
 import redbacks.arachne.ext.navx.sensors.NavXReading;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.arachne.lib.sensors.NumericSensor;
+import redbacks.arachne.lib.sensors.RevColorSensor;
+import redbacks.arachne.lib.sensors.RevColorSensor.Frequency;
 import redbacks.robot.RobotMap;
 
 public class SubsystemSensors extends SubsystemBase
@@ -22,6 +25,8 @@ public class SubsystemSensors extends SubsystemBase
 	public SenCANEncoder.Displacement driveMonitorEncoderL = new SenCANEncoder.Displacement(idMotDriveL2);
 	public SenCANEncoder.Displacement driveMonitorEncoderR = new SenCANEncoder.Displacement(idMotDriveR1);
 	
+	public RevColorSensor colorSensor = new RevColorSensor(Port.kOnboard, Frequency.HZ_50);
+	
 	public NumericSensor averageEncoder = new NumericSensor() {
 		protected double getSenVal() {
 			return (driveLeftEncoder.get() + driveRightEncoder.get()) / 2 / RobotMap.sideEncoderTicksPerMetre * MotionSettings2.encoderTicksPerMetre;
@@ -33,7 +38,7 @@ public class SubsystemSensors extends SubsystemBase
 //			return driveRightEncoder.get() / RobotMap.sideEncoderTicksPerMetre * MotionSettings2.encoderTicksPerMetre;
 //		}
 //	};
-	
+
 	public NumericSensor distanceEncoder = driveCentreEncoder;
 
 	public SubsystemSensors() {

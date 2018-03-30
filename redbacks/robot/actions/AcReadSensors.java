@@ -36,7 +36,17 @@ public class AcReadSensors extends Action
 
 		SmartDashboard.putNumber("Heading", sensors.yaw.get());
 		SmartDashboard.putNumber("Heading Rate", sensors.rateYaw.get());
+
+		SmartDashboard.putNumber("Speed Forward", sensors.driveSpeed.get());
 		
-		SmartDashboard.putNumber("Speed Forward", sensors.speedForward.get());
+		
+		sensors.colorSensor.outputAll();
+//		sensors.colorSensor.setOperationMode(Mode.PASSIVE);
+		
+//		SmartDashboard.putNumber("RED", sensors.colorSensor.getRed());
+//		SmartDashboard.putNumber("BLUE", sensors.colorSensor.getBlue());
+//		SmartDashboard.putNumber("GREEN", sensors.colorSensor.getGreen());
+//		SmartDashboard.putNumber("WHITE", sensors.colorSensor.getAlpha());
+//		SmartDashboard.putNumber("Color Command Type", sensors.colorSensor.getCommand());
 	}
 }
