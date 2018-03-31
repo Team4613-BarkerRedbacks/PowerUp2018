@@ -19,13 +19,12 @@ public class OI extends OIBase {
 	
 	public void mapOperations() {
 		//Driver Control
-//		whenPressed(new BtnMulti(LogicOperators.AND, d_LB, d_RB), climberRelease.c(), climbManual.c());
 		whenPressed(d_LB, climberRelease.c(), climbManual.c());
 		whenPressed(d_RB, climberRelease.c(), climbManual.c());
 		whenHeld(d_A, cubeFollow.c());
 		whenReleased(d_A, stopIntake.c());
 		whenPressed(d_Start, stopAll.c(), resetSensors.c());
-
+		
 		//Operator Control
 		whenHeld(o_LT, intakeCubeAnalog.c());
 		whenHeld(o_RT, outtakeCubeAnalog.c());

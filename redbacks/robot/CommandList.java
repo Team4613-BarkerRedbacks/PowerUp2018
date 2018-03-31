@@ -176,6 +176,7 @@ public class CommandList extends CommandListStart
 	static {subsystemToUse = driver;}
 	public static CommandSetup
 		drive = newCom(new AcDrive()),
+		tuneLinearPID = newCom(new AcTuneLinearPID(sensors.driveCentreEncoder)),
 		limelightTrack = newCom(new AcLimelightTrack()),
 		cubeFollow = newCom(
 				new AcSeq.Parallel(intakeCube),

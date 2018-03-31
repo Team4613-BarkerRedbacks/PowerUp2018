@@ -40,7 +40,7 @@ public class AcReadSensors extends Action
 		SmartDashboard.putNumber("Speed Forward", sensors.driveSpeed.get());
 		
 		
-		sensors.colorSensor.outputAll();
+//		sensors.colorSensor.outputAll();
 //		sensors.colorSensor.setOperationMode(Mode.PASSIVE);
 		
 //		SmartDashboard.putNumber("RED", sensors.colorSensor.getRed());

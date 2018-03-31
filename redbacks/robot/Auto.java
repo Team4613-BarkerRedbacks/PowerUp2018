@@ -1257,73 +1257,73 @@ public class Auto extends AutoStart
 				);
 			//Test auto
 			//NOTE: Turn is currently inconsistent - must fix
-			case TEST:
-				return createAuto(
-						new AcResetSensors(),
-						//1st cube
-//						new AcSeq.Parallel(
-//								new AcDoNothing(new ChNumSen(6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
-//								new AcSeq.Parallel(highFirePrime)
-//						),
-//						new AcStraightLenient(5, 0, sensors.driveCentreEncoder, true,
-//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -driveSlowVoltage),
-//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), driveSlowVoltage)),
+//			case TEST:
+//				return createAuto(
+//						new AcResetSensors(),
+//						//1st cube
+////						new AcSeq.Parallel(
+////								new AcDoNothing(new ChNumSen(6 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+////								new AcSeq.Parallel(highFirePrime)
+////						),
+////						new AcStraightLenient(5, 0, sensors.driveCentreEncoder, true,
+////								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), -driveSlowVoltage),
+////								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (5 * encoderTicksPerMetre), driveSlowVoltage)),
+////						
+////						new AcSetArm(armScalePos),
+//						new AcTurnGimble(new ChTime(3), 0.1, 0.8)
+//						/*
+//						new AcWait(0.25),
+//						new AcSeq.Parallel(highFireRelease),
 //						
-//						new AcSetArm(armScalePos),
-						new AcTurnGimble(new ChTime(3), 0.1, 0.8)
-						/*
-						new AcWait(0.25),
-						new AcSeq.Parallel(highFireRelease),
-						
-						//2nd cube
-						new AcWait(0.5),
-						new AcSetArm(armBasePos),
-						new AcTurnGimble(-150),
-						new AcWait(5),
-						new AcSeq.Parallel(
-								new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
-								new AcSeq.Parallel(intakeCube)
-						),
-						new AcStraightLenient(1.75, -155, sensors.driveCentreEncoder, true,
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -driveSlowVoltage),
-								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), driveSlowVoltage)),
-						new AcTankDrive(new ChTime(0.5), driveSlowVoltage, driveSlowVoltage),
-						new AcSetArm(armScalePos),
-						new AcSeq.Parallel(
-								new AcDoNothing(new ChNumSen(0.5 * encoderTicksPerMetre, sensors.driveCentreEncoder, false, false, false)),
-								new AcSeq.Parallel(highFirePrime)
-						),
-						new AcStraight(0, -155, sensors.driveCentreEncoder, false,
-								new AcStraight.ChangeMinMaxNeg(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -driveSlowVoltage),
-								new AcStraight.ChangeMinMaxNeg(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), driveSlowVoltage)),
-						new AcWait(5),
-						new AcTurnGimble(-80),
-						new AcWait(0.25),
-						new AcSeq.Parallel(highFireRelease)
-						*/
-						//,
-//						//3rd cube
+//						//2nd cube
 //						new AcWait(0.5),
 //						new AcSetArm(armBasePos),
-//						new AcTurn(-140),
+//						new AcTurnGimble(-150),
+//						new AcWait(5),
 //						new AcSeq.Parallel(
 //								new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
 //								new AcSeq.Parallel(intakeCube)
 //						),
-//						new AcStraightLenient(2.4, -140, sensors.averageEncoder, true,
-//								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
-//								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
-//						new AcTankDrive(new ChTime(1), 0.5, 0.5),
+//						new AcStraightLenient(1.75, -155, sensors.driveCentreEncoder, true,
+//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -driveSlowVoltage),
+//								new AcStraight.ChangeMinMax(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), driveSlowVoltage)),
+//						new AcTankDrive(new ChTime(0.5), driveSlowVoltage, driveSlowVoltage),
 //						new AcSetArm(armScalePos),
 //						new AcSeq.Parallel(
-//								new AcDoNothing(new ChNumSen(0.5 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
+//								new AcDoNothing(new ChNumSen(0.5 * encoderTicksPerMetre, sensors.driveCentreEncoder, false, false, false)),
 //								new AcSeq.Parallel(highFirePrime)
 //						),
-//						new AcStraightLenient(0.3, -140, sensors.averageEncoder, false),
-//						new AcTurn(-80),
+//						new AcStraight(0, -155, sensors.driveCentreEncoder, false,
+//								new AcStraight.ChangeMinMaxNeg(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), -driveSlowVoltage),
+//								new AcStraight.ChangeMinMaxNeg(sensors.driveCentreEncoder, (int) (1 * encoderTicksPerMetre), driveSlowVoltage)),
+//						new AcWait(5),
+//						new AcTurnGimble(-80),
 //						new AcWait(0.25),
 //						new AcSeq.Parallel(highFireRelease)
-				);
+//						*/
+//						//,
+////						//3rd cube
+////						new AcWait(0.5),
+////						new AcSetArm(armBasePos),
+////						new AcTurn(-140),
+////						new AcSeq.Parallel(
+////								new AcDoNothing(new ChNumSen(1 * encoderTicksPerMetre, sensors.driveCentreEncoder, true, false, true)),
+////								new AcSeq.Parallel(intakeCube)
+////						),
+////						new AcStraightLenient(2.4, -140, sensors.averageEncoder, true,
+////								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), -0.6),
+////								new AcStraight.ChangeMinMax(sensors.averageEncoder, (int) (1 * encoderTicksPerMetre), 0.6)),
+////						new AcTankDrive(new ChTime(1), 0.5, 0.5),
+////						new AcSetArm(armScalePos),
+////						new AcSeq.Parallel(
+////								new AcDoNothing(new ChNumSen(0.5 * encoderTicksPerMetre, sensors.averageEncoder, false, false, false)),
+////								new AcSeq.Parallel(highFirePrime)
+////						),
+////						new AcStraightLenient(0.3, -140, sensors.averageEncoder, false),
+////						new AcTurn(-80),
+////						new AcWait(0.25),
+////						new AcSeq.Parallel(highFireRelease)
+//				);
 			/**
 			 * Tuning auto
 			 * DO NOT CHANGE THIS CODE!
