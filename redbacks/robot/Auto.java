@@ -1421,6 +1421,12 @@ public class Auto extends AutoStart
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, 0, -driveSlowVoltagePro - 0.1),
 								new AcStraight.ChangeMinMax(sensors.distanceEncoder, 0, driveSlowVoltagePro + 0.1))
 				);
+			case PROGRESS_3:
+				return createAuto(
+						new AcResetSensors(),
+						new AcStraightTrigger(5, 0, sensors.distanceEncoder, true),
+						new AcTankDrive(new ChTime(0.25), -0.8, -0.8)
+				);
 			default: return null;
 		}
 	}
