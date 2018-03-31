@@ -38,13 +38,15 @@ public class CommandList extends CommandListStart
 			new AcSolenoid.Single(intake.intakeRightSol, true)
 		),
 		solRetractIntakeR = newCom(
-			new AcSolenoid.Single(intake.intakeRightSol, false)
+			new AcSolenoid.Single(intake.intakeRightSol, false),
+			new AcInterrupt.KillSubsystem(intake)
 		),
 		solExtendIntakeL = newCom(
 			new AcSolenoid.Single(intake.intakeLeftSol, true)
 		),
 		solRetractIntakeL = newCom(
-			new AcSolenoid.Single(intake.intakeLeftSol, false)
+			new AcSolenoid.Single(intake.intakeLeftSol, false),
+			new AcInterrupt.KillSubsystem(intake)
 		),
 		lowFire = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, false),
@@ -111,13 +113,10 @@ public class CommandList extends CommandListStart
 			new AcMotor.Set(intake.intakeMotor, intakeFastSpeed, new ChFalse())
 		),
 		intakeCubeSpin = newCom(
-			new AcIntakeRightSide(new ChFalse())
-		),
-		outtakeCubeSpinLeft = newCom(
-			new AcOuttakeLeftSide(new ChFalse())
+				new AcSplitIntakeControl(new ChFalse(), RobotMap.intakeSpeed, intakeSlowSpeed)
 		),
 		outtakeCubeSpinRight = newCom(
-			new AcOuttakeRightSide(new ChFalse())
+			new AcSplitIntakeControl(new ChFalse(), -RobotMap.intakeSlowSpeed, -RobotMap.intakeFastSpeed)
 		),
 		intakeCubeSlow = newCom(
 			new AcSolenoid.Single(shooter.shooterSol1, false),
@@ -145,6 +144,14 @@ public class CommandList extends CommandListStart
 				return -0.2 - (trigger - 0.2) * 3 / 8;
 			}
 		}),
+		sideKickR = newCom(
+			new AcSolenoid.Single(intake.intakeRightSol, true),
+			new AcSplitIntakeControl(new ChFalse(), -0.6, 0)
+		),
+		sideKickL = newCom(
+			new AcSolenoid.Single(intake.intakeLeftSol, true),
+			new AcSplitIntakeControl(new ChFalse(), 0, -0.6)
+		),
 		highFireRelease = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, false),
 			new AcSeq.Parallel(

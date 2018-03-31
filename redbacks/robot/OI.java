@@ -28,8 +28,8 @@ public class OI extends OIBase {
 		//Operator Control
 		whenHeld(o_LT, intakeCubeAnalog.c());
 		whenHeld(o_RT, outtakeCubeAnalog.c());
-		whenPressedReleased(o_LB, solExtendIntakeL.c(), solRetractIntakeL.c());
-		whenPressedReleased(o_RB, solExtendIntakeR.c(), solRetractIntakeR.c());
+		whenPressedReleased(o_LB, sideKickL.c(), solRetractIntakeL.c());
+		whenPressedReleased(o_RB, sideKickR.c(), solRetractIntakeR.c());
 
 		//Arm Positions
 		whenPressed(o_B, armToBaseBack.c());

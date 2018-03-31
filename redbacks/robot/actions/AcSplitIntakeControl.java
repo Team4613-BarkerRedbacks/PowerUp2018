@@ -2,22 +2,25 @@ package redbacks.robot.actions;
 
 import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.Check;
-import redbacks.robot.RobotMap;
 
 import static redbacks.robot.RobotMap.idMotIntakeL;
 import static redbacks.robot.RobotMap.idMotIntakeR;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class AcOuttakeRightSide extends Action
+public class AcSplitIntakeControl extends Action
 {
-	public AcOuttakeRightSide(Check check) {
+	double lSpeed, rSpeed;
+	
+	public AcSplitIntakeControl(Check check, double lSpeed, double rSpeed) {
 		super(check);
+		this.lSpeed = lSpeed;
+		this.rSpeed = rSpeed;
 	}
 
 	public void onStart() {
-		idMotIntakeL.set(ControlMode.PercentOutput, -RobotMap.intakeFastSpeed);
-		idMotIntakeR.set(ControlMode.PercentOutput, -RobotMap.intakeSlowSpeed);
+		idMotIntakeL.set(ControlMode.PercentOutput, lSpeed);
+		idMotIntakeR.set(ControlMode.PercentOutput, rSpeed);
 	}
 	
 	public void onFinish() {

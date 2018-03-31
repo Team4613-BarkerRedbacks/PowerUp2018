@@ -18,6 +18,7 @@ import redbacks.robot.RobotMap;
 /**
  * @author Sean Zammit
  */
+@Deprecated
 public class AcStraightLenient extends AcPath
 {
 	public boolean shouldReset;
