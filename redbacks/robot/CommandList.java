@@ -197,7 +197,6 @@ public class CommandList extends CommandListStart
 	public static CommandSetup
 		drive = newCom(new AcDrive()),
 		tuneLinearPID = newCom(new AcTuneLinearPID(sensors.distanceEncoder)),
-		limelightTrack = newCom(new AcLimelightTrack()),
 		cubeFollow = newCom(
 				new AcSeq.Parallel(intakeCube),
 				new AcMovetoCube(0.55)

@@ -9,7 +9,6 @@ import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.ext.motion.pid.AcMultiPID.PIDAxis;
 import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChFalse;
-import redbacks.arachne.lib.checks.Check;
 import redbacks.arachne.lib.override.AcPIDControl2;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.robot.Robot;
@@ -48,8 +47,6 @@ public class AcTurnGimbal extends Action
 		
 		if(onLeftSide) Robot.driver.drivetrain.tankDrive(rot, (rot > 0 ? -1 : 1) * MotionSettings2.driveMinVoltage);
 		else Robot.driver.drivetrain.tankDrive((rot > 0 ? -1 : 1) * MotionSettings2.driveMinVoltage, rot);
-		
-		
 	}
 	
 	public boolean isDone() {
