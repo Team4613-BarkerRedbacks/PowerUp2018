@@ -43,10 +43,12 @@ public class AcTurnGimbal extends Action
 
 	public void onRun() {
 		acRotation.execute();
-		double rot = rotationOut.output;
+//		double rot = rotationOut.output;
+		double rot = (angle > Robot.sensors.yaw.get() ? 1 : -1);
+
+		if(onLeftSide) Robot.driver.drivetrain.tankDrive(rot, (rot > 0 ? -1 : 1) * 0.7);
+		else Robot.driver.drivetrain.tankDrive((rot > 0 ? 1 : -1) * 0.7, -rot);
 		
-		if(onLeftSide) Robot.driver.drivetrain.tankDrive(rot, (rot > 0 ? -1 : 1) * MotionSettings2.driveMinVoltage);
-		else Robot.driver.drivetrain.tankDrive((rot > 0 ? 1 : -1) * MotionSettings2.driveMinVoltage, -rot);
 	}
 	
 	public boolean isDone() {
