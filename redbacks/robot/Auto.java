@@ -1339,7 +1339,7 @@ public class Auto extends AutoStart
 								new AcPath.ChangeMinMax(wallToHR4, sensors.distanceEncoder, (int) (1.75 * encoderTicksPerMetre), driveSlowVoltage)),
 						//2nd cube
 						new AcSetArm(-armBasePos),
-						new AcTurnGimble(10, false),
+						new AcTurnGimbal(10, false),
 						new AcSeq.Parallel(
 								new AcDoNothing(new ChNumSen(-1 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true)),
 								new AcSeq.Parallel(intakeCube)
@@ -1354,7 +1354,7 @@ public class Auto extends AutoStart
 						),
 						new AcSetArm(armScalePos),
 						new AcStraight(0.5, 10, sensors.distanceEncoder, false),
-						new AcTurnGimble(-80, true),
+						new AcTurnGimbal(-80, true),
 						new AcSeq.Parallel(
 								new AcDoNothing(new ChNumSen(0.25 * encoderTicksPerMetre, sensors.distanceEncoder, true, false, true)),
 								new AcSeq.Parallel(highFireRelease)

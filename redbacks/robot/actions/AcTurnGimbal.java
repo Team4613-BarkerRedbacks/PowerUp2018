@@ -14,7 +14,7 @@ import redbacks.arachne.lib.override.AcPIDControl2;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.robot.Robot;
 
-public class AcTurnGimble extends Action
+public class AcTurnGimbal extends Action
 {
 	boolean onLeftSide;
 	double angle;
@@ -22,7 +22,7 @@ public class AcTurnGimble extends Action
 	public PIDAxis rotationOut;
 	public AcPIDControl2 acRotation;
 	
-	public AcTurnGimble(double angle, boolean onLeftSide) {
+	public AcTurnGimbal(double angle, boolean onLeftSide) {
 		super(new ChFalse());
 		this.onLeftSide = onLeftSide;
 		this.angle = angle;
