@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RevColorSensor extends SensorBase
+public class ModernRoboticsColorSensor extends SensorBase
 {
 	private static final byte
 		kAddress = 0x1E,
@@ -77,11 +77,11 @@ public class RevColorSensor extends SensorBase
 		public short r, g, b, a;
 	}
 	
-	public RevColorSensor(I2C.Port port, Frequency freq) {
+	public ModernRoboticsColorSensor(I2C.Port port, Frequency freq) {
 		this(port, freq, kAddress);
 	}
 
-	public RevColorSensor(I2C.Port port, Frequency freq, int deviceAddress) {
+	public ModernRoboticsColorSensor(I2C.Port port, Frequency freq, int deviceAddress) {
 		m_i2c = new I2C(port, deviceAddress);
 
 		setFreq(freq);
