@@ -23,8 +23,8 @@ public class CommandList extends CommandListStart
 		armToBaseFront = newCom(new AcSetArm(armBasePos)),
 		armToScaleBack = newCom(new AcSetArm(-armScalePos)),
 		armToScaleFront = newCom(new AcSetArm(armScalePos)),
-		armToSlightBack = newCom(new AcSetArm(-armSlightPos)),
-		armToSlightFront = newCom(new AcSetArm(armSlightPos)),
+		armToSlightBack = newCom(new AcSetArm(-armSlightPosTele)),
+		armToSlightFront = newCom(new AcSetArm(armSlightPosTele)),
 		armToTop = newCom(new AcSetArm(0)),
 		solExtendIntake = newCom(
 			new AcSolenoid.Single(intake.intakeRightSol, true),
@@ -141,7 +141,7 @@ public class CommandList extends CommandListStart
 		outtakeCubeAnalog = newCom(new AcIntakeAnalog() {
 			public double getSpeed() {
 				double trigger = OI.axis_o_RT.get();
-				return -0.2 - (trigger - 0.2) * 3 / 8;
+				return -0.2 - (trigger - 0.2) / 2;
 			}
 		}),
 		sideKickR = newCom(
@@ -161,6 +161,19 @@ public class CommandList extends CommandListStart
 			new AcSolenoid.Single(shooter.shooterSol1, false),
 			new AcSolenoid.Single(shooter.shooterSol2, false)
 		),
+//		sideFireLRelease = newCom(
+//			new AcSolenoid.Single(intake.intakeLeftSol, true),
+//			new AcWait(0.5),
+//			new AcSolenoid.Single(shooter.shooterLockSol, false),
+//			new AcSeq.Parallel(
+//					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
+//			),
+//			new AcWait(0.25),
+//			new AcSolenoid.Single(shooter.shooterSol1, false),
+//			new AcSolenoid.Single(shooter.shooterSol2, false),
+//			new AcWait(0.25),
+//			new AcSolenoid.Single(intake.intakeLeftSol, false)
+//		),
 		superFireRelease = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, false),
 			new AcSeq.Parallel(
@@ -183,7 +196,7 @@ public class CommandList extends CommandListStart
 	static {subsystemToUse = driver;}
 	public static CommandSetup
 		drive = newCom(new AcDrive()),
-		tuneLinearPID = newCom(new AcTuneLinearPID(sensors.driveCentreEncoder)),
+		tuneLinearPID = newCom(new AcTuneLinearPID(sensors.distanceEncoder)),
 		limelightTrack = newCom(new AcLimelightTrack()),
 		cubeFollow = newCom(
 				new AcSeq.Parallel(intakeCube),

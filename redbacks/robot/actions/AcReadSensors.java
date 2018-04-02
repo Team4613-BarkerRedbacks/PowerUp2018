@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.override.MotionSettings2;
+import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor.Mode;
 import redbacks.robot.Robot;
 
 public class AcReadSensors extends Action
@@ -29,8 +30,6 @@ public class AcReadSensors extends Action
 		
 		SmartDashboard.putNumber("Drive Average Encoder", sensors.averageEncoder.get());
 
-		SmartDashboard.putNumber("Centre Encoder", sensors.driveCentreEncoder.get());
-		
 		SmartDashboard.putNumber("Drive Left Encoder", sensors.driveLeftEncoder.get());
 		SmartDashboard.putNumber("Drive Right Encoder", sensors.driveRightEncoder.get());
 
@@ -39,14 +38,13 @@ public class AcReadSensors extends Action
 
 		SmartDashboard.putNumber("Speed Forward", sensors.driveSpeed.get());
 		
-		
 //		sensors.colorSensor.outputAll();
 //		sensors.colorSensor.setOperationMode(Mode.PASSIVE);
 		
 //		SmartDashboard.putNumber("RED", sensors.colorSensor.getRed());
 //		SmartDashboard.putNumber("BLUE", sensors.colorSensor.getBlue());
 //		SmartDashboard.putNumber("GREEN", sensors.colorSensor.getGreen());
-//		SmartDashboard.putNumber("WHITE", sensors.colorSensor.getAlpha());
+//		SmartDashboard.putNumber("ALPHA", sensors.colorSensor.getAlpha());
 //		SmartDashboard.putNumber("Color Command Type", sensors.colorSensor.getCommand());
 	}
 }

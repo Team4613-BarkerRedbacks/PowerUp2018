@@ -15,7 +15,7 @@ public class RobotMap
 		cubeTrackKP = 0.1;
 	
 	public static final int
-		armSlightPos = 75, armScalePos = 150, armSwitchPos = 350, armBasePos = 1025,
+		armSlightPosTele = 75, armSlightPos = 100, armScalePos = 150, armSwitchPos = 350, armBasePos = 1025,
 		sideEncoderTicksPerMetre = 13800;
 	
 	private static final CtrlCANTalon
