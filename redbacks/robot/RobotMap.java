@@ -16,7 +16,7 @@ public class RobotMap
 	
 	public static final int
 		armSlightPosTele = 75, armSlightPos = 100, armScalePos = 150, armSwitchPos = 350, armBasePos = 1025,
-		sideEncoderTicksPerMetre = 13800;
+		sideEncoderTicksPerMetre = 14100;
 	
 	private static final CtrlCANTalon
 		talon2	= new CtrlCANTalon(2),
