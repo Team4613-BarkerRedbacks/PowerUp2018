@@ -6,14 +6,15 @@ import static redbacks.arachne.ext.motion.MotionSettings.encoderTicksPerMetre;
 import static redbacks.arachne.lib.override.MotionSettings2.*;
 
 import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
-import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.actions.*;
+import redbacks.arachne.lib.actions.actuators.AcMotor;
+import redbacks.arachne.lib.actions.actuators.AcSolenoid;
 import redbacks.arachne.lib.checks.*;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.commands.CommandSetup;
-import redbacks.arachne.lib.trajectories.AcPath;
-import redbacks.arachne.lib.trajectories.Path;
+import redbacks.arachne.lib.logic.LogicOperators;
+import redbacks.arachne.lib.sensors.SenTimer;
 import redbacks.robot.actions.*;
 
 import static redbacks.robot.Robot.*;
@@ -22,7 +23,6 @@ import static redbacks.robot.RobotMap.*;
 import edu.wpi.first.wpilibj.DriverStation;
 
 import static redbacks.robot.CommandList.*;
-import static redbacks.robot.PathList.*;
 
 public class Auto extends AutoStart
 {
@@ -42,18 +42,18 @@ public class Auto extends AutoStart
 				case RSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
 				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.R_R__LLLL_654);
 				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
-				case LSWITCH_LSCALE: return getAutoComponent(AutoComponent.R__L_HHH_23);
+				case LSWITCH_LSCALE: return getAutoComponent(AutoComponent.R_L__LLL_34);
 			}
 			case 2: switch(gameData) {
 				case RSWITCH_RSCALE: return getAutoComponent(AutoComponent.R_RR_LHH_65);
 				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.R_R__LLLL_654);
 				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
-				case LSWITCH_LSCALE: return getAutoComponent(AutoComponent.R__L_HHH_23);
+				case LSWITCH_LSCALE: return getAutoComponent(AutoComponent.R_L__LLL_34);
 			}
 			case 3: switch(gameData) {
 				case RSWITCH_RSCALE: return getAutoComponent(AutoComponent.C_R__LLL_SS);
-				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.C_L__LLL_SS);
-				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.C_R__LLL_SS);
+				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.C_R__LLL_SS);
+				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.C_L__LLL_SS);
 				case LSWITCH_LSCALE: return getAutoComponent(AutoComponent.C_L__LLL_SS);
 			}
 		}
@@ -91,12 +91,14 @@ public class Auto extends AutoStart
 		OLD_CF_LHH_2(16),
 		OLD__C_HHH(17),
 		
-		R__R_HHH_65(51),
+		R__R_HHH_65(51),	//Done
 		R_RR_LHH_65(52),
-		R_R__LLLL_654(53),
+		R_R__LLLL_654(53),	//Done
 		R__L_HHH_23(54),
-		C_R__LLL_SS(55),
-		C_L__LLL_SS(56),
+		R_L__LLL_34(55),
+		
+		C_R__LLL_SS(61),
+		C_L__LLL_SS(62),
 		
 		TUNE(100),
 		TEST(101),
@@ -348,7 +350,57 @@ public class Auto extends AutoStart
 						new AcInterrupt.KillSubsystem(intake),
 						new AcTankTurn(90),
 						new AcWait(0.25),
-						new AcSeq.Parallel(highFireRelease)					
+						new AcSeq.Parallel(highFireRelease)
+				);
+			case R_L__LLL_34:
+				return createAuto(
+						new AcResetSensors(),
+						//1st cube
+						new AcStraight(5.45, 0, sensors.distanceEncoder, true),
+						new AcTurn(-90),
+						new AcStraight(2.45, -90, sensors.distanceEncoder, true),
+						new AcTurn(-135),
+						new AcSetArm(armSwitchPos),
+						new AcSeq.Parallel(sequencer,
+								new AcStraight(1.2, -135, sensors.distanceEncoder, true)
+						),
+						new AcDoNothing(new ChNumSen(1.5, new SenTimer())),
+						new AcInterrupt.KillSubsystem(sequencer),
+						new AcSeq.Parallel(outtakeCubeFast),
+						//2nd cube
+						new AcWait(0.25),
+						new AcInterrupt.KillSubsystem(intake),
+						new AcDriveDirection(new ChTime(0.75), -0.6, -135),
+						new AcSetArm(armBasePos),
+						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeFastSpeed, intakeSlowSpeed)),
+						new AcDriveDirection(new ChTime(1.25), 0.6, -145),
+						new AcWait(0.5),
+						new AcSeq.Parallel(highFirePrime),
+						new AcSetArm(armSwitchPos - 100),
+						new AcDoNothing(new ChNumSen(armSwitchPos, sensors.armEncoder, false, false, false)),
+						new AcInterrupt.KillSubsystem(intake),
+						new AcWait(0.25),
+						new AcSeq.Parallel(
+								new AcSolenoid.Single(shooter.shooterLockSol, false),
+								new AcWait(0.25),
+								new AcSolenoid.Single(shooter.shooterSol1, false),
+								new AcSolenoid.Single(shooter.shooterSol2, false)
+						),
+						//3rd cube
+						new AcResetSensors(),
+						new AcWait(0.25),
+						new AcInterrupt.KillSubsystem(intake),
+						new AcDriveDirection(new ChNumSen(-0.7 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true), -0.6, 10),
+						new AcSetArm(armBasePos),
+						new AcTankTurn(-35),
+						new AcSeq.Parallel(intakeCube),
+						new AcDriveDirection(new ChTime(1), 0.6, -35),
+						new AcSetArm(armSwitchPos),
+						new AcSeq.Parallel(highFirePrime),
+						new AcWait(0.5),
+						new AcTankTurn(0),
+						new AcDriveDirection(new ChTime(0.5), 0.5, 0),
+						new AcSeq.Parallel(highFireRelease)
 				);
 			default: return OldAuto.getAutoComponent(autoComponent);
 		}
