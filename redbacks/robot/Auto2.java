@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import redbacks.arachne.lib.actions.AcDoNothing;
 import redbacks.arachne.lib.actions.AcInterrupt;
 import redbacks.arachne.lib.actions.AcSeq;
+import redbacks.arachne.lib.actions.AcSetNumSen;
 import redbacks.arachne.lib.actions.AcWait;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.checks.ChTime;
@@ -131,6 +132,65 @@ public class Auto2
 					new AcWait(0.25),
 					new AcSeq.Parallel(highFireRelease)
 					);
+		case L_L__LLLL_123:
+			return createAuto(
+					new AcResetSensors(),
+					//1st cube
+					new AcSeq.Parallel(
+							new AcDoNothing(new ChNumSen(1.5 * encoderTicksPerMetre, sensors.distanceEncoder)),
+							new AcSeq.Parallel(solExtendIntakeR),
+							new AcWait(1),
+							new AcSeq.Parallel(solRetractIntakeR),
+							new AcDoNothing(new ChNumSen(5 * encoderTicksPerMetre, sensors.distanceEncoder, true, false, false)),
+							new AcSetArm(-armBasePos),
+							new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSlowSpeed, intakeFastSpeed))
+					),
+					new AcStraight(4, 11, sensors.distanceEncoder, true),
+					//2nd cube
+					new AcStraight(5.8, -5, sensors.distanceEncoder, false),
+					new AcTurn(-40),
+					new AcDoNothing(new ChNumSen(-armBasePos + 100, sensors.armEncoder, false, false, false)),
+					new AcStraightLenient(-1.2, -40, sensors.distanceEncoder, true),
+					new AcTankDrive(new ChTime(0.25), 0.5, 0.5),
+					new AcWait(0.25),
+					new AcSetArm(-armSwitchPos),
+					new AcSeq.Parallel(
+							new AcWait(0.25),
+							new AcInterrupt.KillSubsystem(intake)
+					),
+					new AcTankDrive(new ChTime(0.5), -0.5, -0.5),
+					new AcDoNothing(new ChNumSen(-armSwitchPos - 100, sensors.armEncoder, true, false, false)),
+					new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), -intakeSlowSpeed, -intakeFastSpeed)),
+					//3rd cube
+					new AcWait(0.25),
+					new AcTankTurn(-75),
+					new AcSetArm(-armBasePos),
+					new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSlowSpeed, intakeSpeed - 0.1)),
+					new AcSetNumSen(autoDistanceEncoder, 0),
+					new AcDriveDirection(new ChNumSen(-0.8 * encoderTicksPerMetre, autoDistanceEncoder, false, false, false), -0.55, -80),
+					new AcSeq.Parallel(intakeCube),
+					new AcSetArm(armSlightPosTele),
+					new AcDoNothing(new ChNumSen(0, sensors.armEncoder, true, false, false)),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcSeq.Parallel(solExtendIntakeL),
+					new AcSeq.Parallel(new AcTankDrive(new ChTime(0.5), 0.5, 0.5)),
+					new AcWait(0.7),
+					new AcSeq.Parallel(solRetractIntakeL),
+					//4th cube
+					new AcSetArm(-armBasePos),
+					new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSlowSpeed, intakeSpeed - 0.1)),
+					new AcSeq.Parallel(sequencer, new AcDriveDirection(new ChNumSen(-1.6 * encoderTicksPerMetre, autoDistanceEncoder, false, false, false), -0.55, -80)),
+					new AcDoNothing(new ChTime(2)),
+					new AcInterrupt.KillSubsystem(sequencer),
+					new AcSeq.Parallel(intakeCube),
+					new AcSetArm(armScalePos),
+					new AcSeq.Parallel(new AcTankDrive(new ChTime(0.5), 0.5, 0.5)),
+					new AcDoNothing(new ChNumSen(0, sensors.armEncoder, true, false, false)),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcSeq.Parallel(solExtendIntakeL),
+					new AcWait(0.7),
+					new AcSeq.Parallel(solRetractIntakeL)
+			);
 			default: return null;
 		}
 	}
