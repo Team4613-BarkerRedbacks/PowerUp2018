@@ -101,6 +101,7 @@ public class Auto extends AutoStart
 		C_L__LLL_SS(62),
 		
 		L__L_HHH_12(71),	//Done
+		L_L__LLLL_123(73),
 		TUNE(100),
 		TEST(101),
 		
