@@ -401,7 +401,6 @@ public class Auto extends AutoStart
 						new AcDriveDirection(new ChTime(0.5), 0.5, 0),
 						new AcSeq.Parallel(highFireRelease)
 				);
-			default: return OldAuto.getAutoComponent(autoComponent);
 			case C_R__LLL_SS:
 				SenTimer timer = new SenTimer();
 				
@@ -452,6 +451,8 @@ public class Auto extends AutoStart
 						new AcWait(0.7),
 						new AcSeq.Parallel(solRetractIntakeR)
 				);
+			default: return Auto2.getAutoComponent(autoComponent);
+//			default: return OldAuto.getAutoComponent(autoComponent);
 		}
 	}
 	
