@@ -1,5 +1,6 @@
 package redbacks.robot;
 
+import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.core.references.CommandListStart;
 import redbacks.arachne.lib.actions.*;
 import redbacks.arachne.lib.actions.actuators.*;
@@ -152,14 +153,8 @@ public class CommandList extends CommandListStart
 			new AcSolenoid.Single(intake.intakeLeftSol, true),
 			new AcSplitIntakeControl(new ChFalse(), 0, -0.6)
 		),
-		highFireRelease = newCom(
-			new AcSolenoid.Single(shooter.shooterLockSol, false),
-			new AcSeq.Parallel(
-					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
-			),
-			new AcWait(0.25),
-			new AcSolenoid.Single(shooter.shooterSol1, false),
-			new AcSolenoid.Single(shooter.shooterSol2, false)
+		highFireRelease = newFireCommand(subsystemToUse,
+			new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
 		),
 //		sideFireLRelease = newCom(
 //			new AcSolenoid.Single(intake.intakeLeftSol, true),
@@ -201,4 +196,14 @@ public class CommandList extends CommandListStart
 				new AcSeq.Parallel(intakeCube),
 				new AcMovetoCube(0.55)
 		);
+	
+	public static CommandSetup newFireCommand(SubsystemBase requiredSystem, Action intakeAction) {
+		return newCom(requiredSystem,
+				new AcSolenoid.Single(shooter.shooterLockSol, false),
+				new AcSeq.Parallel(intakeAction),
+				new AcWait(0.25),
+				new AcSolenoid.Single(shooter.shooterSol1, false),
+				new AcSolenoid.Single(shooter.shooterSol2, false)
+		);
+	}
 }

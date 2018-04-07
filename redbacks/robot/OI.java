@@ -7,11 +7,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import redbacks.arachne.core.OIBase;
+import redbacks.arachne.lib.checks.ChTime;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.input.BtnAxis;
 import redbacks.arachne.lib.input.BtnPOV;
 import redbacks.arachne.lib.input.ButtonGettableWrapper;
 import redbacks.arachne.lib.input.JoystickAxis;
+import redbacks.robot.actions.AcSplitIntakeControl;
 
 public class OI extends OIBase {
 	
@@ -24,6 +26,8 @@ public class OI extends OIBase {
 		whenHeld(d_A, cubeFollow.c());
 		whenReleased(d_A, stopIntake.c());
 		whenPressed(d_Start, stopAll.c(), resetSensors.c());
+		
+//		whenPressedReleased(o_Back, highFirePrime.c(), newFireCommand(Robot.intake, new AcSplitIntakeControl(new ChTime(0.5), 0.7, 1)).c());
 		
 		//Operator Control
 		whenHeld(o_LT, intakeCubeAnalog.c());
