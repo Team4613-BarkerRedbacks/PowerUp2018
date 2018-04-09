@@ -12,6 +12,7 @@ import redbacks.arachne.lib.sensors.NumericSensor;
 import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor;
 import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor.Frequency;
 import redbacks.robot.RobotMap;
+import edu.wpi.first.wpilibj.I2C;
 
 public class SubsystemSensors extends SubsystemBase
 {
@@ -26,6 +27,8 @@ public class SubsystemSensors extends SubsystemBase
 	public SenCANEncoder.Displacement driveMonitorEncoderR = new SenCANEncoder.Displacement(idMotDriveR1);
 	
 	public ModernRoboticsColorSensor colorSensor = new ModernRoboticsColorSensor(Port.kMXP, Frequency.HZ_50);
+	// Attempt to implement color sensor, 9/4/2018
+//	public RegisterIO_I2C i2c_port = new RegisterIO_I2C(I2C i2c_port);
 	
 	public NumericSensor averageEncoder = new NumericSensor() {
 		protected double getSenVal() {
