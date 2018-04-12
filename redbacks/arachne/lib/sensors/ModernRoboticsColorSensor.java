@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModernRoboticsColorSensor extends SensorBase {
+	protected final float colorNormalizationFactor = 1.0f / 65536.0f;
+	
 	private static final byte
 		kAddress = 0x1E,
 		
@@ -158,12 +160,18 @@ public class ModernRoboticsColorSensor extends SensorBase {
 
 	public double getColorValue(ColorComponent color) {
 		
-		ByteBuffer rawColor = ByteBuffer.allocate(8);
+		ByteBuffer rawColor = ByteBuffer.allocate(4);
 		
-		m_i2c.read(color.register, 8, rawColor);
-
+		m_i2c.read(color.register, 4, rawColor);
+		
 		rawColor.order(ByteOrder.BIG_ENDIAN);
-		return rawColor.getDouble();
+		
+		for (Byte b : rawColor.array()) {
+			b.intValue();
+		}
+		
+		int iRetrieved = (int) (rawColor.getInt(0)*colorNormalizationFactor);
+		return iRetrieved;
 	}
 
 	@Override
