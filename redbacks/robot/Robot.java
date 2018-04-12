@@ -6,6 +6,7 @@ import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.robot.subsystems.*;
 import static redbacks.robot.CommandList.*;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
@@ -25,6 +26,7 @@ public class Robot extends ArachneRobot
 	public static OI oi = new OI();
 
 	public static boolean isLimelightVision = false;
+	public boolean hasCameraStarted = false;
 
 	public void initDefaultCommands() {
 		driver.setDefaultCommand(drive.c());
@@ -43,6 +45,11 @@ public class Robot extends ArachneRobot
 		MotionSettings2.encoderTicksPerMetre = 25850;
 		MotionSettings2.trajectoryMaxNegSpeed = -0.8;
 		MotionSettings2.trajectoryMaxPosSpeed = 0.8;
+		
+		if(!hasCameraStarted) {
+			CameraServer.getInstance().startAutomaticCapture();
+			hasCameraStarted = true;
+		}
 	}
 
 	public void initialiseAuto() {
@@ -51,7 +58,7 @@ public class Robot extends ArachneRobot
 
 	public void initialiseTeleop() {
 		Scheduler.getInstance().removeAll();
-//		driver.centreEncoderSol.set(true);
+//		FIXME driver.centreEncoderSol.set(true);
 	}
 	
 	public void initialiseDisabled() {
