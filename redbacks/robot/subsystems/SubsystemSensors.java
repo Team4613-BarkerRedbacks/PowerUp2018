@@ -3,6 +3,7 @@ package redbacks.robot.subsystems;
 import static redbacks.robot.RobotMap.*;
 
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
 import redbacks.arachne.ext.navx.sensors.NavX;
@@ -21,14 +22,12 @@ public class SubsystemSensors extends SubsystemBase
 	public SenCANEncoder.Displacement driveRightEncoder = new SenCANEncoder.Displacement(idMotDriveR1);
 	
 	private SenCANEncoder.Displacement driveCentreEncoder = new SenCANEncoder.Displacement(idMotDriveR3);
-	public SenCANEncoder.Rate driveSpeed = new SenCANEncoder.Rate(idMotDriveL3);
+	public SenCANEncoder.Rate driveSpeed = new SenCANEncoder.Rate(idMotDriveR3);
 
 	public SenCANEncoder.Displacement driveMonitorEncoderL = new SenCANEncoder.Displacement(idMotDriveL2);
 	public SenCANEncoder.Displacement driveMonitorEncoderR = new SenCANEncoder.Displacement(idMotDriveR1);
 	
 	public ModernRoboticsColorSensor colorSensor = new ModernRoboticsColorSensor(Port.kMXP, Frequency.HZ_50);
-	// Attempt to implement color sensor, 9/4/2018
-//	public RegisterIO_I2C i2c_port = new RegisterIO_I2C(I2C i2c_port);
 	
 	public NumericSensor averageEncoder = new NumericSensor() {
 		protected double getSenVal() {
@@ -56,6 +55,15 @@ public class SubsystemSensors extends SubsystemBase
 		driveLeftEncoder.set(0);
 		driveRightEncoder.set(0);
 		yaw.set(0);
+	}
+	
+	public static boolean isWhite(double r, double g, double b) {
+		final double lightThreshold = 5, errorThreshold = 4.25;
+		
+		double sumError = Math.abs(r / g) + Math.abs(g / b) + Math.abs(b / r);
+		SmartDashboard.putNumber("Sum of Errors", sumError);
+		
+		return sumError < errorThreshold && r > lightThreshold && g > lightThreshold && b > lightThreshold;
 	}
 
 	public NavX.Sensor pitch = new NavX.Sensor(NavXReading.ANGLE_PITCH);

@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModernRoboticsColorSensor extends SensorBase {
-	protected final float colorNormalizationFactor = 1.0f / 65536.0f;
-	
 	private static final byte
 		kAddress = 0x1E,
 		
@@ -145,33 +143,28 @@ public class ModernRoboticsColorSensor extends SensorBase {
 		return getColorValue(ColorComponent.ALPHA);
 	}
 
-	public Color getColor() {
-		ColorData data = new ColorData();
-		ByteBuffer rawData = ByteBuffer.allocate(8);
-		m_i2c.read(kColorNumberRegister, 8, rawData);
-
-		rawData.order(ByteOrder.BIG_ENDIAN);
-		data.r = rawData.getShort(0);
-		data.g = rawData.getShort(2);
-		data.b = rawData.getShort(4);
-		data.a = rawData.getShort(6);
-		return new Color(data.r, data.g, data.b, data.a);
-	}
+//	public Color getColor() {
+//		ColorData data = new ColorData();
+//		ByteBuffer rawData = ByteBuffer.allocate(8);
+//		m_i2c.read(kColorNumberRegister, 8, rawData);
+//
+//		rawData.order(ByteOrder.BIG_ENDIAN);
+//		data.r = rawData.getShort(0);
+//		data.g = rawData.getShort(2);
+//		data.b = rawData.getShort(4);
+//		data.a = rawData.getShort(6);
+//		return new Color(data.r, data.g, data.b, data.a);
+//	}
 
 	public double getColorValue(ColorComponent color) {
 		
-		ByteBuffer rawColor = ByteBuffer.allocate(4);
+		ByteBuffer rawColor = ByteBuffer.allocate(2);
 		
-		m_i2c.read(color.register, 4, rawColor);
+		m_i2c.read(color.register, 2, rawColor);
 		
-		rawColor.order(ByteOrder.BIG_ENDIAN);
+		rawColor.order(ByteOrder.LITTLE_ENDIAN);
 		
-		for (Byte b : rawColor.array()) {
-			b.intValue();
-		}
-		
-		int iRetrieved = (int) (rawColor.getInt(0)*colorNormalizationFactor);
-		return iRetrieved;
+		return rawColor.getShort(0);
 	}
 
 	@Override
