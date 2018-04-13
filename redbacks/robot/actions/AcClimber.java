@@ -1,5 +1,6 @@
 package redbacks.robot.actions;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.robot.OI;
@@ -12,8 +13,9 @@ public class AcClimber extends Action
 	}
 
 	public void onRun() {
-		double val = OI.axis_d_RT.get() - OI.axis_d_LT.get();
+		double val = OI.axis_c_RT.get() - OI.axis_c_LT.get();
 		
 		Robot.climber.climberMotor.set(Math.abs(val) > 0.1 ? val : 0, command);
+		SmartDashboard.putNumber("Climber", Robot.climber.climberMotor.get());
 	}
 }

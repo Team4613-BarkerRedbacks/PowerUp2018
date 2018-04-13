@@ -10,9 +10,11 @@ import redbacks.arachne.core.OIBase;
 import redbacks.arachne.lib.checks.ChTime;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.input.BtnAxis;
+import redbacks.arachne.lib.input.BtnMulti;
 import redbacks.arachne.lib.input.BtnPOV;
 import redbacks.arachne.lib.input.ButtonGettableWrapper;
 import redbacks.arachne.lib.input.JoystickAxis;
+import redbacks.arachne.lib.logic.LogicOperators;
 import redbacks.robot.actions.AcSplitIntakeControl;
 
 public class OI extends OIBase {
@@ -28,6 +30,11 @@ public class OI extends OIBase {
 		//Climber Control
 		whenPressed(c_LB, climberRelease.c(), climbManual.c());
 		whenPressed(c_RB, climberRelease.c(), climbManual.c());
+		//whenPressed(new BtnMulti(LogicOperators.AND, c_LB, c_RB), climberRelease.c(), climbManual.c());
+		whenPressed(c_LB, climberRelease.c(), climbManual.c());
+		whenPressed(c_RB, climberRelease.c(), climbManual.c());
+		
+		//whenPressed(c_A, climbUp.c());
 				
 //		whenPressedReleased(o_Back, highFirePrime.c(), newFireCommand(Robot.intake, new AcSplitIntakeControl(new ChTime(0.5), 0.7, 1)).c());
 		

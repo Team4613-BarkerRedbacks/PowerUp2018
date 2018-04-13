@@ -5,12 +5,14 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ModernRoboticsColorSensor extends SensorBase
-{
+public class ModernRoboticsColorSensor extends SensorBase {
+	protected final float colorNormalizationFactor = 1.0f / 65536.0f;
+	
 	private static final byte
 		kAddress = 0x1E,
 		
@@ -31,7 +33,11 @@ public class ModernRoboticsColorSensor extends SensorBase
 		kRedValRegister = 0x05,
 		kGreenValRegister = 0x06,
 		kBlueValRegister = 0x07,
-		kWhiteValRegister = 0x08
+		kWhiteValRegister = 0x08,
+		
+		RedValRegister = 0x16,
+		GreenValRegister = 0x18,
+		BlueValRegister = 0x1a
 	;
 	
 	protected I2C m_i2c;
@@ -61,9 +67,9 @@ public class ModernRoboticsColorSensor extends SensorBase
 	}
 
 	public static enum ColorComponent {
-		RED(kRedValRegister),
-		GREEN(kGreenValRegister),
-		BLUE(kBlueValRegister),
+		RED(RedValRegister),
+		GREEN(GreenValRegister),
+		BLUE(BlueValRegister),
 		ALPHA(kWhiteValRegister);
 		
 		public byte register;
@@ -153,12 +159,19 @@ public class ModernRoboticsColorSensor extends SensorBase
 	}
 
 	public double getColorValue(ColorComponent color) {
-		ByteBuffer rawColor = ByteBuffer.allocate(2);
 		
-		m_i2c.read(color.register, 2, rawColor);
-
+		ByteBuffer rawColor = ByteBuffer.allocate(4);
+		
+		m_i2c.read(color.register, 4, rawColor);
+		
 		rawColor.order(ByteOrder.BIG_ENDIAN);
-		return rawColor.getShort(0);
+		
+		for (Byte b : rawColor.array()) {
+			b.intValue();
+		}
+		
+		int iRetrieved = (int) (rawColor.getInt(0)*colorNormalizationFactor);
+		return iRetrieved;
 	}
 
 	@Override
