@@ -41,10 +41,10 @@ public class AcReadSensors extends Action
 //		sensors.colorSensor.outputAll();
 //		sensors.colorSensor.setOperationMode(Mode.PASSIVE);
 		
-//		SmartDashboard.putNumber("RED", sensors.colorSensor.getRed());
-//		SmartDashboard.putNumber("BLUE", sensors.colorSensor.getBlue());
-//		SmartDashboard.putNumber("GREEN", sensors.colorSensor.getGreen());
-//		SmartDashboard.putNumber("ALPHA", sensors.colorSensor.getAlpha());
-//		SmartDashboard.putNumber("Color Command Type", sensors.colorSensor.getCommand());
+		SmartDashboard.putNumber("RED", sensors.colorSensor.getRed());
+		SmartDashboard.putNumber("BLUE", sensors.colorSensor.getBlue());
+		SmartDashboard.putNumber("GREEN", sensors.colorSensor.getGreen());
+		SmartDashboard.putNumber("ALPHA", sensors.colorSensor.getAlpha());
+		SmartDashboard.putNumber("Color Command Type", sensors.colorSensor.getCommand());
 	}
 }
