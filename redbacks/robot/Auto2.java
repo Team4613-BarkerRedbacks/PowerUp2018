@@ -38,7 +38,6 @@ public class Auto2
 	public static CommandBase getAutoComponent(AutoComponent autoComponent) {
 		switch(autoComponent) {
 		
-		
 		case C_L__LLL_SS:
 			return createAuto(
 					new AcResetSensors(),
@@ -193,7 +192,7 @@ public class Auto2
 					new AcWait(0.7),
 					new AcSeq.Parallel(solRetractIntakeL)
 			);
-		case L__R_HH_2: //start left, right scale, 2 in scale, starting cube + cube 2
+		case L__R_HH_5: //start left, right scale, 2 in scale, starting cube + cube 2
 			return createAuto(
 					new AcResetSensors(),
 					//1st cube
@@ -212,7 +211,7 @@ public class Auto2
 					//2nd cube
 					
 					);
-		case L_R__LLL_34: //start left, right switch, 3 in switch, starting cube + cube 3 + cube 4  
+		case L_R__LLL_43: //start left, right switch, 3 in switch, starting cube + cube 3 + cube 4  
 			return createAuto(
 					new AcResetSensors(),
 					//1st cube
