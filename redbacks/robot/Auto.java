@@ -8,8 +8,6 @@ import static redbacks.arachne.lib.override.MotionSettings2.*;
 
 import redbacks.arachne.ext.ctre.sensors.SenCANEncoder;
 import redbacks.arachne.lib.actions.*;
-import redbacks.arachne.lib.actions.actuators.AcMotor;
-import redbacks.arachne.lib.actions.actuators.AcSolenoid;
 import redbacks.arachne.lib.checks.*;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandBase;
@@ -23,14 +21,12 @@ import static redbacks.robot.RobotMap.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
 
-import static redbacks.robot.Auto.autoDistanceEncoder;
-import static redbacks.robot.Auto.createAuto;
 import static redbacks.robot.CommandList.*;
 
 public class Auto extends AutoStart
 {
 	public static final String LSWITCH_LSCALE = "LLL", LSWITCH_RSCALE = "LRL", RSWITCH_LSCALE = "RLR", RSWITCH_RSCALE = "RRR";
-	public static SenCANEncoder.Displacement autoDistanceEncoder = new SenCANEncoder.Displacement(idMotDriveL3);
+	public static SenCANEncoder.Displacement autoDistanceEncoder = new SenCANEncoder.Displacement(idMotDriveR3);
 	
 	public static CommandBase getAutonomous(int autoNumber) {
 		if(autoNumber < 0) {
@@ -95,12 +91,12 @@ public class Auto extends AutoStart
 		OLD__C_HHH(17),
 		
 		R__R_HHH_65(51),	//Done
-		R_RR_LHH_65(52),
+		R_RR_LHH_65(52),	//Done
 		R_R__LLLL_654(53),	//Done
-		R__L_HH_2(54),
+		R__L_HH_2(54),		//Done
 		R_L__LLL_34(55),	//Done
 		
-		C_R__LLL_SS(61),	//Done
+		C_R__LLL_SS(61),	
 		C_L__LLL_SS(62),
 		
 		L__L_HHH_12(71),	//Done
@@ -281,6 +277,7 @@ public class Auto extends AutoStart
 						),
 						new AcTankDrive(new ChTime(0.5), -0.5, -0.5),
 						new AcDoNothing(new ChNumSen(-armSwitchPos - 100, sensors.armEncoder, true, false, false)),
+						new AcWait(0.5),
 						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), -intakeFastSpeed, -intakeSlowSpeed)),
 						//3rd cube
 						new AcWait(0.25),
@@ -423,7 +420,7 @@ public class Auto extends AutoStart
 						new AcTurn(-135),
 						new AcSetArm(armSwitchPos),
 						new AcSeq.Parallel(sequencer,
-								new AcStraight(1.2, -135, sensors.distanceEncoder, true)
+								new AcStraight(1.3, -135, sensors.distanceEncoder, true)
 						),
 						new AcDoNothing(new ChNumSen(1.5, new SenTimer())),
 						new AcInterrupt.KillSubsystem(sequencer),
@@ -436,26 +433,23 @@ public class Auto extends AutoStart
 						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSlowSpeed, intakeFastSpeed)),
 						new AcDriveDirection(new ChTime(1.25), 0.6, -145),
 						new AcWait(0.5),
-						new AcSeq.Parallel(highFirePrime),
 						new AcSetArm(armSwitchPos - 100),
 						new AcDoNothing(new ChNumSen(armSwitchPos, sensors.armEncoder, false, false, false)),
 						new AcInterrupt.KillSubsystem(intake),
 						new AcWait(0.25),
-						new AcSeq.Parallel(
-								CommandList.newFireCommand(null, new AcDoNothing(new ChTrue()))
-						),
+						new AcSeq.Parallel(highFireRelease),
 						//3rd cube
 						new AcResetSensors(),
 						new AcWait(0.25),
 						new AcInterrupt.KillSubsystem(intake),
-						new AcDriveDirection(new ChNumSen(-0.7 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true), -0.6, 10),
+						new AcDriveDirection(new ChNumSen(-0.4 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true), -0.55, 10),
 						new AcSetArm(armBasePos),
 						new AcTankTurn(-35),
 						new AcSeq.Parallel(intakeCube),
 						new AcDriveDirection(new ChTime(1), 0.6, -35),
 						new AcSetArm(armSwitchPos),
-						new AcSeq.Parallel(highFirePrime),
 						new AcWait(0.5),
+						new AcInterrupt.KillSubsystem(intake),
 						new AcTankTurn(0),
 						new AcDriveDirection(new ChTime(0.5), 0.5, 0),
 						new AcSeq.Parallel(highFireRelease)
@@ -487,30 +481,33 @@ public class Auto extends AutoStart
 						//2nd cube
 						new AcWait(0.25),
 						new AcSetArm(-armBasePos),
-						new AcTankTurn(-18),
+						new AcTankTurn(-8),
 						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSpeed, intakeFastSpeed)),
-						new AcStraightLenient(-2, -18, sensors.averageEncoder, true),
+						new AcStraightLenient(-2, -8, sensors.averageEncoder, true),
+						new AcSeq.Parallel(intakeCube),
 						new AcTankDrive(new ChTime(0.25), -0.5, -0.5),
 						new AcTankTurn(-45),
-						new AcSeq.Parallel(sequencer,
-								new AcSeq.Parallel(intakeCube),
-								new AcDoNothing(new ChNumSen(armScalePos, sensors.armEncoder, false, false, false)),
-								new AcSeq.Parallel(outtakeCubeSlow),
-								new AcWait(0.25),
-								new AcSeq.Parallel(intakeCube)
-						),
 						new AcSeq.Parallel(highFirePrime),
 						new AcSetArm(armSlightPos),
-						new AcDriveDirection(new ChNumSen(0.7 * encoderTicksPerMetre, sensors.averageEncoder, true, false, true), 0.65, -45),
+						new AcDriveDirection(new ChNumSen(0.3 * encoderTicksPerMetre, sensors.averageEncoder, true, false, true), 0.5, -45),
 						new AcTankTurn(5),
 						new AcInterrupt.KillSubsystem(intake),
-						new AcInterrupt.KillSubsystem(sequencer),
 						new AcWait(0.25),
 						new AcSeq.Parallel(
-								new AcDoNothing(new ChNumSen(0.05 * encoderTicksPerMetre, sensors.averageEncoder, true, false, true)),
+								new AcDoNothing(new ChNumSen(0.45 * encoderTicksPerMetre, sensors.averageEncoder, true, false, true)),
 								new AcSeq.Parallel(highFireRelease)
 						),
-						new AcDriveDirection(new ChNumSen(0.4 * encoderTicksPerMetre, sensors.averageEncoder, true, false, true), 0.6, 10)
+						new AcDriveDirection(new ChNumSen(0.7 * encoderTicksPerMetre, sensors.averageEncoder, true, false, true), 0.6, 10)
+//						new AcSetArm(armSlightPos),
+//						new AcSeq.Parallel(highFirePrime),
+//						new AcWait(0.25),
+//						new AcSeq.Parallel(
+//								new AcDoNothing(new ChNumSen(0.5 * encoderTicksPerMetre, sensors.averageEncoder, true, false, true)),
+//								new AcInterrupt.KillSubsystem(intake),
+//								new AcDoNothing(new ChNumSen(0.9 * encoderTicksPerMetre, sensors.averageEncoder, true, false, false)),
+//								new AcSeq.Parallel(highFireRelease)
+//						),
+//						new AcDriveDirection(new ChNumSen(1.4 * encoderTicksPerMetre, sensors.averageEncoder, true, false, true), 0.6, 0)
 				);
 			case C_R__LLL_SS:
 				SenTimer timer = new SenTimer();
@@ -525,7 +522,7 @@ public class Auto extends AutoStart
 						new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 						new AcInterrupt.KillSubsystem(intake),
 						//2nd cube
-						new AcDriveDirection(new ChNumSen(-0.4 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true), -0.6, 0),
+						new AcDriveDirection(new ChNumSen(-0.35 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true), -0.55, 0),
 						new AcSetArm(armBasePos),
 						new AcTankTurn(-80),
 						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeFastSpeed, intakeSlowSpeed)),
@@ -555,7 +552,7 @@ public class Auto extends AutoStart
 								new AcInterrupt.KillSubsystem(intake)
 						),
 						new AcDriveDirection(new ChMulti(LogicOperators.OR,
-								new ChNumSen(0.3 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, false),
+								new ChNumSen(0.1 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, false),
 								new ChNumSen(14.5, timer, true, false, false)
 						), -0.6, -110),
 						new AcSeq.Parallel(sideKickR),
@@ -566,6 +563,7 @@ public class Auto extends AutoStart
 				return createAuto(
 						new AcResetSensors(),
 						//1st cube
+						new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 						new AcTankTurn(-60),
 						new AcSetArm(armScalePos + 100),
 						new AcStraight(3.1, -60, sensors.distanceEncoder, true),
@@ -575,7 +573,7 @@ public class Auto extends AutoStart
 						new AcTankDrive(new ChTime(0.5), 0.5, 0.5),
 						new AcInterrupt.KillSubsystem(intake),
 						//2rd cube 
-						new AcDriveDirection(new ChNumSen(-0.4 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true), -0.6, 0),
+						new AcDriveDirection(new ChNumSen(-0.35 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true), -0.6, 0),
 						new AcSetArm(armBasePos),
 						new AcTankTurn(80),
 						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSlowSpeed, intakeFastSpeed)),
@@ -642,7 +640,7 @@ public class Auto extends AutoStart
 						new AcWait(0.25),
 						new AcSetArm(-armBasePos),
 						new AcTankTurn(-25),
-						new AcSeq.Parallel(intakeCubeFast),
+						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSlowSpeed, intakeFastSpeed)),
 						new AcStraightLenient(-2, -25, sensors.averageEncoder, true),
 						new AcTankDrive(new ChTime(0.25), -0.5, -0.5),
 						new AcSeq.Parallel(
@@ -650,8 +648,8 @@ public class Auto extends AutoStart
 								new AcSeq.Parallel(highFirePrime)
 						),
 						new AcSetArm(-armScalePos),
-						new AcSeq.Parallel(intakeCubeSlow),
-						new AcStraight(2.5, -35, sensors.distanceEncoder, true),
+						new AcSeq.Parallel(intakeCube),
+						new AcStraight(2.5, -33, sensors.distanceEncoder, true),
 						new AcInterrupt.KillSubsystem(intake),
 						new AcTankTurn(-90),
 						new AcWait(0.25),
@@ -685,6 +683,7 @@ public class Auto extends AutoStart
 						),
 						new AcTankDrive(new ChTime(0.5), -0.5, -0.5),
 						new AcDoNothing(new ChNumSen(-armSwitchPos - 100, sensors.armEncoder, true, false, false)),
+						new AcWait(0.5),
 						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), -intakeSlowSpeed, -intakeFastSpeed)),
 						//3rd cube
 						new AcWait(0.25),

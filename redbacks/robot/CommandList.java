@@ -201,6 +201,8 @@ public class CommandList extends CommandListStart
 		return newCom(requiredSystem,
 				new AcSolenoid.Single(shooter.shooterLockSol, false),
 				new AcSeq.Parallel(intakeAction),
+				new AcSolenoid.Single(shooter.shooterSol1, true),
+				new AcSolenoid.Single(shooter.shooterSol2, true),
 				new AcWait(0.25),
 				new AcSolenoid.Single(shooter.shooterSol1, false),
 				new AcSolenoid.Single(shooter.shooterSol2, false)

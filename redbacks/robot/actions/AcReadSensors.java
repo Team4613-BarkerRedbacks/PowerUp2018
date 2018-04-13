@@ -9,6 +9,7 @@ import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor.Mode;
 import redbacks.robot.Robot;
+import redbacks.robot.subsystems.SubsystemSensors;
 
 public class AcReadSensors extends Action
 {
@@ -45,6 +46,11 @@ public class AcReadSensors extends Action
 		SmartDashboard.putNumber("BLUE", sensors.colorSensor.getBlue());
 		SmartDashboard.putNumber("GREEN", sensors.colorSensor.getGreen());
 		SmartDashboard.putNumber("ALPHA", sensors.colorSensor.getAlpha());
+		SmartDashboard.putBoolean("On White Line", SubsystemSensors.isWhite(
+				sensors.colorSensor.getRed(),
+				sensors.colorSensor.getGreen(),
+				sensors.colorSensor.getBlue()
+		));
 		SmartDashboard.putNumber("Color Command Type", sensors.colorSensor.getCommand());
 	}
 }

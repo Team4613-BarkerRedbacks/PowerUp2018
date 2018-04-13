@@ -1,5 +1,6 @@
 package redbacks.robot.actions;
 
+import edu.wpi.first.wpilibj.Timer;
 import redbacks.arachne.core.ArachneRobot;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.checks.ChMulti;
@@ -7,7 +8,6 @@ import redbacks.arachne.lib.checks.analog.ChGettableNumber;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.logic.GettableNumber;
 import redbacks.arachne.lib.logic.ListOperators;
-import redbacks.arachne.lib.logic.LogicOperators;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.arachne.lib.sensors.NumericSensor;
 import redbacks.arachne.lib.sensors.SenTimer;
@@ -20,17 +20,14 @@ import redbacks.robot.RobotMap;
  * @author Sean Zammit
  */
 @Deprecated
-public class AcStraightLenient extends AcPath
+public class AcStraightLenientShort extends AcPath
 {
 	public boolean shouldReset;
+	public double initialStopTime;
 	
-	public AcStraightLenient(double distance, double angle, NumericSensor encoder, boolean shouldReset) {
+	public AcStraightLenientShort(double distance, double angle, NumericSensor encoder, boolean shouldReset) {
 		super(new ChMulti(
 				ListOperators.ORDER,
-//				new ChMulti(LogicOperators.OR,
-//						new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
-//						new ChNumSen(3, new SenTimer())
-//				),
 				new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
 				new ChNumSen(0.5, new SenTimer()),
 				new ChGettableNumber(RobotMap.stoppedMoveThreshold, Robot.sensors.driveSpeed, false, true)
@@ -38,7 +35,7 @@ public class AcStraightLenient extends AcPath
 		this.shouldReset = shouldReset;
 	}
 	
-	public AcStraightLenient(double distance, double angle, NumericSensor encoder, boolean shouldReset, GettableNumber minOut, GettableNumber maxOut) {
+	public AcStraightLenientShort(double distance, double angle, NumericSensor encoder, boolean shouldReset, GettableNumber minOut, GettableNumber maxOut) {
 		this(distance, angle, encoder, shouldReset);
 		this.minOut = minOut;
 		this.maxOut = maxOut;
@@ -65,5 +62,12 @@ public class AcStraightLenient extends AcPath
 		}
 		
 		drivetrain.tankDrive(linearOutput + rotationOut.output, linearOutput - rotationOut.output);
+	}
+	
+	public boolean isDone() {
+		if(super.isDone()) return true;
+		
+		if(Math.abs(Robot.sensors.driveSpeed.get()) < RobotMap.stoppedMoveThreshold) initialStopTime = Timer.getFPGATimestamp();
+		return Timer.getFPGATimestamp() - initialStopTime > 0.75;
 	}
 }
