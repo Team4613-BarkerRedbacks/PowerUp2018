@@ -15,8 +15,10 @@ import redbacks.arachne.lib.actions.AcSetNumSen;
 import redbacks.arachne.lib.actions.AcWait;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.checks.ChTime;
+import redbacks.arachne.lib.checks.ChTrue;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandBase;
+import redbacks.arachne.lib.sensors.SenTimer;
 import redbacks.robot.Auto.AutoComponent;
 import redbacks.robot.actions.AcDriveDirection;
 import redbacks.robot.actions.AcResetSensors;
@@ -191,6 +193,72 @@ public class Auto2
 					new AcWait(0.7),
 					new AcSeq.Parallel(solRetractIntakeL)
 			);
+		case L__R_HH_2: //start left, right scale, 2 in scale, starting cube + cube 2
+			return createAuto(
+					new AcResetSensors(),
+					//1st cube
+					new AcStraight(5.55, 0, sensors.distanceEncoder, true),
+					new AcTurn(90),
+					new AcStraight(5.2, 90, sensors.distanceEncoder, true),
+					new AcSeq.Parallel(sequencer, 
+							new AcDoNothing(new ChNumSen(2, new SenTimer())),
+							new AcSeq.Parallel(highFirePrime),
+							new AcDoNothing(new ChNumSen(6.5, new SenTimer())),
+							new AcSeq.Parallel(highFireRelease)
+									),
+					new AcTurn(0),
+					new AcSetArm(armScalePos),
+					new AcStraight(1.6, 0, sensors.distanceEncoder, true)
+					//2nd cube
+					
+					);
+		case L_R__LLL_34: //start left, right switch, 3 in switch, starting cube + cube 3 + cube 4  
+			return createAuto(
+					new AcResetSensors(),
+					//1st cube
+					new AcStraight(5.45, 0, sensors.distanceEncoder, true),
+					new AcTurn(90),
+					new AcStraight(2.45, 90, sensors.distanceEncoder, true),
+					new AcTurn(135),
+					new AcSetArm(armSwitchPos),
+					new AcSeq.Parallel(sequencer,
+							new AcStraight(1.2, 135, sensors.distanceEncoder, true)
+					),
+					new AcDoNothing(new ChNumSen(1.5, new SenTimer())),
+					new AcInterrupt.KillSubsystem(sequencer),
+					new AcSeq.Parallel(outtakeCubeFast),
+					//2nd cube
+					new AcWait(0.25),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcDriveDirection(new ChTime(0.75), -0.6, 135),
+					new AcSetArm(armBasePos),
+					new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSlowSpeed, intakeFastSpeed)),
+					new AcDriveDirection(new ChTime(1.25), 0.6, 145),
+					new AcWait(0.5),
+					new AcSeq.Parallel(highFirePrime),
+					new AcSetArm(armSwitchPos - 100),
+					new AcDoNothing(new ChNumSen(armSwitchPos, sensors.armEncoder, false, false, false)),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcWait(0.25),
+					new AcSeq.Parallel(
+							CommandList.newFireCommand(null, new AcDoNothing(new ChTrue()))
+					),
+					//3rd cube
+					new AcResetSensors(),
+					new AcWait(0.25),
+					new AcInterrupt.KillSubsystem(intake),
+					new AcDriveDirection(new ChNumSen(-0.7 * encoderTicksPerMetre, sensors.distanceEncoder, false, false, true), -0.6, -10),
+					new AcSetArm(armBasePos),
+					new AcTankTurn(35),
+					new AcSeq.Parallel(intakeCube),
+					new AcDriveDirection(new ChTime(1), 0.6, 35),
+					new AcSetArm(armSwitchPos),
+					new AcSeq.Parallel(highFirePrime),
+					new AcWait(0.5),
+					new AcTankTurn(0),
+					new AcDriveDirection(new ChTime(0.5), 0.5, 0),
+					new AcSeq.Parallel(highFireRelease)
+					);
 			default: return null;
 		}
 	}
