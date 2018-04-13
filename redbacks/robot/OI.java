@@ -21,12 +21,14 @@ public class OI extends OIBase {
 	
 	public void mapOperations() {
 		//Driver Control
-		whenPressed(d_LB, climberRelease.c(), climbManual.c());
-		whenPressed(d_RB, climberRelease.c(), climbManual.c());
 		whenHeld(d_A, cubeFollow.c());
 		whenReleased(d_A, stopIntake.c());
 		whenPressed(d_Start, stopAll.c(), resetSensors.c());
 		
+		//Climber Control
+		whenPressed(c_LB, climberRelease.c(), climbManual.c());
+		whenPressed(c_RB, climberRelease.c(), climbManual.c());
+				
 //		whenPressedReleased(o_Back, highFirePrime.c(), newFireCommand(Robot.intake, new AcSplitIntakeControl(new ChTime(0.5), 0.7, 1)).c());
 		
 		//Operator Control
@@ -113,6 +115,39 @@ public class OI extends OIBase {
 		
 		o_RX_L = wrap(new BtnAxis(axis_o_RX, true, 0.5)),
 		o_RX_R = wrap(new BtnAxis(axis_o_RX, false, 0.5));
+	
+	public static final Joystick stickClimber = new Joystick(2);
+	
+	public static final JoystickAxis
+		axis_c_LX = new JoystickAxis(stickClimber, 0),
+		axis_c_LY = new JoystickAxis(stickClimber, 1),
+		axis_c_LT = new JoystickAxis(stickClimber, 2),
+		axis_c_RT = new JoystickAxis(stickClimber, 3),
+		axis_c_RX = new JoystickAxis(stickClimber, 4),
+		axis_c_RY = new JoystickAxis(stickClimber, 5);
+	
+	public static final ButtonGettableWrapper
+		c_A = wrap(new JoystickButton(stickClimber, 1)),
+		c_B = wrap(new JoystickButton(stickClimber, 2)),
+		c_X = wrap(new JoystickButton(stickClimber, 3)),
+		c_Y = wrap(new JoystickButton(stickClimber, 4)),
+		c_LB = wrap(new JoystickButton(stickClimber, 5)),
+		c_RB = wrap(new JoystickButton(stickClimber, 6)),
+		c_Back = wrap(new JoystickButton(stickClimber, 7)),
+		c_Start = wrap(new JoystickButton(stickClimber, 8)),
+		c_LStick = wrap(new JoystickButton(stickClimber, 9)),
+		c_RStick = wrap(new JoystickButton(stickClimber, 10)),
+	
+		c_POV_U = wrap(new BtnPOV(stickClimber, 0)),
+		c_POV_R = wrap(new BtnPOV(stickClimber, 90)),
+		c_POV_D = wrap(new BtnPOV(stickClimber, 180)),
+		c_POV_L = wrap(new BtnPOV(stickClimber, 270)),
+	
+		c_LT = wrap(new BtnAxis(axis_c_LT, false, 0.2D)),
+		c_RT = wrap(new BtnAxis(axis_c_RT, false, 0.2D)),
+		
+		c_RX_L = wrap(new BtnAxis(axis_c_RX, true, 0.5)),
+		c_RX_R = wrap(new BtnAxis(axis_c_RX, false, 0.5));
 	
 	public void whenPressedReleased(Button button, CommandBase onPressed, CommandBase onReleased) {
 		button.whenPressed(onPressed);
