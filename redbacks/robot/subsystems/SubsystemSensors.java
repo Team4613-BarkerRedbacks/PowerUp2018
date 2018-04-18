@@ -21,8 +21,8 @@ public class SubsystemSensors extends SubsystemBase
 	public SenCANEncoder.Displacement driveLeftEncoder = new SenCANEncoder.Displacement(idMotDriveL2);
 	public SenCANEncoder.Displacement driveRightEncoder = new SenCANEncoder.Displacement(idMotDriveR1);
 	
-	private SenCANEncoder.Displacement driveCentreEncoder = new SenCANEncoder.Displacement(idMotDriveR3);
-	public SenCANEncoder.Rate driveSpeed = new SenCANEncoder.Rate(idMotDriveR3);
+	private SenCANEncoder.Displacement driveCentreEncoder = new SenCANEncoder.Displacement(idMotDriveL3);
+	public SenCANEncoder.Rate driveSpeed = new SenCANEncoder.Rate(idMotDriveL3);
 
 	public SenCANEncoder.Displacement driveMonitorEncoderL = new SenCANEncoder.Displacement(idMotDriveL2);
 	public SenCANEncoder.Displacement driveMonitorEncoderR = new SenCANEncoder.Displacement(idMotDriveR1);

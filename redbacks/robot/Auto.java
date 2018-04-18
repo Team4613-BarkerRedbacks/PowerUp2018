@@ -26,7 +26,7 @@ import static redbacks.robot.CommandList.*;
 public class Auto extends AutoStart
 {
 	public static final String LSWITCH_LSCALE = "LLL", LSWITCH_RSCALE = "LRL", RSWITCH_LSCALE = "RLR", RSWITCH_RSCALE = "RRR";
-	public static SenCANEncoder.Displacement autoDistanceEncoder = new SenCANEncoder.Displacement(idMotDriveR3);
+	public static SenCANEncoder.Displacement autoDistanceEncoder = new SenCANEncoder.Displacement(idMotDriveL3);
 	
 	public static CommandBase getAutonomous(int autoNumber) {
 		if(autoNumber < 0) {
