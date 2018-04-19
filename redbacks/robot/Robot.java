@@ -58,7 +58,7 @@ public class Robot extends ArachneRobot
 
 	public void initialiseTeleop() {
 		Scheduler.getInstance().removeAll();
-//		FIXME driver.centreEncoderSol.set(true);
+		driver.centreEncoderSol.set(true);
 	}
 	
 	public void initialiseDisabled() {

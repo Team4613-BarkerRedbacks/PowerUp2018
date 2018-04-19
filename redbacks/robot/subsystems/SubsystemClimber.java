@@ -10,12 +10,12 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 
 public class SubsystemClimber extends SubsystemBase
 {
-	public CtrlMotor climberMotor = new CtrlMotor(idMotClimb2);
+	public CtrlMotor climberMotor = new CtrlMotor(idMotClimb1);
 	public SolSingle climberSol = new SolSingle(idSolClimbRelease);
 
 	public SubsystemClimber(SubsystemBase... childSystems) {
 		super(childSystems);
 
-		//idMotClimb2.follow((IMotorController) climberMotor.controller);
+		idMotClimb2.follow((IMotorController) climberMotor.controller);
 	}
 }
