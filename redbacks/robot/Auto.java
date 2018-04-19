@@ -493,9 +493,9 @@ public class Auto extends AutoStart
 						//2nd cube
 						new AcWait(0.25),
 						new AcSetArm(-armBasePos),
-						new AcTankTurn(-8 - compBotNegAdjust),
+						new AcTankTurn(-7 - compBotNegAdjust),
 						new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), intakeSpeed, intakeFastSpeed)),
-						new AcStraightLenient(-2, -8 - compBotNegAdjust, sensors.averageEncoder, true),
+						new AcStraightLenient(-2, -7 - compBotNegAdjust, sensors.averageEncoder, true),
 						new AcSeq.Parallel(intakeCube),
 						new AcTankDrive(new ChTime(0.25), -0.5, -0.5),
 						new AcTankTurn(-45 + compBotAdjust),

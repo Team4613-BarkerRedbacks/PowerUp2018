@@ -72,7 +72,7 @@ public class CommandList extends CommandListStart
 		),
 		climberRelease = newCom(
 			new AcSetArm(-armBasePos),
-			new AcDoNothing(new ChNumSen(-armBasePos + 150, sensors.armEncoder, false, false, false)),
+			new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
 			new AcSolenoid.Single(climber.climberSol, true)
 		),
 		stopIntake = newCom(new AcInterrupt.KillSubsystem(intake)),
