@@ -40,6 +40,7 @@ public class OI extends OIBase {
 		//Climber Control
 		whenPressed(c_LB, climberRelease.c(), climbManual.c());
 		whenPressed(c_RB, climberRelease.c(), climbManual.c());
+		whenPressed(c_Y, armToTop.c());
 		
 //		whenPressedReleased(o_Back, highFirePrime.c(), newFireCommand(Robot.intake, new AcSplitIntakeControl(new ChTime(0.5), 0.7, 1)).c());
 		
