@@ -264,7 +264,7 @@ public class Auto extends AutoStart
 						new AcResetSensors(),
 						//1st cube
 						new AcSeq.Parallel(
-								new AcDoNothing(new ChNumSen(1.25 * encoderTicksPerMetre, sensors.distanceEncoder)),
+								new AcDoNothing(new ChNumSen(1.5 * encoderTicksPerMetre, sensors.distanceEncoder)),
 								new AcSeq.Parallel(solExtendIntakeL),
 								new AcWait(1),
 								new AcSeq.Parallel(solRetractIntakeL),
@@ -285,7 +285,7 @@ public class Auto extends AutoStart
 								new AcWait(0.25),
 								new AcInterrupt.KillSubsystem(intake)
 						),
-						new AcTankDrive(new ChTime(0.5), -0.5, -0.5),
+						new AcTankDrive(new ChTime(0.75), -0.5, -0.5),
 						new AcDoNothing(new ChNumSen(-armSwitchPos - 100, sensors.armEncoder, true, false, false)),
 						new AcWait(0.5),
 						//new AcSeq.Parallel(intake, new AcSplitIntakeControl(new ChFalse(), -intakeFastSpeed, -intakeSlowSpeed)),
