@@ -38,7 +38,8 @@ public class Auto extends AutoStart
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
 		switch(autoNumber) {
-			case 1: switch(gameData) {
+			case 1:
+			default: switch(gameData) {
 				case RSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
 				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.R_R__LLLL_654);
 				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
@@ -50,8 +51,7 @@ public class Auto extends AutoStart
 				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
 				case LSWITCH_LSCALE: return getAutoComponent(AutoComponent.R_L__LLL_34);
 			}
-			case 3:
-			default: switch(gameData) {
+			case 3: switch(gameData) {
 				case RSWITCH_RSCALE: return getAutoComponent(AutoComponent.C_R__LLL_SS);
 				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.C_R__LLL_SS);
 				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.C_L__LLL_SS);
