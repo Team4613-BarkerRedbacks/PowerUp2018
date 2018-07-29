@@ -18,7 +18,7 @@ public class AcStraightFinishOnTarget extends AcPath
 	public boolean shouldReset;
 	
 	public AcStraightFinishOnTarget(double distance, double angle, NumericSensor encoder, boolean shouldReset) {
-		super(new ChFalse(), true, new Path(new double[]{distance, angle, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, new Tolerances.Absolute(0.02 * MotionSettings2.encoderTicksPerMetre));
+		super(new ChFalse(), true, new Path(new double[]{distance, angle + (distance > 0 ? 1 : -1) * 3, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, new Tolerances.Absolute(0.02 * MotionSettings2.encoderTicksPerMetre));
 		this.shouldReset = shouldReset;
 	}
 	

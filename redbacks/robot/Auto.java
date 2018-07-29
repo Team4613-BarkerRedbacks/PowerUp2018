@@ -37,8 +37,7 @@ public class Auto extends AutoStart
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
 		switch(autoNumber) {
-			case 1:
-			default: switch(gameData) {
+			case 1: switch(gameData) {
 				case RSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
 				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.R_R__LLL_65);
 				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
@@ -55,6 +54,13 @@ public class Auto extends AutoStart
 				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.C_R__LLL_SS);
 				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.C_L__LLL_SS);
 				case LSWITCH_LSCALE: return getAutoComponent(AutoComponent.C_L__LLL_SS);
+			}
+			case 4:
+			default: switch(gameData) {
+				case RSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
+				case RSWITCH_LSCALE: return getAutoComponent(AutoComponent.R__L_HH_2);
+				case LSWITCH_RSCALE: return getAutoComponent(AutoComponent.R__R_HHH_65);
+				case LSWITCH_LSCALE: return getAutoComponent(AutoComponent.R__L_HH_2);
 			}
 		}
 		return createAuto(new AcStraightFinishOnTarget(3, 0, sensors.distanceEncoder, true));
@@ -325,7 +331,7 @@ public class Auto extends AutoStart
 //								new AcSeq.Parallel(newFireCommand(Robot.intake, new AcSplitIntakeControl(new ChTime(0.5), 0.8, 1)))
 								new AcSeq.Parallel(highFireRelease)
 						),
-						new AcStraight(6.9, -8.25, sensors.distanceEncoder, true),
+						new AcStraight(6.9, -9.25, sensors.distanceEncoder, true),
 						//2nd cube
 						new AcSetArm(-armBasePos),
 						new AcTankTurn(11),
