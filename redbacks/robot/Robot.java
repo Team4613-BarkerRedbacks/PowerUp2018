@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class Robot extends ArachneRobot
 {
+	//Creates the subsystems
 	public static SubsystemSensors sensors = new SubsystemSensors();
 	public static SubsystemDriver driver = new SubsystemDriver();
 	public static SubsystemIntake intake = new SubsystemIntake();

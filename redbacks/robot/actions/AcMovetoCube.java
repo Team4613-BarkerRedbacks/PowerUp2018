@@ -8,7 +8,7 @@ import static redbacks.robot.RobotMap.limelightTable;
 
 
 /**
- * 
+ * Rotates robot into alignment and drives towards a cube in view of camera.
  * 
  * @author Ben Schwarz, Sean Zammit
  */

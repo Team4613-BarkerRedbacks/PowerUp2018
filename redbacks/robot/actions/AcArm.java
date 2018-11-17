@@ -9,6 +9,11 @@ import static redbacks.robot.Robot.*;
 
 import edu.wpi.first.wpilibj.PIDSourceType;
 
+/**
+ * 
+ * Runs PID control loop to control the arm
+ *
+ */
 public class AcArm extends Action
 {
 	public AcArm() {

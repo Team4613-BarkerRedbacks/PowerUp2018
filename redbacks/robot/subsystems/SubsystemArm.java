@@ -7,7 +7,11 @@ import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.ext.motion.pid.AcMultiPID.PIDAxis;
 import redbacks.arachne.lib.motors.CtrlMotor;
 import redbacks.robot.Robot;
-
+/**
+ * 
+ * Arm subsystem controls the rotational arm using a pid loop.
+ *
+ */
 public class SubsystemArm extends SubsystemBase
 {
 	public CtrlMotor armMotor = new CtrlMotor(idMotArm);
