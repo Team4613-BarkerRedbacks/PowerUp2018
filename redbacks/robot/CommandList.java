@@ -10,14 +10,15 @@ import redbacks.arachne.lib.commands.CommandSetup;
 import redbacks.robot.actions.*;
 
 import static redbacks.robot.RobotMap.*;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 import static redbacks.robot.Robot.*;
 
 public class CommandList extends CommandListStart
 {
 	static {subsystemToUse = null;}
 	public static CommandSetup
-		resetArm = newCom(new AcSetNumSen(sensors.armEncoder, 0)),
-		encoderPos = newCom(new AcSolenoid.Single(driver.centreEncoderSol, false)),
 		armToLowFront = newCom(new AcSetArm(armSwitchPos)),
 		armToLowBack = newCom(new AcSetArm(-armSwitchPos)),
 		armToBaseBack = newCom(new AcSetArm(-armBasePos)),
@@ -38,13 +39,12 @@ public class CommandList extends CommandListStart
 		highFirePrime = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, true),
 			new AcWait(0.5),
-			new AcSolenoid.Single(shooter.shooterSol1, true),
-			new AcSolenoid.Single(shooter.shooterSol2, true)
+			new AcSolenoid.Single(shooter.shooterSol, true)
 		),
 		climberRelease = newCom(
 			new AcSetArm(-armBasePos),
 			new AcDoNothing(new ChNumSen(-armBasePos + 50, sensors.armEncoder, false, false, false)),
-			new AcSolenoid.Single(climber.climberSol, true)
+			new AcSolenoid.Double(climber.climberSol, Value.kForward)
 		),
 		stopIntake = newCom(new AcInterrupt.KillSubsystem(intake)),
 		stopAll = newCom(new AcInterrupt.KillAllCommands());
@@ -95,11 +95,9 @@ public class CommandList extends CommandListStart
 		return newCom(requiredSystem,
 				new AcSolenoid.Single(shooter.shooterLockSol, false),
 				new AcSeq.Parallel(intakeAction),
-				new AcSolenoid.Single(shooter.shooterSol1, true),
-				new AcSolenoid.Single(shooter.shooterSol2, true),
+				new AcSolenoid.Single(shooter.shooterSol, true),
 				new AcWait(0.25),
-				new AcSolenoid.Single(shooter.shooterSol1, false),
-				new AcSolenoid.Single(shooter.shooterSol2, false)
+				new AcSolenoid.Single(shooter.shooterSol, false)
 		);
 	}
 }

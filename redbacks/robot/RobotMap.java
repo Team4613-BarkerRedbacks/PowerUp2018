@@ -39,14 +39,12 @@ public class RobotMap
 		idMotClimb = victor11;
 		
 	public static final int
-		idSolCentreEncoder = 2,
-		idSolShooter2 = 7,
-		idSolShooterHigh = 1,
+		idSolShooter = 0,
+		idSolClimbRelease1 = 1,
+		idSolClimbRelease2 = 2,
 		idSolRightIntake = 4,
 		idSolLeftIntake = 5,
-		idSolShooter1 = 0,
-		idSolLock = 6,
-		idSolClimbRelease = 3;
+		idSolLock = 6;
 	
 	public static final NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
 }

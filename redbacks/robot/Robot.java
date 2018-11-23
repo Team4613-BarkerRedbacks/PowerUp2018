@@ -34,13 +34,8 @@ public class Robot extends ArachneRobot
 		return null;
 	}
 
-	public void initialiseAuto() {
-		driver.centreEncoderSol.set(false);
-	}
-
 	public void initialiseTeleop() {
 		Scheduler.getInstance().removeAll();
-		driver.centreEncoderSol.set(true);
 	}
 	
 	public void initialiseDisabled() {
