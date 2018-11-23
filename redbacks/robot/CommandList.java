@@ -27,48 +27,19 @@ public class CommandList extends CommandListStart
 		armToSlightBack = newCom(new AcSetArm(-armSlightPosTele)),
 		armToSlightFront = newCom(new AcSetArm(armSlightPosTele)),
 		armToTop = newCom(new AcSetArm(0)),
-		solExtendIntake = newCom(
-			new AcSolenoid.Single(intake.intakeRightSol, true),
-			new AcSolenoid.Single(intake.intakeLeftSol, true)
-		),
-		solRetractIntake = newCom(
-			new AcSolenoid.Single(intake.intakeLeftSol, false), 
-			new AcSolenoid.Single(intake.intakeRightSol, false)
-		),
-		solExtendIntakeR = newCom(
-			new AcSolenoid.Single(intake.intakeRightSol, true)
-		),
 		solRetractIntakeR = newCom(
 			new AcSolenoid.Single(intake.intakeRightSol, false),
 			new AcInterrupt.KillSubsystem(intake)
 		),
-		solExtendIntakeL = newCom(
-			new AcSolenoid.Single(intake.intakeLeftSol, true)
-		),
 		solRetractIntakeL = newCom(
 			new AcSolenoid.Single(intake.intakeLeftSol, false),
 			new AcInterrupt.KillSubsystem(intake)
-		),
-		lowFire = newCom(
-			new AcSolenoid.Single(shooter.shooterLockSol, false),
-			new AcSolenoid.Single(shooter.shooterSol1, true),
-			new AcSolenoid.Single(shooter.shooterSol2, true),
-			new AcWait(0.5), 
-			new AcSolenoid.Single(shooter.shooterSol1, false),
-			new AcSolenoid.Single(shooter.shooterSol2, false)
 		),
 		highFirePrime = newCom(
 			new AcSolenoid.Single(shooter.shooterLockSol, true),
 			new AcWait(0.5),
 			new AcSolenoid.Single(shooter.shooterSol1, true),
 			new AcSolenoid.Single(shooter.shooterSol2, true)
-		),
-		superFirePrime = newCom(
-			new AcSolenoid.Single(shooter.shooterLockSol, true),
-			new AcWait(0.5),
-			new AcSolenoid.Single(shooter.shooterSol1, true),
-			new AcSolenoid.Single(shooter.shooterSol2, true),
-			new AcSolenoid.Single(shooter.shooterSolHigh, true)
 		),
 		climberRelease = newCom(
 			new AcSetArm(-armBasePos),
@@ -80,59 +51,18 @@ public class CommandList extends CommandListStart
 	
 	static {subsystemToUse = sensors;}
 	public static CommandSetup
-		readSensors = newCom(new AcReadSensors()),
-		resetSensors = newCom(new AcResetSensors());
+		readSensors = newCom(new AcReadSensors());
 	
 	static {subsystemToUse = arm;}
 	public static CommandSetup
-			armLoop = newCom(new AcArm()),
-			moveArm = newCom(new AcMotor.Set(arm.armMotor, armMaxSpeed, new ChFalse())),
-			reverseArm = newCom(new AcMotor.Set(arm.armMotor, -armMaxSpeed, new ChFalse()));
+			armLoop = newCom(new AcArm());
 
 	static {subsystemToUse = climber;}
 	public static CommandSetup
-		climbUp = newCom(
-			new AcMotor.Set(climber.climberMotor, 0.25, new ChFalse())
-		),
-		climbDown = newCom(
-			new AcMotor.Set(climber.climberMotor, -0.25, new ChFalse())
-		),
-		climbManual = newCom(
-			new AcClimber()
-		);
+		climbManual = newCom(new AcClimber());
 	
 	static {subsystemToUse = intake;}
 	public static CommandSetup
-		intakeCube = newCom(
-			new AcSolenoid.Single(shooter.shooterSol1, false),
-			new AcSolenoid.Single(shooter.shooterSol2, false),
-			new AcMotor.Set(intake.intakeMotor, intakeSpeed, new ChFalse())
-		),
-		intakeCubeFast = newCom(
-			new AcSolenoid.Single(shooter.shooterSol1, false),
-			new AcSolenoid.Single(shooter.shooterSol2, false),
-			new AcMotor.Set(intake.intakeMotor, intakeFastSpeed, new ChFalse())
-		),
-		intakeCubeSpin = newCom(
-				new AcSplitIntakeControl(new ChFalse(), RobotMap.intakeSpeed, intakeSlowSpeed)
-		),
-		outtakeCubeSpinRight = newCom(
-			new AcSplitIntakeControl(new ChFalse(), -RobotMap.intakeSlowSpeed, -RobotMap.intakeFastSpeed)
-		),
-		intakeCubeSlow = newCom(
-			new AcSolenoid.Single(shooter.shooterSol1, false),
-			new AcSolenoid.Single(shooter.shooterSol2, false),
-			new AcMotor.Set(intake.intakeMotor, intakeSlowSpeed, new ChFalse())
-		),
-		outtakeCube = newCom(
-			new AcMotor.Set(intake.intakeMotor, -0.5, new ChFalse())
-		),
-		outtakeCubeSlow = newCom(
-			new AcMotor.Set(intake.intakeMotor, -0.35, new ChFalse())
-		),
-		outtakeCubeFast = newCom(
-			new AcMotor.Set(intake.intakeMotor, -1, new ChFalse())
-		),
 		intakeCubeAnalog = newCom(new AcIntakeAnalog() {
 			public double getSpeed() {
 				double trigger = OI.axis_o_LT.get();
@@ -155,47 +85,11 @@ public class CommandList extends CommandListStart
 		),
 		highFireRelease = newFireCommand(subsystemToUse,
 			new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
-		),
-//		sideFireLRelease = newCom(
-//			new AcSolenoid.Single(intake.intakeLeftSol, true),
-//			new AcWait(0.5),
-//			new AcSolenoid.Single(shooter.shooterLockSol, false),
-//			new AcSeq.Parallel(
-//					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
-//			),
-//			new AcWait(0.25),
-//			new AcSolenoid.Single(shooter.shooterSol1, false),
-//			new AcSolenoid.Single(shooter.shooterSol2, false),
-//			new AcWait(0.25),
-//			new AcSolenoid.Single(intake.intakeLeftSol, false)
-//		),
-		superFireRelease = newCom(
-			new AcSolenoid.Single(shooter.shooterLockSol, false),
-			new AcSeq.Parallel(
-					new AcMotor.Set(intake.intakeMotor, -1, new ChTime(0.5))
-			),
-			new AcWait(0.5),
-			new AcSolenoid.Single(shooter.shooterSol1, false),
-			new AcSolenoid.Single(shooter.shooterSol2, false),
-			new AcSolenoid.Single(shooter.shooterSolHigh, false)
-		);
-	
-	static{subsystemToUse = shooter;}
-	public static CommandSetup
-		quickFire = newCom(
-			new AcSeq.Parallel(highFirePrime),
-			new AcWait(2.5),
-			new AcSeq.Parallel(highFireRelease)
 		);
 	
 	static {subsystemToUse = driver;}
 	public static CommandSetup
-		drive = newCom(new AcDrive()),
-		tuneLinearPID = newCom(new AcTuneLinearPID(sensors.distanceEncoder)),
-		cubeFollow = newCom(
-				new AcSeq.Parallel(intakeCube),
-				new AcMovetoCube(0.55)
-		);
+		drive = newCom(new AcDrive());
 	
 	public static CommandSetup newFireCommand(SubsystemBase requiredSystem, Action intakeAction) {
 		return newCom(requiredSystem,

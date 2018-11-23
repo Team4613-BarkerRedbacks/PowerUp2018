@@ -2,28 +2,16 @@ package redbacks.robot;
 
 import static redbacks.arachne.lib.input.ButtonGettableWrapper.wrap;
 import static redbacks.robot.CommandList.*;
-import static redbacks.robot.Robot.intake;
-import static redbacks.robot.RobotMap.intakeFastSpeed;
-import static redbacks.robot.RobotMap.intakeSlowSpeed;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import redbacks.arachne.core.OIBase;
-import redbacks.arachne.lib.checks.ChFalse;
-import redbacks.arachne.lib.checks.ChTime;
-import redbacks.arachne.lib.checks.digital.ChGettableBoolean;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.input.BtnAxis;
-import redbacks.arachne.lib.input.BtnCheck;
-import redbacks.arachne.lib.input.BtnMulti;
 import redbacks.arachne.lib.input.BtnPOV;
 import redbacks.arachne.lib.input.ButtonGettableWrapper;
 import redbacks.arachne.lib.input.JoystickAxis;
-import redbacks.arachne.lib.logic.LogicOperators;
-import redbacks.robot.actions.AcSplitIntakeControl;
-import redbacks.robot.checks.ChColorSensor;
-import redbacks.robot.subsystems.SubsystemSensors;
 
 public class OI extends OIBase {
 	
@@ -31,19 +19,13 @@ public class OI extends OIBase {
 	
 	public void mapOperations() {
 		//Driver Control
-		whenHeld(d_A, cubeFollow.c());
-		whenReleased(d_A, stopIntake.c());
-		whenPressed(d_Start, stopAll.c(), resetSensors.c());
-		
-//		whenHeld(o_Back, CommandList.newCom(Robot.intake, new AcSplitIntakeControl(new ChFalse(), -intakeFastSpeed, -intakeSlowSpeed)).c());
+		whenPressed(d_Start, stopAll.c());
 		
 		//Climber Control
 		whenPressed(c_LB, climberRelease.c(), climbManual.c());
 		whenPressed(c_RB, climberRelease.c(), climbManual.c());
 		whenPressed(c_Y, armToTop.c());
-		
-//		whenPressedReleased(o_Back, highFirePrime.c(), newFireCommand(Robot.intake, new AcSplitIntakeControl(new ChTime(0.5), 0.7, 1)).c());
-		
+
 		//Operator Control
 		whenHeld(o_LT, intakeCubeAnalog.c());
 		whenHeld(o_RT, outtakeCubeAnalog.c());
@@ -63,13 +45,7 @@ public class OI extends OIBase {
 		whenPressed(o_RX_R, armToSlightBack.c());
 
 		whenPressedReleased(o_A, highFirePrime.c(), highFireRelease.c());
-//		whenPressedReleased(o_Start, superFirePrime.c(), superFireRelease.c());
 		whenPressed(o_Start, highFirePrime.c());
-		whenPressed(new BtnMulti(LogicOperators.AND, o_Start, new BtnCheck(new ChColorSensor(Robot.sensors.colorSensor) {
-			public boolean reachedColorThreshold(double r, double g, double b) {
-				return SubsystemSensors.isWhite(r, g, b);
-			}
-		}, false)), highFireRelease.c());
 	}
 	
 	public static final Joystick stickDriver = new Joystick(0);
