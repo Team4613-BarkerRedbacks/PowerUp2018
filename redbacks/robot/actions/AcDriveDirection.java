@@ -12,7 +12,6 @@ public class AcDriveDirection extends Action
 {
 	double sp, angle;
 	
-	@Deprecated
 	public AcDriveDirection(Check check, double speed, double angle) {
 		super(check);
 		sp = speed;

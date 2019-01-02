@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.override.MotionSettings2;
-import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor.Mode;
 import redbacks.robot.Robot;
 import redbacks.robot.subsystems.SubsystemSensors;
 

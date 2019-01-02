@@ -7,7 +7,6 @@ import redbacks.arachne.lib.checks.analog.ChGettableNumber;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.logic.GettableNumber;
 import redbacks.arachne.lib.logic.ListOperators;
-import redbacks.arachne.lib.logic.LogicOperators;
 import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.arachne.lib.sensors.NumericSensor;
 import redbacks.arachne.lib.sensors.SenTimer;
@@ -19,7 +18,6 @@ import redbacks.robot.RobotMap;
 /**
  * @author Sean Zammit
  */
-@Deprecated
 public class AcStraightLenient extends AcPath
 {
 	public boolean shouldReset;

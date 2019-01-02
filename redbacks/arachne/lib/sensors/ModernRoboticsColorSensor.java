@@ -1,11 +1,9 @@
 package redbacks.arachne.lib.sensors;
 
-import java.awt.Color;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,10 +25,10 @@ public class ModernRoboticsColorSensor extends SensorBase {
 		//Registers
 		kCommandRegister = 0x03,
 		
-		kColorNumberRegister = 0x04,
-		kRedValRegister = 0x05,
-		kGreenValRegister = 0x06,
-		kBlueValRegister = 0x07,
+//		kColorNumberRegister = 0x04,
+//		kRedValRegister = 0x05,
+//		kGreenValRegister = 0x06,
+//		kBlueValRegister = 0x07,
 		kWhiteValRegister = 0x08,
 		
 		RedValRegister = 0x16,

@@ -13,7 +13,6 @@ import redbacks.arachne.lib.sensors.NumericSensor;
 import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor;
 import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor.Frequency;
 import redbacks.robot.RobotMap;
-import edu.wpi.first.wpilibj.I2C;
 
 public class SubsystemSensors extends SubsystemBase
 {

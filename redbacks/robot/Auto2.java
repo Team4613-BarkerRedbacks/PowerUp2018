@@ -12,7 +12,6 @@ import redbacks.arachne.lib.actions.AcSeq;
 import redbacks.arachne.lib.actions.AcWait;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.checks.ChTime;
-import redbacks.arachne.lib.checks.ChTrue;
 import redbacks.arachne.lib.checks.analog.ChNumSen;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.sensors.SenTimer;

@@ -2,17 +2,11 @@ package redbacks.robot;
 
 import static redbacks.arachne.lib.input.ButtonGettableWrapper.wrap;
 import static redbacks.robot.CommandList.*;
-import static redbacks.robot.Robot.intake;
-import static redbacks.robot.RobotMap.intakeFastSpeed;
-import static redbacks.robot.RobotMap.intakeSlowSpeed;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import redbacks.arachne.core.OIBase;
-import redbacks.arachne.lib.checks.ChFalse;
-import redbacks.arachne.lib.checks.ChTime;
-import redbacks.arachne.lib.checks.digital.ChGettableBoolean;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.input.BtnAxis;
 import redbacks.arachne.lib.input.BtnCheck;
@@ -21,7 +15,6 @@ import redbacks.arachne.lib.input.BtnPOV;
 import redbacks.arachne.lib.input.ButtonGettableWrapper;
 import redbacks.arachne.lib.input.JoystickAxis;
 import redbacks.arachne.lib.logic.LogicOperators;
-import redbacks.robot.actions.AcSplitIntakeControl;
 import redbacks.robot.checks.ChColorSensor;
 import redbacks.robot.subsystems.SubsystemSensors;
 
