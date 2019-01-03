@@ -8,6 +8,12 @@ import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * A minimum functionality class to read the Modern Robotics color sensor.
+ * Will be added to Arachne once functionality is complete (likely 2020).
+ *
+ * @author Sean Zammit
+ */
 public class ModernRoboticsColorSensor extends SensorBase {
 	private static final byte
 		kAddress = 0x1E,

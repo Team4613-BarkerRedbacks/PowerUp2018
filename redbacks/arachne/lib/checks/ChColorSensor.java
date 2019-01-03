@@ -1,4 +1,4 @@
-package redbacks.robot.checks;
+package redbacks.arachne.lib.checks;
 
 import redbacks.arachne.lib.checks.Check;
 import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor;

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import redbacks.arachne.core.OIBase;
+import redbacks.arachne.lib.checks.ChColorSensor;
 import redbacks.arachne.lib.commands.CommandBase;
 import redbacks.arachne.lib.input.BtnAxis;
 import redbacks.arachne.lib.input.BtnCheck;
@@ -15,7 +16,6 @@ import redbacks.arachne.lib.input.BtnPOV;
 import redbacks.arachne.lib.input.ButtonGettableWrapper;
 import redbacks.arachne.lib.input.JoystickAxis;
 import redbacks.arachne.lib.logic.LogicOperators;
-import redbacks.robot.checks.ChColorSensor;
 import redbacks.robot.subsystems.SubsystemSensors;
 
 public class OI extends OIBase {
