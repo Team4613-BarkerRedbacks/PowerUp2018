@@ -3,7 +3,7 @@ package redbacks.arachne.lib.override;
 import redbacks.arachne.ext.motion.MotionSettings;
 
 /**
- * 
+ * Will be integrated into {@link MotionSettings} for 2019.
  *
  * @author Sean Zammit
  */

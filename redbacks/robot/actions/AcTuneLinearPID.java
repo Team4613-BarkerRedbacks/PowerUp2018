@@ -22,7 +22,7 @@ import redbacks.robot.Robot;
 public class AcTuneLinearPID extends AcPath
 {
 	public AcTuneLinearPID(NumericSensor encoder) {
-		super(new ChFalse(), false, new Path(new double[]{0, 0, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, null);
+		super(new ChFalse(), false, new Path(new double[] {0, 0, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, encoder, false, null);
 	}
 	
 	public void onStart() {

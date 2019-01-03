@@ -15,7 +15,7 @@ import redbacks.arachne.lib.override.AcPIDControl2;
 import redbacks.arachne.lib.sensors.NumericSensor;
 
 /**
- * 
+ * Replaces AcTrajectory. Will be added to Arachne for 2019.
  *
  * @author Sean Zammit
  */

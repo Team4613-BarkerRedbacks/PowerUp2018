@@ -1,6 +1,7 @@
 package redbacks.arachne.lib.trajectories;
 
 import edu.wpi.first.wpilibj.*;
+import redbacks.arachne.ext.motion.pid.AcPIDControl;
 import redbacks.arachne.ext.motion.pid.Tolerances;
 import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.arachne.lib.checks.Check;
@@ -8,13 +9,14 @@ import redbacks.arachne.lib.logic.GettableNumber;
 import redbacks.arachne.lib.override.AcPIDControl2;
 
 /**
- * An action for a {@link PIDController}. With a set of PID parameters, it will output to any number of valid {@link PIDOutput PIDOutputs}.
+ * An extension on {@link AcPIDControl} which takes a {@link GettableNumber} as the input to control the PID target.
+ * Will be added to Arachne for 2019.
  *
  * @author Sean Zammit
  */
 public class AcPIDDynamicControl extends AcPIDControl2
 {
-	GettableNumber dynamicTarget;
+	protected GettableNumber dynamicTarget;
 
 	/**
 	 * Constructor for an action for a {@link PIDController}. It will end once it reaches its target.

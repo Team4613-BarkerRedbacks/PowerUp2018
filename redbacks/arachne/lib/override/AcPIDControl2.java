@@ -11,6 +11,7 @@ import redbacks.arachne.lib.checks.Check;
 
 /**
  * An action for a {@link PIDController}. With a set of PID parameters, it will output to any number of valid {@link PIDOutput PIDOutputs}.
+ * Will be integrated into {@link AcPIDControl} for 2019.
  *
  * @author Sean Zammit
  */

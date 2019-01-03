@@ -2,6 +2,11 @@ package redbacks.arachne.lib.trajectories;
 
 import redbacks.arachne.ext.motion.MotionSettings;
 
+/**
+ * Replaces Trajectory. Will be added to Arachne for 2019.
+ *
+ * @author Sean Zammit
+ */
 public class Path
 {
 	public double[][] waypoints;
@@ -24,7 +29,7 @@ public class Path
 		
 		double[] angles = new double[Math.min(MotionSettings.trajectoryAngleForesight, waypoints.length - progressIndex)];
 		
-		for(int i = 0; i < Math.min(MotionSettings.trajectoryAngleForesight, waypoints.length - progressIndex); i++) angles[i] = waypoints[i + progressIndex][1];
+		for(int i = 0; i < angles.length; i++) angles[i] = waypoints[i + progressIndex][1];
 		
 		return avg(angles);
 	}
@@ -36,7 +41,7 @@ public class Path
 		
 		double[] curvatures = new double[Math.min(MotionSettings.trajectoryAngleForesight, waypoints.length - progressIndex)];
 		
-		for(int i = 0; i < Math.min(MotionSettings.trajectoryAngleForesight, waypoints.length - progressIndex); i++) curvatures[i] = waypoints[i + progressIndex][2];
+		for(int i = 0; i < curvatures.length; i++) curvatures[i] = waypoints[i + progressIndex][2];
 		
 		return avg(curvatures);
 	}
