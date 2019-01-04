@@ -6,6 +6,11 @@ import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.robot.OI;
 import redbacks.robot.Robot;
 
+/**
+ * Teleop drivetrain control.
+ *
+ * @author Sean Zammit
+ */
 public class AcDrive extends Action {
 
 	double minR = 0.7D, difR = 0.3D;
@@ -33,6 +38,5 @@ public class AcDrive extends Action {
 		double mod = minR + difR * Math.pow(1 - Math.abs(sp), 2);
 		double r = Math.pow(rotation, 3) * mod;
 		Robot.driver.drivetrain.tankDrive(- sp - r, - sp + r);
-//		System.out.println(sp);
 	}
 }

@@ -6,6 +6,8 @@ import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.robot.Robot;
 
 /**
+ * A basic bang-bang turn to a specified heading.
+ * 
  * @author Sean Zammit
  */
 public class AcTankTurn extends Action

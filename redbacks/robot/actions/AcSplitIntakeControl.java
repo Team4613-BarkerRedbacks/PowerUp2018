@@ -8,6 +8,12 @@ import static redbacks.robot.RobotMap.idMotIntakeR;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+/**
+ * An action that splits the normally-slaved intake motors and allows them to be individually set.
+ * Used for diagonal shooting and side-kicks.
+ *
+ * @author Sean Zammit
+ */
 public class AcSplitIntakeControl extends Action
 {
 	double lSpeed, rSpeed;

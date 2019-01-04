@@ -23,6 +23,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 import static redbacks.robot.CommandList.*;
 
+/**
+ * Defines all autonomous robot functionality.
+ * 
+ * @author Ben Schwarz, Darin Huang, Lucas Parker, Matthew Brian, Mitchell Barker, Sean Zammit
+ */
 public class Auto extends AutoStart
 {
 	public static final String LSWITCH_LSCALE = "LLL", LSWITCH_RSCALE = "LRL", RSWITCH_LSCALE = "RLR", RSWITCH_RSCALE = "RRR";
@@ -76,8 +81,6 @@ public class Auto extends AutoStart
 	 * R - Right start		_ - Unspecified			E - Exchange		S - Stack
 	 * OLD - Untuned								P - Pickup
 	 * SAFE - Slow+reliable
-	 *
-	 * @author Sean Zammit
 	 */
 	public static enum AutoComponent {
 		OLD_CC_HLHH_1(1),
@@ -98,17 +101,16 @@ public class Auto extends AutoStart
 		OLD_CF_LHH_2(16),
 		OLD__C_HHH(17),
 		
-		R__R_HHH_65(51),	//Done
-		R_RR_LHH_65(52),	//Done
-		R_R__LLLL_654(53),	//Done
-		R__L_HH_1(54),		//Done
-		R_L__LLL_34(55),	//Done
+		R__R_HHH_65(51),
+		R_RR_LHH_65(52),
+		R_R__LLLL_654(53),
+		R__L_HH_1(54),
+		R_L__LLL_34(55),
 		
 		C_R__LLL_SS(61),	
 		C_L__LLL_SS(62),
 		
-		L__L_HHH_12(71),	//Done
-//		R_RR_LHH_65(52),
+		L__L_HHH_12(71),
 		L_L__LLLL_123(73),
 		L__R_HH_5(74),
 		L_R__LLL_43(75),
@@ -124,8 +126,7 @@ public class Auto extends AutoStart
 		PROGRESS_1(301),
 		PROGRESS_2(302),
 		PROGRESS_3(303),
-		PROGRESS_4(304)
-		;
+		PROGRESS_4(304);
 		
 		private int id;
 		
@@ -328,8 +329,6 @@ public class Auto extends AutoStart
 								new AcDoNothing(new ChNumSen(2 * encoderTicksPerMetre, sensors.distanceEncoder, true, true, false)),
 								new AcSeq.Parallel(highFirePrime),
 								new AcDoNothing(new ChNumSen(6.3 * encoderTicksPerMetre, sensors.distanceEncoder, true, true, false)),
-//								//TODO Check the height on this shot
-//								new AcSeq.Parallel(newFireCommand(Robot.intake, new AcSplitIntakeControl(new ChTime(0.5), 0.8, 1)))
 								new AcSeq.Parallel(highFireRelease)
 						),
 						new AcStraight(6.9, -8.25 + compBotAdjust, sensors.distanceEncoder, true),

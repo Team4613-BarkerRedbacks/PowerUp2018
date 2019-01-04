@@ -18,6 +18,11 @@ import redbacks.arachne.lib.input.JoystickAxis;
 import redbacks.arachne.lib.logic.LogicOperators;
 import redbacks.robot.subsystems.SubsystemSensors;
 
+/**
+ * Maps controls to commands during teleop.
+ *
+ * @author Ben Schwarz, Darin Huang, Lucas Parker, Matthew Brian, Sean Zammit
+ */
 public class OI extends OIBase {
 	
 	public static boolean climberReleased = false;
@@ -28,14 +33,10 @@ public class OI extends OIBase {
 		whenReleased(d_A, stopIntake.c());
 		whenPressed(d_Start, stopAll.c(), resetSensors.c());
 		
-//		whenHeld(o_Back, CommandList.newCom(Robot.intake, new AcSplitIntakeControl(new ChFalse(), -intakeFastSpeed, -intakeSlowSpeed)).c());
-		
 		//Climber Control
 		whenPressed(c_LB, climberRelease.c(), climbManual.c());
 		whenPressed(c_RB, climberRelease.c(), climbManual.c());
 		whenPressed(c_Y, armToTop.c());
-		
-//		whenPressedReleased(o_Back, highFirePrime.c(), newFireCommand(Robot.intake, new AcSplitIntakeControl(new ChTime(0.5), 0.7, 1)).c());
 		
 		//Operator Control
 		whenHeld(o_LT, intakeCubeAnalog.c());

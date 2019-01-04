@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * A minimum functionality class to read the Modern Robotics color sensor.
  * Will be added to Arachne once functionality is complete (likely 2020).
  *
- * @author Sean Zammit
+ * @author Matthew Brian, Sean Zammit
  */
 public class ModernRoboticsColorSensor extends SensorBase {
 	private static final byte

@@ -8,7 +8,14 @@ import redbacks.robot.RobotMap;
 
 import static redbacks.robot.RobotMap.*;
 
-public class SubsystemDriver extends SubsystemBase {
+/**
+ * Subsystem to control the drivetrain.
+ * Secondary drive motors are slaved here.
+ *
+ * @author Sean Zammit
+ */
+public class SubsystemDriver extends SubsystemBase
+{
 	public CtrlDrive leftMotor = new CtrlDrive(RobotMap.idMotDriveL1);
 	public CtrlDrive rightMotor = new CtrlDrive(RobotMap.idMotDriveR1);	
 	public CtrlDrivetrain drivetrain = new CtrlDrivetrain(leftMotor, rightMotor);

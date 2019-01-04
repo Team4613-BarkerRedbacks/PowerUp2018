@@ -12,6 +12,11 @@ import redbacks.robot.actions.*;
 import static redbacks.robot.RobotMap.*;
 import static redbacks.robot.Robot.*;
 
+/**
+ * Provides a list of standard commands for global use.
+ *
+ * @author Ben Schwarz, Darin Huang, Lucas Parker, Matthew Brian, Mitchell Barker, Sean Zammit
+ */
 public class CommandList extends CommandListStart
 {
 	static {subsystemToUse = null;}

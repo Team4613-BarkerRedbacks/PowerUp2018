@@ -14,6 +14,11 @@ import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor;
 import redbacks.arachne.lib.sensors.ModernRoboticsColorSensor.Frequency;
 import redbacks.robot.RobotMap;
 
+/**
+ * Subsystem to monitor all the sensors on the robot.
+ *
+ * @author Darin Huang, Lucas Parker, Mitchell Barker, Sean Zammit
+ */
 public class SubsystemSensors extends SubsystemBase
 {
 	public SenCANEncoder.Displacement armEncoder = new SenCANEncoder.Displacement(idMotDriveL1);

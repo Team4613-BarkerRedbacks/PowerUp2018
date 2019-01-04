@@ -10,6 +10,11 @@ import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.robot.Robot;
 import redbacks.robot.subsystems.SubsystemSensors;
 
+/**
+ * Runs constantly on the sensors subsystem. Outputs relevant data to the SmartDashboard.
+ *
+ * @author Darin Huang, Mitchell Barker, Sean Zammit
+ */
 public class AcReadSensors extends Action
 {
 	public AcReadSensors() {

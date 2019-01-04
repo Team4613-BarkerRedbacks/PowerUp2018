@@ -6,6 +6,8 @@ import redbacks.arachne.lib.override.MotionSettings2;
 import redbacks.robot.Robot;
 
 /**
+ * An action to drive at a specified heading. Heading correction uses the standard rotational P value.
+ * 
  * @author Sean Zammit
  */
 public class AcDriveDirection extends Action

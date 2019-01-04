@@ -17,6 +17,8 @@ import redbacks.arachne.lib.trajectories.Path;
 import redbacks.robot.Robot;
 
 /**
+ * An action to trial PID driving values from the SmartDashboard rather than by deploying robot code.
+ * 
  * @author Sean Zammit
  */
 public class AcTuneLinearPID extends AcPath

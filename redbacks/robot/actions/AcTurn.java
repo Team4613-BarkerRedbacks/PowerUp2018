@@ -14,6 +14,8 @@ import redbacks.robot.Robot;
 import redbacks.robot.RobotMap;
 
 /**
+ * An action based on {@link AcPath} to turn to a heading.
+ * 
  * @author Sean Zammit
  */
 public class AcTurn extends AcPath

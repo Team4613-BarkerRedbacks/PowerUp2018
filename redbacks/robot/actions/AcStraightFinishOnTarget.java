@@ -11,7 +11,9 @@ import redbacks.arachne.lib.trajectories.Path;
 import redbacks.robot.Robot;
 
 /**
- * @author Sean Zammit
+ * One of a group of four slightly different actions that control straight movement.
+ * 
+ * @author Lucas Parker, Sean Zammit
  */
 public class AcStraightFinishOnTarget extends AcPath
 {
@@ -49,11 +51,5 @@ public class AcStraightFinishOnTarget extends AcPath
 		}
 		
 		drivetrain.tankDrive(linearOutput + rotationOut.output, linearOutput - rotationOut.output);
-	}
-	
-	public void onFinish() {
-		super.onFinish();
-		
-		System.out.println(encoder.get());
 	}
 }

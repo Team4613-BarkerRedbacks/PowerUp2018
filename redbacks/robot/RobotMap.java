@@ -5,6 +5,11 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import redbacks.arachne.ext.ctre.controllers.CtrlCANTalon;
 import redbacks.arachne.ext.ctre.controllers.CtrlCANVictor;
 
+/**
+ * A list of robot constants and port/id mappings.
+ *
+ * @author Ben Schwarz, Darin Huang, Lucas Parker, Matthew Brian, Mitchell Barker, Sean Zammit
+ */
 public class RobotMap
 {
 	public static final double

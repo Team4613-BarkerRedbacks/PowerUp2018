@@ -16,28 +16,17 @@ import redbacks.robot.Robot;
 import redbacks.robot.RobotMap;
 
 /**
- * @author Sean Zammit
+ * One of a group of four slightly different actions that control straight movement.
+ * 
+ * @author Lucas Parker, Sean Zammit
  */
 public class AcStraightLenientAfterDistance extends AcPath
 {
 	public boolean shouldReset;
 	
-	/**
-	 * DO NOT USE!!!!!
-	 * 
-	 * @param distance
-	 * @param angle
-	 * @param encoder
-	 * @param shouldReset
-	 * @param safetyDistance
-	 */
 	public AcStraightLenientAfterDistance(double distance, double angle, NumericSensor encoder, boolean shouldReset, double safetyDistance) {
 		super(new ChMulti(
 				ListOperators.ORDER,
-//				new ChMulti(LogicOperators.OR,
-//						new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
-//						new ChNumSen(3, new SenTimer())
-//				),
 				new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
 				new ChNumSen(safetyDistance * MotionSettings2.encoderTicksPerMetre, encoder, false, false, false),
 				new ChNumSen(0.5, new SenTimer()),

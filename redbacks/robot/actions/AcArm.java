@@ -10,9 +10,10 @@ import static redbacks.robot.Robot.*;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
 /**
+ * An action that constantly runs a PID control loop to control the arm.
+ * This action should always be active on the arm subsystem.
  * 
- * Runs PID control loop to control the arm
- *
+ * @author Matthew Brian, Sean Zammit
  */
 public class AcArm extends Action
 {

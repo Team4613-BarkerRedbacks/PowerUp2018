@@ -16,7 +16,9 @@ import redbacks.robot.Robot;
 import redbacks.robot.RobotMap;
 
 /**
- * @author Sean Zammit
+ * One of a group of four slightly different actions that control straight movement.
+ * 
+ * @author Lucas Parker, Sean Zammit
  */
 public class AcStraightLenient extends AcPath
 {
@@ -25,10 +27,6 @@ public class AcStraightLenient extends AcPath
 	public AcStraightLenient(double distance, double angle, NumericSensor encoder, boolean shouldReset) {
 		super(new ChMulti(
 				ListOperators.ORDER,
-//				new ChMulti(LogicOperators.OR,
-//						new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
-//						new ChNumSen(3, new SenTimer())
-//				),
 				new ChGettableNumber(RobotMap.stoppedMoveThreshold * 10, Robot.sensors.driveSpeed, true, true),
 				new ChNumSen(0.5, new SenTimer()),
 				new ChGettableNumber(RobotMap.stoppedMoveThreshold, Robot.sensors.driveSpeed, false, true)

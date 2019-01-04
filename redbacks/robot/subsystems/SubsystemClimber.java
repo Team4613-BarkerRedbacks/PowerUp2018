@@ -7,10 +7,12 @@ import redbacks.arachne.lib.solenoids.SolSingle;
 import static redbacks.robot.RobotMap.*;
 
 import com.ctre.phoenix.motorcontrol.IMotorController;
+
 /**
- * Climber subsystem deploys via a solenoid. Climbing takes place with climbing motor.
+ * Subsystem to control the climber and release system.
+ * The secondary climbing motor is slaved here.
  * 
- *
+ * @author Lucas Parker, Matthew Brian, Sean Zammit
  */
 public class SubsystemClimber extends SubsystemBase
 {

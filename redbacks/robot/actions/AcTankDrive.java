@@ -4,6 +4,11 @@ import redbacks.arachne.lib.actions.Action;
 import redbacks.arachne.lib.checks.Check;
 import redbacks.robot.Robot;
 
+/**
+ * A basic bang-bang drivetrain movement until a specified check condition is met.
+ *
+ * @author Sean Zammit
+ */
 public class AcTankDrive extends Action
 {
 	double l, r;

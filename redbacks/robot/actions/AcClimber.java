@@ -6,6 +6,11 @@ import redbacks.arachne.lib.checks.ChFalse;
 import redbacks.robot.OI;
 import redbacks.robot.Robot;
 
+/**
+ * An action to climb/descend based off analog triggers on the climber controller.
+ *
+ * @author Matthew Brian, Sean Zammit
+ */
 public class AcClimber extends Action
 {
 	public AcClimber() {

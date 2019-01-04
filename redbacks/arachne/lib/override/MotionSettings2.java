@@ -5,7 +5,7 @@ import redbacks.arachne.ext.motion.MotionSettings;
 /**
  * Will be integrated into {@link MotionSettings} for 2019.
  *
- * @author Sean Zammit
+ * @author Mitchell Barker, Sean Zammit
  */
 public class MotionSettings2 extends MotionSettings
 {

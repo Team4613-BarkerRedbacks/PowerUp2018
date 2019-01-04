@@ -7,10 +7,13 @@ import redbacks.arachne.core.SubsystemBase;
 import redbacks.arachne.ext.motion.pid.AcMultiPID.PIDAxis;
 import redbacks.arachne.lib.motors.CtrlMotor;
 import redbacks.robot.Robot;
+import redbacks.robot.actions.AcArm;
+
 /**
+ * Subsystem to control the rotation of the arm.
+ * The arm motor is sent instructions based on a {@link PIDController}'s output to a {@link PIDAxis} using {@link AcArm}.
  * 
- * Arm subsystem controls the rotational arm using a pid loop.
- *
+ * @author Sean Zammit
  */
 public class SubsystemArm extends SubsystemBase
 {
@@ -18,8 +21,4 @@ public class SubsystemArm extends SubsystemBase
 	public PIDAxis armRawOutput = new PIDAxis(1);
 	
 	public PIDController armPIDControl = new PIDController(armKP, armKI, armKD, Robot.sensors.armEncoder, armRawOutput);
-
-	public SubsystemArm(SubsystemBase... childSystems) {
-		super(childSystems);
-	}
 }

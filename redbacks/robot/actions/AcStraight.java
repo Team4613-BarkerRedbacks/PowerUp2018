@@ -7,7 +7,9 @@ import redbacks.arachne.lib.logic.GettableNumber;
 import redbacks.arachne.lib.sensors.NumericSensor;
 
 /**
- * @author Sean Zammit
+ * One of a group of four slightly different actions that control straight movement.
+ * 
+ * @author Lucas Parker, Sean Zammit
  */
 public class AcStraight extends AcStraightFinishOnTarget
 {
