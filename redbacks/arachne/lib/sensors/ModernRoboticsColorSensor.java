@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  * @author Matthew Brian, Sean Zammit
  */
-public class ModernRoboticsColorSensor extends SensorBase {
+public class ModernRoboticsColorSensor extends SensorBase
+{
 	private static final byte
 		kAddress = 0x1E,
 		
@@ -39,8 +40,7 @@ public class ModernRoboticsColorSensor extends SensorBase {
 		
 		RedValRegister = 0x16,
 		GreenValRegister = 0x18,
-		BlueValRegister = 0x1a
-	;
+		BlueValRegister = 0x1a;
 	
 	protected I2C m_i2c;
 	

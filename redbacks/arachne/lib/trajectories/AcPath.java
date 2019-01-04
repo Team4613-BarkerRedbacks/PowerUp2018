@@ -51,8 +51,7 @@ public class AcPath extends Action
 		this.invertEncoder = invertEncoder;
 		this.linearOut = new PIDAxis(1);
 		this.rotationOut = new PIDAxis(1);
-		this.acRotation =
-			new AcPIDDynamicControl(
+		this.acRotation = new AcPIDDynamicControl(
 				new ChFalse(), false,
 				drivePIDGyrokP, drivePIDGyrokI, drivePIDGyrokD, 0,
 				new GyroSetpoint(path, encoder),
@@ -60,13 +59,12 @@ public class AcPath extends Action
 				true, -180, 180,
 				PIDSourceType.kDisplacement, -1, 1, rotationOut
 		);
-		this.acLinear = 
-			new AcPIDControl2(
-				new ChFalse(), shouldFinish, 
-				drivePIDMotorkP, drivePIDMotorkI, drivePIDMotorkD, 0, 
-				path.totalDistance * (invertEncoder ? -1 : 1), 
-				tolerance, encoder, 
-				distanceEncoderIsContinuous, distanceEncoderMin, distanceEncoderMax, 
+		this.acLinear = new AcPIDControl2(
+				new ChFalse(), shouldFinish,
+				drivePIDMotorkP, drivePIDMotorkI, drivePIDMotorkD, 0,
+				path.totalDistance * (invertEncoder ? -1 : 1),
+				tolerance, encoder,
+				distanceEncoderIsContinuous, distanceEncoderMin, distanceEncoderMax,
 				PIDSourceType.kDisplacement, trajectoryMaxNegSpeed, trajectoryMaxPosSpeed, linearOut
 		);
 	}
@@ -97,7 +95,8 @@ public class AcPath extends Action
 		
 		drivetrain.tankDrive(
 				(output - (rotationOut.output < 0 ? getCurvatureCompensation() * Math.abs(output) : 0) + rotationOut.output * Math.abs(output)) * driveMults[0], 
-				(output - (rotationOut.output > 0 ? getCurvatureCompensation() * Math.abs(output) : 0) * Math.abs(output) - rotationOut.output * Math.abs(output)) * driveMults[1]);
+				(output - (rotationOut.output > 0 ? getCurvatureCompensation() * Math.abs(output) : 0) * Math.abs(output) - rotationOut.output * Math.abs(output)) * driveMults[1]
+		);
 	}
 	
 	public void onFinish() {

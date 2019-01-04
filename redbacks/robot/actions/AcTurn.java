@@ -29,7 +29,7 @@ public class AcTurn extends AcPath
 				),
 				new ChNumSen(0.5, new SenTimer()),
 				new ChGettableNumber(RobotMap.stoppedTurnThreshold, Robot.sensors.rateYaw, false, true)
-		), false, new Path(new double[]{0, angleTarget, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, Robot.sensors.distanceEncoder, false, new Tolerances.Absolute(0));
+		), false, new Path(new double[] {0, angleTarget, 0}), Robot.driver.drivetrain, 1, 1, Robot.sensors.yaw, Robot.sensors.distanceEncoder, false, new Tolerances.Absolute(0));
 	}
 	
 	public void onStart() {

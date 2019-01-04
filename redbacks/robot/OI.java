@@ -23,8 +23,8 @@ import redbacks.robot.subsystems.SubsystemSensors;
  *
  * @author Ben Schwarz, Darin Huang, Lucas Parker, Matthew Brian, Sean Zammit
  */
-public class OI extends OIBase {
-	
+public class OI extends OIBase
+{
 	public static boolean climberReleased = false;
 	
 	public void mapOperations() {

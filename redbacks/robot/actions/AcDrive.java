@@ -11,8 +11,8 @@ import redbacks.robot.Robot;
  *
  * @author Sean Zammit
  */
-public class AcDrive extends Action {
-
+public class AcDrive extends Action
+{
 	double minR = 0.7D, difR = 0.3D;
 	
 	public AcDrive() {
@@ -20,13 +20,11 @@ public class AcDrive extends Action {
 	}
 	
 	public void onRun() {
-		//Change drive direction to opposite side
+		// Change drive direction to opposite side
 		boolean invertDrive = SmartDashboard.getBoolean("Invert Drive", false);
 		SmartDashboard.putBoolean("Invert Drive", invertDrive);
 		
-		if (!Robot.isIndivDriveControl) {
-			arcadeDrive(-OI.axis_d_RY.get() * (invertDrive ? 1 : -1), -OI.axis_d_LX.get());
-		}
+		if(!Robot.isIndivDriveControl) arcadeDrive(-OI.axis_d_RY.get() * (invertDrive ? 1 : -1), -OI.axis_d_LX.get());
 	}
 	
 	/**

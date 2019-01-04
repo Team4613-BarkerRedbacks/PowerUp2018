@@ -24,19 +24,19 @@ public class RobotMap
 		sideEncoderTicksPerMetre = 14100;
 	
 	private static final CtrlCANTalon
-		talon2	= new CtrlCANTalon(2),
-		talon3	= new CtrlCANTalon(3),
-		talon4	= new CtrlCANTalon(4),
-		talon5	= new CtrlCANTalon(5),
-		talon6	= new CtrlCANTalon(6),
-		talon7  = new CtrlCANTalon(7),
-		talon8	= new CtrlCANTalon(8);
+		talon2 = new CtrlCANTalon(2),
+		talon3 = new CtrlCANTalon(3),
+		talon4 = new CtrlCANTalon(4),
+		talon5 = new CtrlCANTalon(5),
+		talon6 = new CtrlCANTalon(6),
+		talon7 = new CtrlCANTalon(7),
+		talon8 = new CtrlCANTalon(8);
 	
 	private static final CtrlCANVictor
-		victor9		= new CtrlCANVictor(9),
-		victor10	= new CtrlCANVictor(10),
-		victor11	= new CtrlCANVictor(11),
-		victor12	= new CtrlCANVictor(12);
+		victor9 = new CtrlCANVictor(9),
+		victor10 = new CtrlCANVictor(10),
+		victor11 = new CtrlCANVictor(11),
+		victor12 = new CtrlCANVictor(12);
 		
 	public static final CtrlCANTalon
 		idMotDriveR1 = talon2,
@@ -45,7 +45,7 @@ public class RobotMap
 		idMotDriveL2 = talon5,
 		idMotDriveR3 = talon6,
 		idMotDriveL3 = talon7,
-		idMotArm	 = talon8;
+		idMotArm = talon8;
 	
 	public static final CtrlCANVictor
 		idMotIntakeL = victor9,
