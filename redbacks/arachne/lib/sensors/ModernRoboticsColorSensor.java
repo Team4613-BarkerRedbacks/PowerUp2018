@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.wpilibj.SendableBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * A minimum functionality class to read the Modern Robotics color sensor.
  * Will be added to Arachne once functionality is complete (likely 2020).
  *
- * @author Matthew Brian, Sean Zammit
+ * @author Ben Schwarz, Matthew Brian, Sean Zammit
  */
-public class ModernRoboticsColorSensor extends SensorBase
+public class ModernRoboticsColorSensor extends SendableBase
 {
 	private static final byte
 		kAddress = 0x1E,
